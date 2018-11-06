@@ -14,13 +14,13 @@ export const dummyIntegration = (data: IntegrationData, port: number) => {
 	app.use(bodyParser.json());
 	app.post('/register', async (req, res) => {
 		const jwe = await jwePromise;
-		const rr = await jwe.decrypt(req.body);
+		const rr = await jwe.decrypt(req.body.payload);
 		res.send(rr.tenantId);
 	});
 
 	app.post('/unregister', async (req, res) => {
 		const jwe = await jwePromise;
-		const rr = await jwe.decrypt(req.body);
+		const rr = await jwe.decrypt(req.body.payload);
 		res.send(rr.tenantId);
 	});
 

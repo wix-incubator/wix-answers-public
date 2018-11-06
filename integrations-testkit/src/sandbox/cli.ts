@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 
-import { startSandbox } from '.';
+import { startSandbox, log } from '.';
 
 startSandbox()
 	.then(({url}) => {
 		// tslint:disable-next-line:no-console
-		console.log('Sandbox running in: ', url);
+		log('Running! Open your browser - ', url);
 	});

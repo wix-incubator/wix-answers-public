@@ -2,8 +2,14 @@
 import axios from 'axios';
 import { jweInstance, getFreePort, jwsInstance } from './utils';
 import * as express from 'express';
-
 import * as bodyParser from 'body-parser';
+
+import chalk from 'chalk';
+
+const log = (...str: any[]) => {
+	// tslint:disable-next-line:no-console
+	console.log(chalk.cyan('[Answers integrations sandbox]'), ...str);
+};
 
 export interface IntegrationRegisterContext {
 	keyId: string;
@@ -101,6 +107,7 @@ export const createTestkit = async (
 				div.innerHTML = html;
 				document.body.appendChild(div);
 			},
+			onIntegrationRemoved: () => {},
 			sign: (id, context) => {
 				return fetch('/sign', {
 					method: 'POST',
@@ -108,8 +115,7 @@ export const createTestkit = async (
 					headers: {
 						'Content-Type': 'application/json'
 					}
-				}).then(res => res.json())
-				.then(data => data.payload);
+				}).then(res => res.json());
 			}
 		}
 
@@ -134,7 +140,8 @@ export const createTestkit = async (
 			// tslint:disable-next-line:no-console
 			const encrypted = await jwe.encrypt(JSON.stringify(data));
 			// tslint:disable-next-line:no-console
-			return axios.post(registerUrl, encrypted).then((res) => {
+			log(`Triggering register to url: [${registerUrl}] with data: [${JSON.stringify(encrypted)}]`);
+			return axios.post(registerUrl, {payload: encrypted}).then((res) => {
 				return res.data;
 			});
 		},
@@ -143,7 +150,8 @@ export const createTestkit = async (
 			// tslint:disable-next-line:no-console
 			const encrypted = await jwe.encrypt(JSON.stringify({tenantId}));
 			// tslint:disable-next-line:no-console
-			return axios.post(unregisterUrl, encrypted).then((res) => {
+			log(`Triggering unregister to url: [${unregisterUrl}] with token: [${JSON.stringify(encrypted)}]`);
+			return axios.post(unregisterUrl, {payload: encrypted}).then((res) => {
 				return res.data;
 			});
 		},

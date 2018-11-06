@@ -5,6 +5,13 @@ import * as bodyParser from 'body-parser';
 import { integrationDataBuilder, ticketContextBuilder } from '../test-utils';
 import { IntegrationData, IntegrationsTestkit, createTestkit } from '..';
 
+import chalk from 'chalk';
+
+export const log = (...str: any[]) => {
+	// tslint:disable-next-line:no-console
+	console.log(chalk.cyan('[Answers integrations sandbox]'), ...str);
+};
+
 export const startSandbox = async (forcePort?: number) => {
 
 	const app = express();
@@ -39,23 +46,36 @@ export const startSandbox = async (forcePort?: number) => {
 		res.send(`<h1>Please go <a href="/">to setup first</a>`);
 	});
 
-	app.post('/trigger-register/:tenantId', async (req, res, next) => {
+	app.post('/trigger-register/:tenantId', async (req, res) => {
 		const {tenantId} = req.params;
 		if (!testkit) {
-			next(new Error('Teskit is not set up, please go to setup again'));
+			log('Error! Teskit is not set up, please go to setup again');
 		} else {
-			const data = await testkit.triggerRegister(tenantId);
-			res.send({data});
+			try {
+				const data = await testkit.triggerRegister({
+					tenantId,
+					keyId: 'bob',
+					secret: '222',
+					host: 'somehost42.wixanswers.com'
+				});
+				res.send({data});
+			} catch (e) {
+				res.status(500).send('Something broke! - ' + e.toString());
+			}
 		}
 	});
 
-	app.post('/trigger-unregister/:tenantId', async (req, res, next) => {
+	app.post('/trigger-unregister/:tenantId', async (req, res) => {
 		const {tenantId} = req.params;
 		if (!testkit) {
-			next(new Error('Teskit is not set up, please go to setup again'));
+			log('Error! Teskit is not set up, please go to setup again');
 		} else {
-			const data = await testkit.triggerUnregister(tenantId);
-			res.send({data});
+			try {
+				const data = await testkit.triggerUnregister(tenantId);
+				res.send({data});
+			} catch (e) {
+				res.status(500).send('Something broke! - ' + e.toString());
+			}
 		}
 	});
 
@@ -105,17 +125,13 @@ export const startSandbox = async (forcePort?: number) => {
 	});
 
 	app.get('/setup/:data', async (req, res) => {
-		try {
-			const data = JSON.parse(Buffer.from(req.params.data, 'base64').toString());
-			if (testkit) {
-				await testkit.closeServer();
-			}
-			testkit = await createTestkit(data);
-			integrationData = data;
-			res.redirect('/menu');
-		} catch (e) {
-			res.status(400).send(e);
+		const data = JSON.parse(Buffer.from(req.params.data, 'base64').toString());
+		if (testkit) {
+			await testkit.closeServer();
 		}
+		testkit = await createTestkit(data);
+		integrationData = data;
+		res.redirect('/menu');
 	});
 
 	app.get('/menu', async (_, res) => {
