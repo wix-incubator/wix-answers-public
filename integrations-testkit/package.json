@@ -1,0 +1,39 @@
+{
+  "name": "integrations-testkit",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "bin": {
+	"answers-integrations-sandbox": "dist/sandbox/cli.js"
+  },
+  "scripts": {
+    "build": "tsc -p .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/chai": "^4.1.7",
+    "@types/mocha": "^5.2.5",
+    "@types/node": "^10.12.2",
+    "@types/puppeteer": "^1.9.1",
+    "@types/sinon": "^5.0.5",
+    "chai": "^4.2.0",
+    "mocha": "^5.2.0",
+    "puppeteer": "^1.10.0",
+    "sinon": "^7.1.1",
+    "tslint": "^5.11.0",
+    "typescript": "^3.1.6",
+    "unidriver": "^1.1.2"
+  },
+  "dependencies": {
+    "@types/axios": "^0.14.0",
+    "@types/body-parser": "^1.17.0",
+    "@types/express": "^4.16.0",
+    "axios": "^0.18.0",
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
+    "find-free-port": "^2.0.0",
+    "node-jose": "^1.0.0"
+  }
+}
