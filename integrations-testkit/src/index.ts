@@ -65,7 +65,7 @@ export const createTestkit = async (
 	const jwsPromise = jwsInstance(secret);
 
 	const app = express();
-	app.use(bodyParser());
+	app.use(bodyParser.json());
 	app.get('/settings/:tenantId', async (req, res) => {
 		const tenantId = req.params.tenantId;
 		const jws = await jwsPromise;

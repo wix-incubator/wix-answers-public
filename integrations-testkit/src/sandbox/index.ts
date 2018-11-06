@@ -12,7 +12,7 @@ export const startSandbox = async (forcePort?: number) => {
 	let integrationData: IntegrationData | null;
 	let testkit: IntegrationsTestkit | null;
 
-	app.use(bodyParser());
+	app.use(bodyParser.json());
 	app.get('/', async (_, res) => {
 		const testValue = integrationDataBuilder();
 		const testValueStr = JSON.stringify(testValue);

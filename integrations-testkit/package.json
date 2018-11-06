@@ -1,12 +1,13 @@
 {
-  "name": "integrations-testkit",
-  "version": "1.0.0",
+  "name": "wix-answers-integrations-testkit",
+  "version": "1.0.2",
   "description": "",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "bin": {
 	"answers-integrations-sandbox": "dist/sandbox/cli.js"
   },
+  "private": false,
   "scripts": {
     "build": "tsc -p .",
     "test": "echo \"Error: no test specified\" && exit 1"

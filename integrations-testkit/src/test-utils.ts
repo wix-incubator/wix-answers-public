@@ -11,7 +11,7 @@ export const dummyIntegration = (data: IntegrationData, port: number) => {
 	const jwePromise = jweInstance(data.secret);
 	const jwsPromise = jwsInstance(data.secret);
 
-	app.use(bodyParser());
+	app.use(bodyParser.json());
 	app.post('/register', async (req, res) => {
 		const jwe = await jwePromise;
 		const rr = await jwe.decrypt(req.body);
