@@ -2,7 +2,8 @@
   "name": "integrations-testkit",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
   "bin": {
 	"answers-integrations-sandbox": "dist/sandbox/cli.js"
   },
@@ -11,7 +12,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
-  "license": "ISC",
+  "license": "",
   "devDependencies": {
     "@types/chai": "^4.1.7",
     "@types/mocha": "^5.2.5",
@@ -35,5 +36,11 @@
     "express": "^4.16.4",
     "find-free-port": "^2.0.0",
     "node-jose": "^1.0.0"
-  }
+  },
+  "files": [
+    "dist",
+    "src",
+    "*.d.ts",
+    "*.js"
+  ]
 }
