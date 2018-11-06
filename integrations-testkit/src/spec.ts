@@ -33,6 +33,7 @@ describe('testkit', () => {
 		cleanups.push(() => stop());
 
 		const testkit = await createTestkit(integrationData);
+		cleanups.push(() => testkit.closeServer());
 
 		const data = integrationContextBuilder();
 
@@ -52,6 +53,7 @@ describe('testkit', () => {
 		cleanups.push(stop);
 
 		const testkit = await createTestkit(integrationData);
+		cleanups.push(() => testkit.closeServer());
 
 		const data = integrationContextBuilder();
 
@@ -86,13 +88,15 @@ describe('testkit', () => {
 		const frame = page.frames().find((f) => f.name() === 'settings') as any;
 		// to simulate real world the testkit embeds the settings in an iframe
 		const driver = pupUniDriver(() => frame.$('body'));
-		assert.equal(await driver.$('h2').text(), tenantId);
+		assert.include(await driver.$('h2').text(), tenantId);
 	});
 
 	it('exposes an url with a ticket view sandbox', async () => {
 		const port = await getFreePort();
 
 		const settingsUrl = `http://localhost:${port}/settings`;
+
+		const tenantId = 'some-id2';
 
 		const integrationData = integrationDataBuilder({
 			settingsUrl,
@@ -103,15 +107,16 @@ describe('testkit', () => {
 		cleanups.push(() => stop());
 
 		const testkit = await createTestkit(integrationData);
-
 		cleanups.push(() => testkit.closeServer());
 
 		const browser = await puppeteer.launch();
 		cleanups.push(() => browser.close());
 		const context = ticketContextBuilder();
-		const ticketView = await testkit.getTicketViewSandboxUrl(context);
+		const ticketView = await testkit.getTicketViewSandboxUrl({context, tenantId});
+
 		// the dummy integration will listen to the sdk and add an iframe to the sidebar with the tenant id
 		const page = await browser.newPage();
+		// page.on('console', (bob) => console.log('pup console', bob));
 		await page.goto(ticketView);
 
 		await (new Promise((res) => {
@@ -121,7 +126,8 @@ describe('testkit', () => {
 		const frame = page.frames().find((f) => f.name() === 'view') as any;
 		// to simulate real world the testkit embeds the settings in an iframe
 		const driver = pupUniDriver(() => frame.$('body'));
-		assert.equal(await driver.$('h2').text(), context.user.email);
+		assert.include(await driver.$('h2').text(), context.user.email);
+		assert.include(await driver.$('h2').text(), tenantId);
 
 	}).timeout(10000);
 

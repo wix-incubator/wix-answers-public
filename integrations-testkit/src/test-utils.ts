@@ -34,8 +34,8 @@ export const dummyIntegration = (data: IntegrationData, port: number) => {
 	app.get('/view/:token', async (req, res) => {
 		const token = req.params.token;
 		const jws = await jwsPromise;
-		const {context} = await jws.verify(token);
-		res.send(`<h2>${context}</h2>`);
+		const {context, tenantId} = await jws.verify(token);
+		res.send(`<h2>${context} - ${tenantId}</h2>`);
 	});
 
 	const fullUrl = `http://localhost:${port}`;
@@ -45,7 +45,7 @@ export const dummyIntegration = (data: IntegrationData, port: number) => {
 		answersBackofficeSdk.addListener(answersBackofficeSdk.eventTypes.ticketLoaded, async (t) => {
 
 			const token = await answersBackofficeSdk.sign('${data.id}', t.user.email);
-			const url = '${fullUrl}/view/' + token;
+			const url = '${fullUrl}/view/' + token.payload;
 			answersBackofficeSdk.addTicketInfoSection('Integration!', '<iframe name="view" src="' + url + '"/>');
 		});
 		`;

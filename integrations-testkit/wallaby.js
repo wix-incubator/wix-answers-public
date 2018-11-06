@@ -10,7 +10,8 @@ module.exports = function (wallaby) {
 			{pattern: 'src/**/spec.tsx', ignore: true},
 			{pattern: 'src/**/spec.ts', ignore: true},
 			{pattern: 'node_modules/**/*', ignore: true},
-			{pattern: 'fixture/**/*', instrument: true}
+			{pattern: 'fixture/**/*', instrument: true},
+			{pattern: 'src/**/cli.ts', ignore: true}
 		],
 
 		tests: [

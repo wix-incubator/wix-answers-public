@@ -1,15 +1,10 @@
 
 import axios from 'axios';
-import { jweInstance, getFreePort, jwsInstance } from './utils';
+import { jweInstance, getFreePort, jwsInstance, log } from './utils';
 import * as express from 'express';
 import * as bodyParser from 'body-parser';
 
 import chalk from 'chalk';
-
-const log = (...str: any[]) => {
-	// tslint:disable-next-line:no-console
-	console.log(chalk.cyan('[Answers integrations sandbox]'), ...str);
-};
 
 export interface IntegrationRegisterContext {
 	keyId: string;
@@ -44,10 +39,15 @@ export interface TicketSandboxContext {
 	};
 }
 
+export interface SignedContext<T> {
+	context: T;
+	tenantId: string;
+}
+
 export interface IntegrationsTestkit {
 	triggerRegister: (context: IntegrationRegisterContext) => Promise<any>;
 	triggerUnregister: (tenantId: string) => Promise<any>;
-	getTicketViewSandboxUrl: (context: TicketSandboxContext) => string;
+	getTicketViewSandboxUrl: (context: SignedContext<TicketSandboxContext>) => string;
 	getRenderedSettingsUrl: (tenantId: string) => string;
 	closeServer: () => Promise<void>;
 }
@@ -86,16 +86,16 @@ export const createTestkit = async (
 	app.post('/sign', async (req, res) => {
 		const body = req.body;
 		const jws = await jwsPromise;
-		const token = await jws.sign(JSON.stringify({context: body.context}));
+		const token = await jws.sign(JSON.stringify(body));
 		res.send({payload: token});
 	});
 
 	app.get('/ticket-view/:data', async (req, res) => {
-		const rawData = req.params.data;
 		const str = Buffer.from(req.params.data, 'base64').toString('utf8');
-		const data = JSON.parse(str);
-		// const jws = await jwsPromise;
-		// const token = await jws.sign(JSON.stringify({tenantId}));
+		const {context, tenantId} = JSON.parse(str);
+
+		const strContext = Buffer.from(JSON.stringify(context)).toString('base64');
+
 		const html = `<html>
 		<script>
 		listeners = [];
@@ -111,7 +111,7 @@ export const createTestkit = async (
 			sign: (id, context) => {
 				return fetch('/sign', {
 					method: 'POST',
-					body: JSON.stringify({context}),
+					body: JSON.stringify({context, tenantId: '${tenantId}'}),
 					headers: {
 						'Content-Type': 'application/json'
 					}
@@ -121,10 +121,10 @@ export const createTestkit = async (
 
 		</script>
 		<script type="text/javascript" src="${scriptUrl}"></script>
-		<h1>Ticket page dummy  - [${data.subject}]</h1>
-		<pre><code>${JSON.stringify(data)}</code></pre>
+		<h1>Ticket page dummy  - [${context.subject}]</h1>
+		<pre><code>${JSON.stringify(context)}</code></pre>
 		<script>
-			const data = atob('${rawData}');
+			const data = atob('${strContext}');
 			listeners.forEach((cb) => cb(JSON.parse(data)));
 		</script>
 		</html>`;
@@ -135,7 +135,7 @@ export const createTestkit = async (
 	const server = app.listen(port);
 
 	return {
-		triggerRegister: async (data: IntegrationRegisterContext) => {
+		triggerRegister: async (data) => {
 			const jwe = await jwePromise;
 			// tslint:disable-next-line:no-console
 			const encrypted = await jwe.encrypt(JSON.stringify(data));
@@ -145,7 +145,7 @@ export const createTestkit = async (
 				return res.data;
 			});
 		},
-		triggerUnregister: async (tenantId: string) => {
+		triggerUnregister: async (tenantId) => {
 			const jwe = await jwePromise;
 			// tslint:disable-next-line:no-console
 			const encrypted = await jwe.encrypt(JSON.stringify({tenantId}));
@@ -155,11 +155,11 @@ export const createTestkit = async (
 				return res.data;
 			});
 		},
-		getTicketViewSandboxUrl: (context: TicketSandboxContext) => {
-			const data = Buffer.from(JSON.stringify(context)).toString('base64');
+		getTicketViewSandboxUrl: ({context, tenantId}) => {
+			const data = Buffer.from(JSON.stringify({context, tenantId})).toString('base64');
 			return `http://localhost:${port}/ticket-view/${data}`;
 		},
-		getRenderedSettingsUrl: (tenantId: string) => {
+		getRenderedSettingsUrl: (tenantId) => {
 			const url = `http://localhost:${port}/settings/${tenantId}`;
 			return url;
 		},

@@ -5,13 +5,6 @@ import * as bodyParser from 'body-parser';
 import { integrationDataBuilder, ticketContextBuilder } from '../test-utils';
 import { IntegrationData, IntegrationsTestkit, createTestkit } from '..';
 
-import chalk from 'chalk';
-
-export const log = (...str: any[]) => {
-	// tslint:disable-next-line:no-console
-	console.log(chalk.cyan('[Answers integrations sandbox]'), ...str);
-};
-
 export const startSandbox = async (forcePort?: number) => {
 
 	const app = express();
@@ -90,7 +83,7 @@ export const startSandbox = async (forcePort?: number) => {
 	});
 
 	app.get('/pre-ticket-view', (_, res) => {
-		const testValue = ticketContextBuilder();
+		const testValue = {tenantId: 'some-id', context: ticketContextBuilder()};
 		const testValueStr = JSON.stringify(testValue);
 
 		if (!testkit) {
