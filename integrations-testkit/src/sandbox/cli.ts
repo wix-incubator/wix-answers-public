@@ -1,6 +1,7 @@
 // #!/usr/bin/env node
 
-import { startSandbox, log } from '.';
+import { startSandbox } from '.';
+import { log } from '../utils';
 
 startSandbox()
 	.then(({url}) => {

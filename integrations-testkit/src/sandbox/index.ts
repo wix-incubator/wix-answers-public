@@ -1,4 +1,4 @@
-import { getFreePort } from '../utils';
+import { getFreePort, log } from '../utils';
 import * as express from 'express';
 
 import * as bodyParser from 'body-parser';

@@ -4,8 +4,6 @@ import { jweInstance, getFreePort, jwsInstance, log } from './utils';
 import * as express from 'express';
 import * as bodyParser from 'body-parser';
 
-import chalk from 'chalk';
-
 export interface IntegrationRegisterContext {
 	keyId: string;
 	secret: string; // Answers API Secret
