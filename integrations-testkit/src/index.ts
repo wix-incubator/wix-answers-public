@@ -167,17 +167,3 @@ export const createTestkit = async (
 
 	};
 };
-
-
-const sec = 'uTU38ugktvbjXMqNmYOpv0D0xYs2lH9Z09Rmb0FWRYE';
-
-(async () => {
-	try {
-		const jws = await jwsInstance(sec);
-		const token = 'eyJhbGciOiJIUzI1NiJ9.eyJ0ZW5hbnRJZCI6ImM5NjQ1Zjk0LTQ0ZmUtNDcxZi05MWE2LTdkMTQ5OTkwMjk0YyIsInVzZXJJZCI6IjE3NzVhYzYyLWNjZjgtNDA2ZC1hMjVjLTUzN2M5NDc3OTAxZCIsInRpbWVzdGFtcCI6MTU0MTU4NjIwMDU3MSwicGF5bG9hZCI6IntcInRlc3RcIjoxfSIsImNvbnRleHQiOiJ7XCJ0ZXN0XCI6MX0ifQ.AhHReeTatIy5FaL4TAhb6eshZg4UMiA5Ipk9TqSpbMQ';
-		const data = await jws.verify(token);
-		console.log(222, {data});
-	} catch (e) {
-		console.error(e);
-	}
-})();
