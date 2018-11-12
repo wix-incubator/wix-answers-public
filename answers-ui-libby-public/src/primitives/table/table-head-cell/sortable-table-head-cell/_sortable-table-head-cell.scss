@@ -1,0 +1,47 @@
+&.sortable {
+	&:not(.disabled) {
+		cursor: pointer;
+
+		&:hover {
+			.head-cell-content {
+				color: $primary
+			}
+		}
+	}
+
+	&.disabled {
+		pointer-events: none;
+		color: $d40;
+
+		.sort-arrow {
+			color: $d40;
+		}
+	}
+
+	.sort-arrow {
+		display: inline-block;
+		flex-shrink: 0;
+		opacity: 0;
+		margin-left: 5px;
+		color: $primary;
+	}
+
+	&.is-loading {
+		.head-cell-content,
+		.sort-arrow {
+			color: $d40;
+		}
+	}
+
+	&.desc .sort-arrow {
+		opacity: 1;
+		transform: rotate(0);
+		transition: transform .1s ease-in-out;
+	}
+
+	&.asc .sort-arrow {
+		opacity: 1;
+		transform: rotate(180deg);
+		transition: transform .1s ease-in-out;
+	}
+}

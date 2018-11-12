@@ -1,0 +1,13 @@
+&.action-button {
+
+	button {
+		width: 34px;
+		height: 34px;
+		padding: 5px 0px 4px 5px;
+		justify-content: center;
+
+		> .tiny-loader {
+			margin-right: 4px;
+		}
+	}
+}

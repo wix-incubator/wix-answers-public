@@ -1,0 +1,18 @@
+& {
+	.title-wrapper {
+		display: flex;
+		cursor: pointer;
+		align-items: center;
+		user-select: none;
+
+		.svg-icon {
+			color: $primary-d10;
+			transition: transform .2s linear;
+		}
+	}
+
+	&.open .title-wrapper .svg-icon {
+		transform: rotate(90deg);
+		transition: transform .2s linear;
+	}
+}

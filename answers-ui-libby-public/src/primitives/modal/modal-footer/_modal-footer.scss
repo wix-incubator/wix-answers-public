@@ -1,0 +1,11 @@
+& {
+	background-color: $gray-l20;
+	padding: 24px;
+	display: flex;
+	justify-content: flex-end;
+	position: relative;
+
+	.aul.button.default:not(.hollow) { //this means it is a primary button
+		margin-left: 14px;
+	}
+}

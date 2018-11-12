@@ -1,0 +1,24 @@
+$tick-text: #445868;
+
+&.punch-card {
+    @import './punch-card-row/style';
+
+    width: 100%;
+    background: $white;
+
+    .punch-card-axis {
+        display: flex;
+        justify-content: space-between;
+        padding: 0 25px;
+
+        .axis-label {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            color: $tick-text;
+            font-size: 12px;
+            font-weight: 300;
+            line-height: 2;
+        }
+    }
+}

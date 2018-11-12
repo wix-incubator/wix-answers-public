@@ -1,0 +1,25 @@
+& {
+	background-color: $gray-l20;
+	color: $secondary-l10;
+	padding: 24px;
+	max-height: calc(100vh - 170px); // This is overridden by Modal component, depending on children height
+	overflow-y: auto;
+	margin-bottom: -1px; // Fixes small 1px gap with footer when overflow set to auto
+
+	&.no-padding {
+		padding: 0;
+	}
+
+	.close-button-container {
+		position: relative;
+		width: 100%;
+
+		.close-btn {
+			cursor: pointer;
+			color: $d30;
+			position: absolute;
+			right: 0;
+		}
+	}
+
+}

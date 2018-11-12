@@ -1,0 +1,74 @@
+& {
+	color: $d20;
+	font-size: 14px;
+
+	&.large {
+		font-size: 16px;
+		display: flex;
+
+		.tab {
+			flex: 1;
+			padding: 16px 0 0;
+			margin: 0;
+			text-align: center;
+
+			&:after {
+				margin-top: 16px;
+				padding: 0;
+				left: 0;
+			}
+		}
+	}
+
+	.tab {
+		display: inline-block;
+		position: relative;
+		padding-bottom: 4px;
+		// border-bottom: 4px solid transparent;
+		font-weight: 500;
+		cursor: pointer;
+		padding: 13px 4px 0;
+		margin: 0 20px;
+
+		&:after {
+			content: '';
+			display: block;
+			margin: auto;
+			height: 4px;
+			width: 0px;
+			background: transparent;
+			transition: width .2s ease, background-color .2s ease;
+			margin-top: 10px;
+			padding: 0 4px;
+			position: relative;
+			left: -4px;
+		}
+
+		&.selected {
+			color: $primary-b10;
+
+			&:after {
+				width: 100%;
+				background: $primary-b10;
+			}
+		}
+
+		&.disabled {
+			color: $d50
+		}
+
+		&:not(.selected):not(.disabled):hover {
+			transition: color .4s;
+			color: $primary-l10;
+		}
+
+		.icon {
+			margin-left: 6px;
+		}
+
+		.aul.tooltip-trigger .tooltip {
+			min-width: 220px;
+			text-align: center
+		}
+	}
+}

@@ -1,0 +1,60 @@
+&.line-chart {
+    position: relative;
+
+    .line-chart-vertical-tooltip {
+        position: absolute;
+        border-radius: 4px;
+        background: $d30;
+        color: $white;
+        z-index: 9;
+        pointer-events: none;
+
+        &.top {
+            padding: 10px 14px;
+
+            .cursor {
+                position: absolute;
+                border: 1px solid $d30;
+                transform: translateX(-50%);
+                left: 50%;
+                top: 100%;
+            }
+
+            .top-tooltip-item {
+                display: flex;
+                align-items: center;
+
+                .line-indicator {
+                    width: 15px;
+                    height: 3px;
+                    border-radius: 2px;
+                    margin-right: 8px;
+                }
+            }
+        }
+
+        &.bottom {
+            background: $white;
+            color: $d30;
+            border: 1px solid $d30;
+            transform: translateY(10px);
+            padding: 5px 14px;
+        }
+    }
+
+    &.is-multi-line {
+        .recharts-area-area {
+            display: none;
+        }
+    }
+
+    .yAxis .recharts-cartesian-axis-ticks {
+        .recharts-cartesian-axis-tick:nth-child(2n) {
+            display: none;
+        }
+    }
+
+    .recharts-cartesian-grid .recharts-cartesian-grid-horizontal line:last-child {
+        display: none;
+    }
+}

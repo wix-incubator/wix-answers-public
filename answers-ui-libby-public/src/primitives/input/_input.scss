@@ -1,0 +1,24 @@
+& {
+	width: 100%;
+
+	.tooltip-trigger {
+		width: 100%;
+	}
+
+	input {
+		width: 100%;
+		text-overflow: ellipsis;
+		@include input-field-states();
+	}
+
+	&.embedded {
+		input {
+			border: 0;
+			padding: 0;
+		}
+	}
+
+	.validation-error {
+		@include field-validation-error();
+	}
+}

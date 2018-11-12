@@ -1,0 +1,20 @@
+&.color-picker {
+	width: 170px;
+
+	.color-display {
+		text-align: center;
+		padding: 37px 0px 32px;
+		position: relative;
+		font-size: 16px;
+		margin-top: 8px;
+		transition: background linear .2s;
+
+		.color-string {
+			transition: color linear .2s;
+		}
+	}
+
+	.color-input-wrapper {
+		padding: 14px;
+	}
+}

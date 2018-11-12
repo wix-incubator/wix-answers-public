@@ -1,0 +1,23 @@
+@mixin category-error-msg() {
+    &.with-error {
+        .Select-control {
+            border-color: $r10;
+        }
+    }
+
+    .text.validation-error {
+		color: $r10;
+		text-align: left;
+		margin-top: 4px;
+	}
+};
+
+&.category-selector {
+    @import 'category-selector/category-selector';
+    @include category-error-msg();
+}
+
+&.multi-category-selector {
+    @import 'multi-category-selector/multi-category-selector';
+    @include category-error-msg();
+}

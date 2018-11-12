@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="40px" height="40px" viewBox="0 0 40 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 48.2 (47327) - http://www.bohemiancoding.com/sketch -->
+    <title>Flag</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="SVG" stroke="none" stroke-width="1" fill-rule="evenodd">
+        <g id="Flag">
+            <rect id="Rectangle-13" x="15" y="13" width="1" height="15"></rect>
+            <path d="M16,16 L16,23 L24.0644825,23 L22.3607784,20.685685 C21.8416276,19.9804694 21.8416276,19.0195306 22.3607784,18.314315 L24.0644825,16 L16,16 Z M16,15 L24.0644825,15 C24.6167672,15 25.0644825,15.4477153 25.0644825,16 C25.0644825,16.2133206 24.9962664,16.4210514 24.8698009,16.5928425 L23.1660969,18.9071575 C22.9065214,19.2597653 22.9065214,19.7402347 23.1660969,20.0928425 L24.8698009,22.4071575 C25.1972188,22.8519226 25.1020901,23.4779006 24.657325,23.8053184 C24.4855339,23.931784 24.2778031,24 24.0644825,24 L16,24 C15.4477153,24 15,23.5522847 15,23 L15,16 C15,15.4477153 15.4477153,15 16,15 Z" id="Rectangle-17" fill-rule="nonzero"></path>
+        </g>
+    </g>
+</svg>

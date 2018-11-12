@@ -1,0 +1,65 @@
+$stroke-grey: #e5e5e5;
+$dot-blue: $d20;
+$row-height: 68px;
+
+.punch-card-row {
+	height: $row-height;
+	border-bottom: 1px solid $stroke-grey;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 0 25px;
+	position: relative;
+
+	.row-label {
+		position: absolute;
+		top: 10px;
+		left: 25px;
+		color: $d30;
+		font-size: 12px;
+	}
+
+	.value-bubble-container {
+		flex: 1;
+		height: 100%;
+		display: flex;
+		padding: 30px 0 10px 0;
+		align-items: center;
+		justify-content: center;
+		position: relative;
+
+		&:after {
+			content: '';
+			width: 1px;
+			height: 7px;
+			border-left: 1px dotted $d40;
+			position: absolute;
+			bottom: 0;
+		}
+	}
+
+	.value-bubble {
+		width: 4px;
+		height: 4px;
+		background: $dot-blue;
+		border-radius: 50%;
+		box-shadow: 0 0px 2px 0 rgba($black, 0);
+		border: 0 solid $white;
+		transition: transform .5s ease-in-out;
+		display: block;
+	}
+
+	.aul.tooltip-trigger .popper-target {
+		padding: 10px;
+
+		&:hover {
+			cursor: pointer;
+
+			.value-bubble {
+				box-shadow: 0 0px 2px 0 rgba($black, .31);
+				border: 1px solid $white;
+				transition: box-shadow .2s ease-in-out;
+			}
+		}
+	}
+}

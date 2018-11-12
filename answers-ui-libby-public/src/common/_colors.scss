@@ -1,0 +1,149 @@
+$white: #ffffff;
+$black: #000000;
+
+
+// New colors updated to libby zeplin!
+
+// D group
+$d10: #162d3d;
+$d15: #31424f;
+$d20: #20455e;
+$d25: #445968;
+$d30: #577083;
+$d40: #7a92a5;
+$d45: #9aa9be;
+$d50: #b6c1cd;
+$d60: #dfe5eb;
+$d70: #f0f4f7;
+$d80: #ffffff;
+
+// B Group
+$b00: #2b81cb;
+$b10: #3899ec;
+$b20: #4eb7f5;
+$b30: #c1e4fe;
+$b40: #daeffe;
+$b50: #eaf7ff;
+$b60: #f4fafe;
+$b70: #f5f9fc;
+
+//GR Group
+$gr10: #c8c8c8;
+$gr20: #cbd2d9;
+$gr30: #dadada;
+$gr40: #f1f1f1;
+
+// Special
+$y5: #eda200;
+$y10: #fdb10c;
+$y20: #fac249;
+
+$g05: #2cc958;
+$g10: #40d56a;
+$g20: #57e07d;
+$g30: #ccffdb;
+
+// Reds
+$r05: #d8504c;
+$r10: #ee5951;
+$r20: #ff6666;
+$r30: #ffd7d7;
+
+// Oranges
+$o05: #fb7d33;
+$o10: #ff9a48;
+$o20: #ff935a;
+$o30: #fedfba;
+
+// Premium
+$p05: #aa4dc8;
+$p10: #cd68ed;
+
+// Special
+$s08: #3bd466;
+
+// Marketing
+$mk01: #f27e63;
+$mk02: #3779bd;
+$mk03: #a7469a;
+
+// Below are deprecated!
+
+// Grayish Blues
+$secondary-l40: #edf1f4;
+$secondary-l30: #9aa9be;
+$secondary-l20: $d40;
+$secondary-l10: $d30;
+$secondary: #445868;
+$secondary-d10: $d10;
+$secondary-d20: $d20;
+$secondary-d30: $secondary-d10;
+$secondary-d40: $secondary-l20;
+$secondary-d50: #b6c1cd;
+$secondary-d60: #24313b;
+
+// Primary Blue
+$primary-d10: #0d98e9;
+$primary: $b10;
+$primary-l10: $b20;
+// $primary-l20: #3197ef;
+$primary-l40: darken(#eaf7ff, 15%);
+$primary-l50: #eaf7ff;
+$primary-b10: $primary;
+$primary-b20: $primary-l10;
+$primary-b30: #c1e4fe;
+$primary-b40: #daeffe;
+$primary-b50: $primary-l50;
+$primary-b60: #f4fafe;
+
+// 50 Shades of gray
+$gray-d80: #808080;
+$gray-d30: #c8c8c8;
+$gray-d20: #dadada;
+$gray-d15: #cbd2d9;
+$gray-d10: #e6e6e6;
+$gray-d70: #f0f4f7;
+$gray: #f1f1f1;
+$gray-l10: #dfe5eb;
+$gray-l20: #f9f9f9;
+$gray-l30: #fafafa;
+
+// Fields of Green
+$positive-d30: #23a046;
+$positive-d20: #2cc958;
+$positive-d10: #3bd466;
+$positive: #6de18e;
+$positive-l10: #9aefb2;
+$positive-l20: #bafacc;
+
+$positive-g05: $positive-d20;
+$positive-g10: #3fd569;
+
+// Passion Red
+$danger-d20: #be1a30;
+$danger-d10: #d2243b;
+$danger: #e6223c;
+$danger-l10: #ff6f82;
+$danger-l20: #ff9eab;
+
+$danger-r05: $r05;
+$danger-r10: $r10;
+
+// Oranges
+$attention-o05: $o05;
+$attention-o10: $o10;
+$attention-o20: $o20;
+$attention-o30: $o30;
+
+
+$priority-low: #fac249;
+$priority-medium: #ff9a48;
+$priority-high: #ff6666;
+
+$priority-low-border: #fdb10c;
+$priority-high-border: #ee5951;
+
+
+// Navigation - TODO - try to remove this
+$navigation-m10: #375b74;
+$navigation-m05: #2a4f68;

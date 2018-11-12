@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 51 (57462) - http://www.bohemiancoding.com/sketch -->
+    <title>active icon</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Icons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g transform="translate(-152.000000, -1706.000000)" id="active-icon">
+            <g transform="translate(153.000000, 1707.000000)">
+                <path d="M1.57773081,13.6346087 C0.583594709,12.2330042 0,10.5387342 0,8.71061473 C0,3.90035806 4.02870585,0 9,0 C13.9700668,0 18,3.90035806 18,8.71061473 C18,13.5215649 13.9700668,17.421923 9,17.421923 C7.65975726,17.421923 6.39254057,17.1306445 5.24928406,16.6222941 L1.58632211,17.9691105 C1.19971362,18.1112821 0.818014455,17.7409423 0.899018137,17.303331 L1.57773081,13.6346087 Z" id="Fill-46" stroke="currentColor" stroke-width="2"></path>
+                <rect id="Rectangle-9" fill="currentColor" x="5" y="8" width="3" height="2" rx="1"></rect>
+                <rect id="Rectangle-9" fill="currentColor" x="10" y="8" width="3" height="2" rx="1"></rect>
+            </g>
+        </g>
+    </g>
+</svg>

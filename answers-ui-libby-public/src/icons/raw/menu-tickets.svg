@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="26px" height="26px" viewBox="0 0 26 26" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 43.2 (39069) - http://www.bohemiancoding.com/sketch -->
+    <title>Tickets</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill-rule="evenodd">
+        <g id="Tickets">
+            <path d="M22,8 C22.552,8 23,8.448 23,9 L23,22.244 C23,22.932 22.151,23.257 21.692,22.745 L20.722,21.664 C20.343,21.242 19.801,21 19.233,21 L9,21 C8.448,21 8,20.552 8,20 L8,18 L18.015,18 C19.664,18 21,16.664 21,15.015 L21,8 L22,8 Z M19,14.9998 C19,15.5518 18.552,15.9998 18,15.9998 L5.781,15.9998 C5.218,15.9998 4.68,16.2378 4.301,16.6548 L3.305,17.7518 C2.844,18.2588 2,17.9328 2,17.2468 L2,4.9998 C2,4.4478 2.448,3.9998 3,3.9998 L18,3.9998 C18.552,3.9998 19,4.4478 19,4.9998 L19,14.9998 Z M6,8.9998 L15,8.9998 L15,6.9998 L6,6.9998 L6,8.9998 Z M6,12.9998 L12,12.9998 L12,10.9998 L6,10.9998 L6,12.9998 Z" id="Combined-Shape"></path>
+        </g>
+    </g>
+</svg>

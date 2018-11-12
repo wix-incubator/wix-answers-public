@@ -1,0 +1,17 @@
+@import '../common/colors';
+
+@mixin action-empty-state-placeholder() {
+	color: $secondary-l30;
+}
+
+@mixin largin-empty-state-placeholder() {
+	@include action-empty-state-placeholder();
+	font-size: 16px;
+	font-weight: 400;
+}
+
+@mixin helper-text() {
+	color: $secondary-l30;
+	font-size: 12px;
+	font-weight: 300;
+}

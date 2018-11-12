@@ -1,0 +1,100 @@
+.file-uploader {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	flex-grow: 1;
+	width: 100%;
+
+	.error-state {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		text-align: center;
+		flex-grow: 1;
+		padding: 10px;
+
+		.error-text-wrapper {
+			flex-grow: 1;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+		}
+
+		.error-title {
+			color: $r05;
+		}
+
+		.error-description {
+			color: $d30;
+			font-size: 12px;
+		}
+	}
+
+	.uploading-state-container {
+		width: 100%;
+		height: 100%;
+		text-align: center;
+		display: flex;
+		flex-direction: column;
+
+		.uploading-text-container {
+			flex-grow: 1;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			padding: 14px;
+		}
+
+		.uploading-text-wrapper {
+			font-size: 12px;
+			color: $b10;
+		}
+
+		.upload-progress-bar {
+			flex-grow: 0;
+			height: 4px;
+			background: $b10;
+			border-radius: 3px;
+			transition: width .1s ease-in;
+		}
+	}
+
+	.filename-wrapper {
+		white-space: nowrap;
+		display: flex;
+		justify-content: center;
+		overflow: hidden;
+		text-overflow: ellipsis;
+
+		.text {
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+		}
+	}
+
+	&.short {
+		.error-state {
+			.error-title {
+				font-size: 12px;
+			}
+
+			.error-description {
+				display: none;
+			}
+		}
+	}
+
+	&.narrow {
+		.uploading-state-container .filename-wrapper {
+			display: none;
+		}
+	}
+
+	&.xnarrow {
+		.uploading-state-container .uploading-text {
+			display: none;
+		}
+	}
+}

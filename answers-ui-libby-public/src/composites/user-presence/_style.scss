@@ -1,0 +1,132 @@
+@mixin avatar-bubble() {
+    width: 27px;
+    height: 27px;
+    border-radius: 50%;
+    background-color: $d20;
+    color: $white;
+    display: inline-flex;
+    justify-content: center;
+    align-self: center;
+    border: solid 2px $white;
+
+    > span {
+        align-self: center;
+        font-size: 12px;
+    }
+}
+
+&.user-presence {
+    align-items: center;
+    display: flex;
+
+    .presence-avatars {
+        display: flex;
+
+        .additional-users-avatar {
+            @include avatar-bubble;
+            transform: translateX(-12px);
+        }
+
+        &.clickable {
+            cursor: pointer;
+        }
+
+        &:hover {
+            .additional-users-avatar {
+                background-color: $b20;
+            }
+        }
+
+        .user-avatar {
+            border-radius: 50%;
+            margin: 0 0 0 5px;
+            height: 31px !important;
+            width: 31px !important;
+
+            @keyframes viewing {
+                from {
+                    box-shadow: 0 0 0 2px $b40;
+                }
+                to {
+                    box-shadow: 0 0 0 4px $b40;
+                }
+            }
+
+            @keyframes talking {
+                from {
+                    box-shadow: 0 0 0 2px $g10;
+                }
+                to {
+                    box-shadow: 0 0 0 4px $g10;
+                }
+            }
+
+            @keyframes typing {
+                from {
+                    box-shadow: 0 0 0 2px $b10;
+                }
+                to {
+                    box-shadow: 0 0 0 4px $b10;
+                }
+            }
+
+            &.viewing {
+                animation: viewing 0.5s infinite alternate;
+            }
+
+            &.talking {
+                animation: talking 0.5s infinite alternate;
+            }
+
+            &.typing {
+                animation: typing 0.5s infinite alternate;
+            }
+
+            .user-badge {
+                display: none;
+            }
+
+            img {
+                border: solid 2px $white;
+            }
+        }
+    }
+
+    .presence-text {
+        display: flex;
+
+        &.multi {
+            transform: translateX(-6px);
+        }
+
+        .type {
+            font-weight: 500 !important;
+        }
+
+        .name {
+            margin: 0 4px 0 7px;
+        }
+
+        .dots {
+            color: $d30;
+        }
+    }
+
+    @include in-popover {
+        .additional-users {
+            margin: 0;
+            padding: 12px 19px 12px 14px;
+
+            li {
+                align-items: center;
+                display: flex;
+                margin: 0 0 8px;
+                padding: 0;
+
+                .text {
+                    margin: 0 0 0 8px;
+                }
+            }
+        }
+    }
+}

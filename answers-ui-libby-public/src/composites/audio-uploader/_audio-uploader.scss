@@ -1,0 +1,105 @@
+$transitions: background-color .2s ease-in-out, color .2s ease-in-out;
+
+&.audio-uploader {
+	.uploader-container {
+		display: flex;
+		border: 1px solid $gray-l10;
+		border-radius: 5px;
+		align-items: center;
+		height: 78px;
+
+		&.empty-state {
+			transition: $transitions;
+			justify-content: center;
+			border: dashed 2px $primary-b30;
+			cursor: pointer;
+
+			&:hover {
+				background-color: $primary-l50;
+			}
+
+			&:active {
+				background-color: $primary-b40;
+				border-color: $primary;
+			}
+		}
+	}
+
+	.simple-audio-player {
+		padding-right: 15px;
+	}
+
+	.progress-icon {
+		margin: 19px 14px 16px 13px;
+
+		.progress-icon-svg {
+			transform: rotate(-90deg);
+			height: 47px;
+			width: 47px;
+
+			#inner {
+				stroke: $white;
+				transition: stroke-dashoffset .5s linear;
+				fill: $primary;
+			}
+
+			#outer {
+				fill: $primary;
+			}
+		}
+	}
+
+	.error-icon {
+		margin: 19px 15px 16px 14px;
+		color: $white;
+		background-color: $danger-r10;
+		border-radius: 100px;
+		padding: 14px 14.5px;
+	}
+
+	.text-wrapper {
+		flex: 1;
+		text-align: start;
+		padding: 5px 15px 5px 0;
+		max-width: calc(100% - 160px);
+
+		.file-name-wrapper {
+			display: flex;
+		}
+
+		.file-name {
+			@include ellipsis-line();
+
+			color: $secondary-d20;
+		}
+
+		.file-size {
+			color: $secondary-l20;
+			margin-left: 4px;
+		}
+
+		.uploading {
+			color: $secondary-d50;
+			margin-top: 2px;
+		}
+
+		.error-message {
+			color: $danger-r10;
+			margin-top: 2px;
+		}
+	}
+
+	.action-button-container {
+		height: 100%;
+		width: 85px;
+		border-left: 1px solid $gray-l10;
+		display: flex;
+		justify-content: center;
+		flex-shrink: 0;
+
+		.action-button {
+			transition: $transitions;
+			align-self: center;
+		}
+	}
+}

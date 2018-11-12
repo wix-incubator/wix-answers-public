@@ -1,0 +1,120 @@
+& {
+	@import 'classes';
+
+	@import './texts/texts';
+	@import './titles/titles';
+
+	&.text {
+		&.color-d10 {
+		 color: $d10;
+		}
+
+		&.color-d20 {
+			color: $d20;
+		}
+
+		&.color-d30 {
+			color: $d30;
+		}
+
+		&.color-d40 {
+			color: $d40;
+		}
+
+		&.color-d50 {
+			color: $d50;
+		}
+
+		&.t1 {
+			font-size: 14px;
+			font-weight: 500;
+			color: $d20;
+			font-style: normal;
+		}
+
+		&.t1b {
+			font-size: 14px;
+			font-weight: 400;
+			color: $d30;
+			font-style: italic;
+		}
+
+		&.t1c {
+			font-size: 14px;
+			font-weight: 400;
+			color: $d30;
+			font-style: normal;
+		}
+
+		&.t2c {
+			font-size: 14px;
+			font-weight: 300;
+			color: $d20;
+			font-style: normal;
+		}
+
+		&.h0 {
+			font-size: 28px;
+			font-weight: 400;
+			font-style: normal;
+			color: $d10;
+		}
+
+		&.h0a {
+			font-size: 28px;
+			font-weight: 300;
+			color: $d30;
+		}
+
+		&.h0b {
+			font-size: 34px;
+			font-weight: 300;
+			color: $d20;
+		}
+
+		&.h0c {
+			font-size: 44px;
+			font-weight: 300;
+			color: $d20;
+		}
+
+		&.h1 {
+			font-size: 20px;
+			font-weight: 500;
+			font-style: normal;
+			color: $d10;
+		}
+
+		&.h2 {
+			font-size: 16px;
+			font-weight: 500;
+			font-style: normal;
+			color: $d20;
+		}
+
+		&.h2a {
+			font-size: 16px;
+			font-weight: 400;
+			font-style: normal;
+			color: $d20;
+		}
+
+		&.h2b {
+			font-size: 16px;
+			font-weight: 300;
+			font-style: normal;
+			color: $d30;
+		}
+
+		&.ellipsis-1,
+		&.ellipsis-2 {
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+
+			> * {
+				@include ellipsis-line();
+			}
+		}
+	}
+}

@@ -1,0 +1,129 @@
+@mixin element-size($size) {
+  width: $size;
+  height: $size;
+}
+
+@mixin in-popover() {
+	@at-root .Popover {
+		@content;
+	}
+}
+
+@mixin font-bold() {
+	font-weight: 500;
+}
+
+@mixin control-placeholder {
+	&::placeholder { @content; }
+	&:-moz-placeholder { @content; }
+	&::-moz-placeholder { @content; }
+	&:-ms-textArea-placeholder { @content; }
+	&::-webkit-textArea-placeholder { @content; }
+}
+
+@mixin control-readonly {
+	&:read-only { @content; }
+	&:-moz-read-only { @content; }
+}
+
+@mixin control-input-hover {
+	&:hover:not(:focus):not(.invalid):not(:disabled):not(:active) { @content; }
+}
+
+@mixin input-field-states {
+	display: inline-block;
+	color: $d20;
+	outline: none;
+	transition: border .1s ease;
+	border-radius: 4px;
+	resize: none;
+	border: 1px solid $secondary-d50;
+	padding: 10px;
+
+	@include control-placeholder {
+		color: $d40;
+	}
+
+	@include control-input-hover {
+		border-color: $b20;
+	}
+
+	&:focus {
+		border-color: $b10;
+
+		@include control-placeholder {
+			color: $d50;
+		}
+	}
+
+	@include control-readonly {
+		background-color: $gray-l30;
+		color: $d40;
+		border-color: $gray-d10;
+		pointer-events: none;
+
+		@include control-placeholder {
+			color: $secondary-l20;
+		}
+	}
+
+	&:disabled {
+		pointer-events: none;
+		background-color: $gray-l30;
+		color: $d40;
+		border-color: $gray-d10;
+
+		@include control-placeholder {
+			color: $d50;
+		}
+	}
+
+	// TODO: remove this since migrated to formInput
+	&.invalid {
+		border-color: $danger-r10;
+	}
+}
+
+@mixin field-validation-error {
+	color: $danger-r10;
+	margin-top: 5px;
+	font-size: .85em;
+	text-align: left;
+	overflow-wrap: break-word;
+}
+
+@mixin ellipsis-line {
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+
+@mixin arrow-base($size, $line-width, $color) {
+	display: inline-block;
+	font-style: normal;
+	position: relative;
+	width: $size;
+	height: $size;
+	border-right: $line-width solid $color;
+	border-top: $line-width solid $color;
+}
+
+@mixin arrow-right($size, $line-width, $color) {
+	@include arrow-base($size, $line-width, $color);
+	transform: rotate(45deg);
+}
+
+@mixin arrow-down($size, $line-width, $color) {
+	@include arrow-base($size, $line-width, $color);
+	transform: rotate(135deg);
+}
+
+@mixin check-mark($height, $width, $border-width) {
+	content: '';
+	display: inline-block;
+	width: $width;
+	height: $height;
+	border-style: solid;
+	border-width: 0 $border-width $border-width 0;
+	transform: rotate(45deg);
+}

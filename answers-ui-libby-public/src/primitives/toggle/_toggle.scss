@@ -1,0 +1,192 @@
+$animation-speed: .1s;
+
+$on-knob-border: $b10;
+$on-fill: $b10;
+$on-fill-hover: $b20;
+
+$off-knob-border: $primary-l10;
+$off-fill: $b30;
+$off-fill-hover: $b20;
+
+$on-disabled-fill: $secondary-d50;
+$off-disabled-fill: $gray-l10;
+
+& {
+	display: inline-flex;
+	vertical-align: bottom;
+	cursor: pointer;
+
+	.icon {
+		display: inline-flex;
+	}
+
+	svg {
+		.bg {
+			transition: fill $animation-speed ease-out;
+			fill: $on-fill;
+			stroke: $on-fill;
+		}
+
+		.knob {
+			transition: transform $animation-speed ease-out, fill $animation-speed ease-out, stroke $animation-speed ease-out;
+			stroke: $on-fill;
+			fill: $white;
+			transform: translateX(-15px);
+		}
+	}
+
+	&.off svg {
+		.bg {
+			fill: $off-fill;
+			stroke: $off-knob-border;
+		}
+
+		.knob {
+			stroke: $off-knob-border;
+			transform: translateX(0);
+		}
+	}
+
+	&.disabled {
+		pointer-events: none;
+
+		&.on {
+			svg {
+				.bg {
+					fill: $on-disabled-fill;
+					stroke: $on-disabled-fill;
+				}
+
+				.knob {
+					fill: $white;
+					stroke: $on-disabled-fill;
+				}
+			}
+		}
+
+		&.off {
+			svg {
+				.bg {
+					fill: $off-disabled-fill;
+					stroke: $off-disabled-fill;
+				}
+
+				.knob {
+					fill: $white;
+					stroke: $off-disabled-fill;
+				}
+			}
+		}
+	}
+
+	&:hover:not(.disabled) {
+		.bg {
+			fill: $on-fill-hover;
+		}
+
+		.bg, .knob {
+			stroke: $on-fill-hover;
+		}
+
+		&.off {
+			.bg {
+				fill: $off-fill-hover;
+			}
+
+			.bg, .knob {
+				stroke: $on-fill-hover;
+			}
+		}
+	}
+
+	&.normal {
+		position: relative;
+		width: 33px;
+
+		&::after, &::before {
+			transition: opacity $animation-speed, right $animation-speed;
+		}
+
+		&::before {
+			@include check-mark(5px, 3px, 1px);
+			position: absolute;
+			top: 5px;
+			right: 7px;
+		}
+
+		&::after {
+			content: '';
+			display: inline-block;
+			position: absolute;
+			width: 6px;
+			border-bottom: 1px solid;
+			top: 9px;
+			right: 21px;
+			border-radius: 1px;
+		}
+
+		&:not(.disabled) {
+			&::before {
+				border-color: $on-fill;
+			}
+
+			&::after {
+				border-color: $off-knob-border;
+			}
+		}
+
+		&.on {
+			&::before {
+				opacity: 1;
+			}
+
+			&::after {
+				opacity: 0;
+				right: 7px;
+			}
+		}
+
+		&.off {
+			&::after {
+				opacity: 1;
+			}
+
+			&::before {
+				opacity: 0;
+				right: 21px;
+			}
+		}
+
+		&.disabled {
+			&::after, &::before {
+				border-color: $on-disabled-fill;
+			}
+
+			&.on {
+				&::before {
+					border-color: $on-disabled-fill;
+				}
+
+				&::after {
+					opacity: 0;
+				}
+			}
+
+			&.off {
+				&::after {
+					border-color: $off-disabled-fill;
+				}
+
+				&::before {
+					opacity: 0;
+				}
+			}
+		}
+	}
+
+	&.small {
+		svg {
+			height: 12px;
+		}
+	}
+}

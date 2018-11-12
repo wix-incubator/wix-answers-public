@@ -1,0 +1,23 @@
+$side-bar-max-width: 280px;
+
+& {
+    max-width: $side-bar-max-width;
+    height: inherit;
+    background: $white;
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,.22);
+    display: flex;
+    flex-direction: column;
+
+    .side-bar-body {
+        overflow: auto;
+        transition: box-shadow .1s;
+    }
+
+    .side-bar-header {
+        z-index: 1;
+    }
+
+    &.scrolled .side-bar-header {
+        box-shadow: 0 4px 4px -2px rgba(0,0,0,.1)
+    }
+}

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="12px" height="12px" viewBox="0 0 12 12" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 51 (57462) - http://www.bohemiancoding.com/sketch -->
+    <title>clock full small</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Icons" fill-rule="evenodd">
+        <g transform="translate(-157.000000, -1570.000000)" id="clock-full-small">
+            <g transform="translate(158.000000, 1571.000000)">
+                <circle id="Oval-6" stroke="currentColor" cx="5" cy="5" r="5"></circle>
+                <rect id="Rectangle-16" fill="#FFFFFF" x="4" y="2" width="1" height="4"></rect>
+                <rect id="Rectangle-18" fill="#FFFFFF" x="4" y="5" width="3" height="1"></rect>
+            </g>
+        </g>
+    </g>
+</svg>

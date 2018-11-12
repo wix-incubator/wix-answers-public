@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="31px" height="31px" viewBox="0 0 31 31" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 49.3 (51167) - http://www.bohemiancoding.com/sketch -->
+    <title>Assigned</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Assigned" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <path d="M23.4031301,15.1717042 L23.1789912,9.4013947 C23.1593534,8.89583346 23.5532722,8.47007555 24.0588335,8.45043779 C24.0706803,8.44997762 24.082535,8.44974747 24.0943908,8.44974747 C24.6272314,8.44974747 25.0658341,8.8688377 25.0900657,9.40112706 L25.4497475,17.3021649 L25.442317,17.2966273 L25.4476104,17.3044524 L21.4857795,17.4472978 C20.9338533,17.4671977 20.4702968,17.0359053 20.4503968,16.4839791 C20.449964,16.4719734 20.4497475,16.4599607 20.4497475,16.4479471 L20.4497475,16.2725761 C20.4497475,15.7400778 20.8670308,15.3009816 21.3988387,15.2738728 L23.4031301,15.1717042 Z" id="V-Indication" fill="#3899EC" fill-rule="nonzero" transform="translate(22.949747, 12.949747) rotate(45.000000) translate(-22.949747, -12.949747) "></path>
+        <circle id="Oval" stroke="#3899EC" stroke-width="2" cx="11.5" cy="11.5" r="3.5"></circle>
+        <rect id="Rectangle-6" stroke="#3899EC" stroke-width="2" x="5" y="18" width="13" height="6" rx="2"></rect>
+    </g>
+</svg>

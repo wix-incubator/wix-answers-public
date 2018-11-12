@@ -1,0 +1,43 @@
+& {
+	&.loader {
+		@import 'loader/loader';
+	}
+
+	&.spinner-loader {
+		@import 'spinner-loader/spinner-loader';
+	}
+
+	&.tiny-loader {
+			$size: 15px;
+			$speed: .5s;
+			$border-size: 2px; // needs to be around 11% of size
+			&, &:after {
+				border-radius: 50%;
+				width: $size;
+				height: $size;
+
+			}
+		//   margin: 60px auto;
+		  font-size: 10px;
+		  position: relative;
+		  text-indent: -9999em;
+		  border-top: $border-size solid rgba(255, 255, 255, 0.2);
+		  border-right: $border-size solid rgba(255, 255, 255, 0.2);
+		  border-bottom: $border-size solid rgba(255, 255, 255, 0.2);
+		  border-left: $border-size solid currentColor;
+		  transform: translateZ(0);
+		  animation: load8 $speed infinite linear;
+
+		@keyframes load8 {
+		  0% {
+			 -webkit-transform: rotate(0deg);
+			 transform: rotate(0deg);
+		  }
+		  100% {
+			 -webkit-transform: rotate(360deg);
+			 transform: rotate(360deg);
+		  }
+		}
+
+	}
+}

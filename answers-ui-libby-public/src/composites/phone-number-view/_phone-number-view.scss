@@ -1,0 +1,71 @@
+&.phone-number-view {
+	.link-button.phone-number {
+		color: $positive-d10;
+		&:hover {
+			color: $positive-d20;
+		}
+	}
+	&.disabled .phone-number {
+		cursor: text;
+		color: $gr20;
+	}
+	@at-root {
+		.Popover .call-actions-body {
+			display: flex;
+			align-items: center;
+			flex-direction: column;
+			width: 323px;
+			padding: 15px;
+			.phone-title {
+				text-align: center;
+				font-size: 16px;
+				width: 270px
+			}
+			.call-actions {
+				margin-top: 18px;
+				display: flex;
+
+				button {
+					margin: 5px;
+				}
+			}
+		}
+	}
+}
+
+.phone-selector {
+	margin-top: 13px;
+	width: 266px;
+
+	.is-selected {
+		.options-label {
+			.line-name {
+				color: #fff;
+			}
+			.line-number  {
+				color: #fff;
+			}
+		}
+	}
+}
+
+.options-label {
+	overflow: hidden;
+	display: flex;
+	flex-direction: row;
+
+	.line-number,
+	.line-name {
+		padding-right: 5px;
+		font-size: 14px;
+		font-weight: 400;
+		font-style: normal;
+	}
+	.line-name {
+		color: $d20;
+	}
+	.line-number  {
+		color: $d40;
+	}
+}
+

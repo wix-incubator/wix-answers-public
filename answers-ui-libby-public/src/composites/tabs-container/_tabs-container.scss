@@ -1,0 +1,22 @@
+& {
+	.tabs {
+		box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.21);
+
+		.tab {
+			text-align: center;
+			padding-top: 12px;
+
+			&::after {
+				margin-top: 12px;
+			}
+
+			&:not(:last-child) {
+				border-right: 1px solid $gray-l10;
+			}
+		}
+	}
+
+	.container-section:nth-child(2) {
+		padding-top: 25px;
+	}
+}

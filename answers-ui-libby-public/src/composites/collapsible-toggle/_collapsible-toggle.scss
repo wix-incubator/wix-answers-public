@@ -1,0 +1,58 @@
+$animation-speed: .2s;
+
+& {
+    display: inline-block;
+    border: solid 1px $gray-d70;
+    border-radius: 5px;
+    background: $white;
+    transition: box-shadow $animation-speed linear;
+
+    > .collapsible-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 20px;
+        border-bottom: solid 1px transparent;
+        transition: border $animation-speed linear;
+
+        .header-title {
+            @include ellipsis-line();
+            @include font-bold();
+            padding: 14px 0;
+            margin-right: 12px;
+            flex: 1 100%;
+            cursor: pointer;
+            white-space: nowrap;
+            text-align: left;
+            color: $secondary-l10;
+
+            &:before {
+                @include arrow-right(4px, 2px, $secondary-l10);
+                content: '';
+                margin-right: 12px;
+                transition: transform $animation-speed linear;
+                top: -2px;
+                left: 1px;
+            }
+        }
+    }
+
+    .collapsible-body {
+        .body-wrapper {
+            margin: 15px;
+        }
+    }
+
+    &.expanded {
+        box-shadow: 0 0 6px 0 rgba(0, 0, 0, .09);
+        border-color: $gray-d70;
+
+        .collapsible-header {
+            border-color: $gray-d70;
+        }
+
+        .header-title:before {
+            transform: rotate(135deg);
+        }
+    }
+}

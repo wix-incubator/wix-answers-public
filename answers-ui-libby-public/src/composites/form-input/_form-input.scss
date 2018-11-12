@@ -1,0 +1,45 @@
+& {
+	width: 100%;
+	text-align: left;
+
+	@include control-input-hover {
+		input {
+			@include control-readonly {
+				border-color: $gray-d10;
+			}
+		}
+	}
+
+	.label-text {
+		font-size: 14px;
+		color: $d30;
+		font-weight: 400;
+	}
+
+	.input {
+		display: block;
+		margin-top: 7px;
+		margin-bottom: 24px;
+	}
+
+	&.invalid {
+		.aul.input {
+			margin-bottom: 0;
+
+			input {
+				&, &:hover, &:focus {
+					border-color: $danger-r10;
+				}
+
+				@include control-input-hover {
+					border-color: $danger-r10;
+				}
+			}
+		}
+	}
+
+	.validation-msg {
+		@include field-validation-error();
+		margin-bottom: 3px;
+	}
+}

@@ -1,0 +1,57 @@
+& {
+	position: relative;
+	display: flex;
+	width: inherit;
+
+	input {
+		@include input-field-states();
+		font-family: inherit;
+		font-size: inherit;
+		width: inherit;
+
+		&::-webkit-inner-spin-button,
+		&::-webkit-outer-spin-button {
+			-webkit-appearance: none;
+			margin: 0;
+		}
+	}
+
+	.spin-buttons {
+		position: absolute;
+		display: flex;
+		flex-direction: column;
+		align-self: center;
+		right: 3px;
+		fill: $primary-b10;
+
+		.spin {
+			cursor: pointer;
+			border: 0;
+			background-color: transparent;
+			padding: 0;
+
+			svg {
+				fill: inherit;
+			}
+		}
+
+		&:hover {
+			fill: $b10;
+		}
+
+		&.disabled {
+			fill: $secondary-d50;
+			pointer-events: none;
+
+			.spin {
+				cursor: default;
+			}
+		}
+
+		.spin.increment {
+			svg {
+				transform: rotate(180deg);
+			}
+		}
+	}
+}

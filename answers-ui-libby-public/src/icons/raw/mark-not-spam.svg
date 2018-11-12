@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="31px" height="31px" viewBox="0 0 31 31" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 50 (54983) - http://www.bohemiancoding.com/sketch -->
+    <title>Not spam</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Not-spam" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <circle id="Oval-2" fill="#3899EC" cx="14" cy="13" r="1"></circle>
+        <circle id="Oval-2" fill="#3899EC" cx="17" cy="13" r="1"></circle>
+        <circle id="Oval-13" stroke="#3899EC" stroke-width="2" cx="15.5" cy="15.5" r="7.5"></circle>
+        <path d="M12.375305,17.7808688 C11.944043,17.4358593 11.8741216,16.8065669 12.2191312,16.375305 C12.5641407,15.944043 13.1934331,15.8741216 13.624695,16.2191312 C14.2909301,16.7521192 14.910632,17 15.5,17 C16.089368,17 16.7090699,16.7521192 17.375305,16.2191312 C17.8065669,15.8741216 18.4358593,15.944043 18.7808688,16.375305 C19.1258784,16.8065669 19.055957,17.4358593 18.624695,17.7808688 C17.6242634,18.5812141 16.5772987,19 15.5,19 C14.4227013,19 13.3757366,18.5812141 12.375305,17.7808688 Z" id="Path-3" fill="#3899EC" fill-rule="nonzero"></path>
+    </g>
+</svg>

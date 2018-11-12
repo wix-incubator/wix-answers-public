@@ -1,0 +1,51 @@
+@mixin tabsShadow() {
+	box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.21);
+};
+
+ &.container {
+
+	& > {
+		.tabs {
+			@include tabsShadow();
+			display: flex;
+			border-radius: 5px 5px 0 0;
+			position: relative;
+			z-index: 2;
+
+			.tab {
+				text-align: center;
+				padding-top: 12px;
+				flex: 1;
+				margin: 0;
+
+				&::after {
+					margin-top: 12px;
+				}
+
+				&:not(:last-child) {
+					border-right: 1px solid $gray-l10;
+				}
+			}
+		}
+	}
+
+	&.secondary > {
+		.collapsible {
+			.title-wrapper {
+				box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.15);
+				padding: 11px 10px 12px 7px;
+
+				.title {
+					font-weight: 400;
+				}
+			}
+
+			.content-wrapper {
+				.content {
+					padding: 14px 8px 8px 8px;
+				}
+			}
+		}
+	}
+ }
+

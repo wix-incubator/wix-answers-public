@@ -1,0 +1,35 @@
+$animation-speed: .1s;
+
+& {
+	display: inline-flex;
+	align-items: center;
+	min-height: 20px;
+
+	.radio-icon {
+		box-sizing: border-box;
+		display: inline-block;
+		position: relative;
+		width: 15px;
+		height: 15px;
+		border: 1px solid $primary;
+		border-radius: 50%;
+		transition: background-color $animation-speed linear;
+
+		&::after {
+			content: '';
+			display: block;
+			border-radius: 50%;
+			background-color: transparent;
+			transition: background-color $animation-speed linear;
+			width: 9px;
+			height: 9px;
+			top: 0;
+			left: 0;
+			margin: 2px;
+		}
+	}
+
+	.radio-body {
+		padding-left: 6px;
+	}
+}

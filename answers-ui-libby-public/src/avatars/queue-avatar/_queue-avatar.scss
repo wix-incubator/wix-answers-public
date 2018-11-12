@@ -1,0 +1,52 @@
+& {
+	@import '../base-avatar/base-avatar';
+
+	& > div {
+		display: inline;
+	}
+
+	img,
+	.initials {
+		border-radius: 4px;
+	}
+
+	.svg-icon {
+		position: absolute;
+		bottom: 12%;
+		right: 12%;
+		display: inline-flex;
+	}
+
+	.initials {
+		justify-content: flex-start;
+		align-items: flex-start;
+
+		.inner {
+			padding-top: 12%;
+			padding-left: 12%;
+		}
+	}
+
+	&.xlarge .initials {
+		font-size: 2.3em;
+		border-radius: 8px;
+	}
+
+	&.large .initials {
+		font-size: 2em;
+		border-radius: 8px;
+	}
+
+	&.normal .initials {
+		font-size: 1.3em;
+		border-radius: 6px;
+	}
+
+	&.small .initials {
+		font-size: 1em;
+	}
+
+	&.xsmall .initials {
+		font-size: .9em;
+	}
+}

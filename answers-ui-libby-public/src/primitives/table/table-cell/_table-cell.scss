@@ -1,0 +1,15 @@
+& {
+	font-size: inherit;
+	font-weight: inherit;
+	text-align: left;
+
+	box-sizing: border-box;
+	padding: 20px;
+	min-height: 70px;
+	display: flex;
+	align-items: center;
+
+	> * {
+		overflow: hidden;
+	}
+}

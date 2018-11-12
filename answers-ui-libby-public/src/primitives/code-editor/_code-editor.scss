@@ -1,0 +1,35 @@
+& {
+	@import './codemirror';
+
+	display: inline-block;
+	text-align: left;
+	color: $secondary-d20;
+	transition: border .1s ease;
+	border-radius: 4px;
+	border: 1px solid $secondary-d50;
+	width: 100%;
+
+	&.has-focus {
+		border: 1px solid $primary;
+		color: $secondary-l10;
+
+		@include control-placeholder {
+			color: $secondary-d50;
+		}
+	}
+
+	/* CodeMirror overrides */
+	.CodeMirror {
+		border-radius: 4px;
+		font-family: inherit;
+
+		.CodeMirror-gutters {
+			background: $gray-d70;
+			border: 0;
+		}
+
+		.CodeMirror-linenumber {
+			text-align: center;
+		}
+	}
+}

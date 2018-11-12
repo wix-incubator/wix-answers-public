@@ -1,0 +1,8 @@
+
+/* tslint:disable */
+
+const icon: string = `
+<svg xmlns="http://www.w3.org/2000/svg" width="23" height="23"><g fill="none" fill-rule="evenodd"><circle cx="11.5" cy="11.5" r="11.5" fill="#3899EC"/><path fill="#FFF" d="M12 11h5v1h-5v5h-1v-5H6v-1h5V6h1v5z"/></g></svg>
+`;
+
+export = icon;

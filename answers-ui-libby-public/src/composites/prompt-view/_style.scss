@@ -1,0 +1,27 @@
+&.prompt-view {
+	padding: 20px 14px;
+
+	main {
+		padding-bottom: 4px;
+		width: 236px;
+	}
+
+	footer {
+		display: flex;
+		justify-content: flex-end;
+
+		.cancel {
+			margin-right: 14px;
+		}
+	}
+
+	&.unvalidated {
+		main {
+			padding: 12px 0;
+		}
+
+		.aul.form-input.value .aul.input.value {
+			margin: 0;
+		}
+	}
+}

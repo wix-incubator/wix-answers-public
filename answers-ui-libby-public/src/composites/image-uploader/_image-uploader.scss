@@ -1,0 +1,106 @@
+&.image-uploader {
+	border: 1px dashed $b10;
+	border-radius: 3px;
+	display: flex;
+
+	@import './file-uploader/style';
+
+	@include in-popover {
+
+		.image-from-web {
+			display: none;
+		}
+
+		.upload-image-popover-body {
+			.floater-menu {
+				.svg-icon {
+					margin-right: 10px;
+				}
+			}
+
+			.image-from-web-modal {
+				padding: 15px;
+				width: 315px;
+
+				.text {
+					margin-bottom: 6px;
+				}
+
+				.buttons-wrapper {
+					margin-top: 14px;
+					display: flex;
+					justify-content: flex-end;
+
+					.save-button {
+						margin-left: 14px;
+					}
+				}
+			}
+		}
+	}
+
+	.image-container {
+		background-repeat: no-repeat;
+		background-position: center;
+		width: 100%;
+		display: flex;
+	}
+
+	.uploader-content-wrapper {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-direction: column;
+		flex-grow: 1;
+		width: 100%;
+		transition: background 0.2s ease-in-out;
+
+		&:hover {
+			background: rgba(218, 239, 254, 0.6)
+		}
+	}
+
+	&.menu-open {
+		.uploader-content-wrapper {
+			background: rgba(218, 239, 254, 0.6)
+		}
+	}
+
+	&.uploading, &.upload-error {
+		.uploader-content-wrapper {
+			background: rgba(255, 255, 255, 0.9)
+		}
+	}
+
+	&.upload-error {
+		border-color: $r10;
+	}
+
+	.add-icon-wrapper {
+		color: $white;
+		background: $b10;
+		padding: 9px 8px;
+		border-radius: 50%;
+		opacity: 0;
+		cursor: pointer;
+		transition: opacity .2s ease-in-out;
+		box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.31);
+		width: 34px;
+		height: 34px;
+
+		.svg-icon svg {
+			display: initial;
+			vertical-align: initial;
+		}
+
+		&.show {
+			opacity: 1;
+		}
+	}
+
+	&:hover {
+		.add-icon-wrapper {
+			opacity: 1;
+		}
+	}
+}

@@ -1,0 +1,21 @@
+& {
+	min-height: 70px;
+	border-bottom: 1px solid $gray-d10;
+	display: grid;
+
+	&:last-child {
+		border-bottom: 0;		
+	}
+
+	&.clickable {
+		cursor: pointer;
+
+		&:hover {
+			background: $primary-l50;
+		}
+	}
+
+	.table-cell {
+		@import './../table-cell/table-cell';
+	}
+}

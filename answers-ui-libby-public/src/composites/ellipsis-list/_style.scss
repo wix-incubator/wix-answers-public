@@ -1,0 +1,29 @@
+
+&.ellipsis-list {
+	display: flex;
+	width: 100%;
+
+	.visible-list {
+		overflow: hidden;
+		flex-grow: 1;
+		display: flex;
+		list-style: none;
+		padding: 0;
+		margin: 0;
+		color: $d30;
+	}
+	
+	.ellipsis-list-item {
+		display: flex;
+		flex-shrink: 0;
+		padding-right: 3px;
+	}
+
+	.hidden-count-container {
+		cursor: default;
+
+		.counter {
+			font-weight: 300;
+		}
+	}
+}

@@ -1,0 +1,40 @@
+$toggle-button-primary: $primary;
+$toggle-button-disabled: $gray-l10;
+
+& {
+	vertical-align: middle;
+	background-color: $white;
+	color: $toggle-button-primary;
+	border: 1px solid $toggle-button-primary;
+	outline: 0;
+	cursor: pointer;
+	padding: 10px 15px;
+	border-radius: 4px;
+	transition: background-color .1s ease;
+
+	&.checked {
+		background-color: $toggle-button-primary;
+		color: $white;
+		transition: background-color .1s ease;
+	}
+
+	&:hover:not(.checked) {
+		background-color: $primary-b50;
+	}
+
+	&[disabled] {
+		pointer-events: none;
+		border-color: $toggle-button-disabled;
+		color: $toggle-button-disabled;
+
+		&.checked {
+			background-color: $toggle-button-disabled;
+			color: $white;
+		}
+	}
+
+	.svg-icon {
+		margin-right: 4px;
+		vertical-align: middle;
+	}
+}

@@ -1,0 +1,22 @@
+
+$namespace: 'aul';
+
+@import 'typography/mixins';
+
+.#{$namespace} {
+	font-family: 'Fira Sans';
+	font-size: 14px;
+	-webkit-font-smoothing: antialiased;
+
+	@import 'common/colors';
+	@import 'common/utils';
+
+	& {
+		@import 'primitives/primitives';
+		@import 'composites/composites';
+		@import 'avatars/avatars';
+		@import 'typography/typography';
+		@import 'animations/animations';
+		@import 'data-vis/style';
+	}
+}
