@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="150" height="150" viewBox="0 0 150 150">
+  <g fill="none" fill-rule="evenodd" transform="translate(16 20)">
+    <g transform="translate(10 10)">
+      <rect width="27" height="27" x="39" y="3" fill="#CBD2D9" rx="6"/>
+      <rect width="27" height="27" x="75" y="3" fill="#CBD2D9" rx="6"/>
+      <rect width="27" height="27" x="4" y="38" fill="#CBD2D9" rx="6"/>
+      <rect width="27" height="27" x="4" y="73" fill="#CBD2D9" rx="6"/>
+      <rect width="27" height="27" x="39" y="38" fill="#CBD2D9" rx="6"/>
+      <rect width="27" height="27" x="39" y="73" fill="#CBD2D9" rx="6"/>
+      <rect width="27" height="27" x="75" y="38" fill="#CBD2D9" rx="6"/>
+      <rect width="27" height="27" x="75" y="73" fill="#CBD2D9" rx="6"/>
+      <rect width="28" height="27" x="1" y="1" fill="#3CC7C5" stroke="#66747C" stroke-width="2" rx="6"/>
+      <rect width="28" height="27" x="35" fill="#FFF" stroke="#66747C" stroke-width="2" rx="6"/>
+      <rect width="28" height="27" x="71" fill="#FFF" stroke="#66747C" stroke-width="2" rx="6"/>
+      <rect width="28" height="27" y="35" fill="#FFF" stroke="#66747C" stroke-width="2" rx="6"/>
+      <rect width="28" height="27" y="70" fill="#FFF" stroke="#66747C" stroke-width="2" rx="6"/>
+      <rect width="28" height="27" x="35" y="35" fill="#FFF" stroke="#66747C" stroke-width="2" rx="6"/>
+      <rect width="28" height="27" x="35" y="70" fill="#FFF" stroke="#66747C" stroke-width="2" rx="6"/>
+      <rect width="28" height="27" x="71" y="35" fill="#FFF" stroke="#66747C" stroke-width="2" rx="6"/>
+      <rect width="28" height="27" x="71" y="70" fill="#FFF" stroke="#66747C" stroke-width="2" rx="6"/>
+      <text fill="#66747C" font-family="FiraSans-Medium, Fira Sans" font-size="14" font-weight="400">
+        <tspan x="11" y="20">1</tspan>
+      </text>
+      <text fill="#66747C" font-family="FiraSans-Medium, Fira Sans" font-size="14" font-weight="400">
+        <tspan x="10" y="53">4</tspan>
+      </text>
+      <text fill="#66747C" font-family="FiraSans-Medium, Fira Sans" font-size="14" font-weight="400">
+        <tspan x="10" y="88">7</tspan>
+      </text>
+      <text fill="#66747C" font-family="FiraSans-Medium, Fira Sans" font-size="14" font-weight="400">
+        <tspan x="46" y="19">2</tspan>
+      </text>
+      <text fill="#66747C" font-family="FiraSans-Medium, Fira Sans" font-size="14" font-weight="400">
+        <tspan x="46" y="53">5</tspan>
+      </text>
+      <text fill="#66747C" font-family="FiraSans-Medium, Fira Sans" font-size="14" font-weight="400">
+        <tspan x="46" y="88">8</tspan>
+      </text>
+      <text fill="#66747C" font-family="FiraSans-Medium, Fira Sans" font-size="14" font-weight="400">
+        <tspan x="82" y="19">3</tspan>
+      </text>
+      <text fill="#66747C" font-family="FiraSans-Medium, Fira Sans" font-size="14" font-weight="400">
+        <tspan x="82" y="53">6</tspan>
+      </text>
+      <text fill="#66747C" font-family="FiraSans-Medium, Fira Sans" font-size="14" font-weight="400">
+        <tspan x="82" y="88">9</tspan>
+      </text>
+    </g>
+    <g fill="#C2C7CB">
+      <path d="M0 12C0 12.55.45 13 1 13L5 13C5.55 13 6 12.55 6 12 6 11.45 5.55 11 5 11L1 11C.45 11 0 11.45 0 12M11 1L11 5C11 5.55 11.45 6 12 6 12.55 6 13 5.55 13 5L13 1C13 .45 12.55 0 12 0 11.45 0 11 .45 11 1M3.5146 3.5146C3.1256 3.9036 3.1256 4.5396 3.5146 4.9286L6.3426 7.7576C6.7326 8.1466 7.3686 8.1466 7.7576 7.7576 8.1466 7.3686 8.1466 6.7316 7.7576 6.3436L4.9286 3.5146C4.5396 3.1256 3.9036 3.1256 3.5146 3.5146"/>
+    </g>
+  </g>
+</svg>

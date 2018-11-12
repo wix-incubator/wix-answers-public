@@ -1,0 +1,31 @@
+&.chart-legend {
+    @import './legend-label-view/style';
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: nowrap;
+    flex-grow: 1;
+
+    .visible-labels-wrapper {
+        flex: 1;
+        display: flex;
+    }
+
+    .legend-label-view {
+        flex-grow: 1;
+    }
+
+    .more-labels {
+        cursor: pointer;
+        font-size: 12px;
+        color: $d20;
+        margin-left: 5px;
+        display: flex;
+        align-items: center;
+
+        .more-labels-icon {
+            color: $b20;
+        }
+    }
+}

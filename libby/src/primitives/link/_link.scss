@@ -1,0 +1,41 @@
+& {
+	text-decoration: none;
+	outline: 0;
+	transition: color .1s;
+	word-break: break-word;
+	color: $b10;
+
+	&:not(:active):hover {
+		color: $b20;
+
+		.arrow-icon {
+			border-color: $b20;
+		}
+
+		.arrow-icon::before {
+			background-color: $b20;
+		}
+	}
+
+	.arrow-icon {
+		position: relative;
+		border: solid $b10;
+		border-width: 1px 1px 0 0;
+		display: inline-block;
+		padding: 3px;
+		margin-left: 6px;
+		transition: border-color .1s;
+
+		&::before {
+			content: '';
+			width: 9px;
+			height: 1px;
+			transition: background-color .1s;
+			background-color: $b10;
+			position: absolute;
+			left: -1px;
+			transform: rotate(-45deg);
+			top: 2px;
+		}
+	}
+}

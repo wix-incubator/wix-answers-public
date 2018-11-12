@@ -1,0 +1,6 @@
+{
+    "extends": "./node_modules/answers-lib/config/tslint.json",
+    "rules": {
+		 "no-this-assignment": false
+    }
+}

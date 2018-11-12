@@ -1,0 +1,17 @@
+&.date-range-picker {
+	position: relative;
+
+	.actions-row {
+		text-align: right;
+		position: relative;
+		border-top: 1px solid $gr30;
+
+		.button {
+			margin: 10px;
+		}
+	}
+
+	.rdr-PredefinedRanges {
+		text-align: left;
+	}
+}

@@ -1,0 +1,89 @@
+$color-positive: $positive-g10;
+$color-primary: $primary-b10;
+$color-negative: $danger-r10;
+$color-disabled: $gray-d30;
+
+@mixin indicator-style($bg, $shadow) {
+	background: $bg;
+	border: 2px solid $white;
+	transform-style: preserve-3d;
+	flex-shrink: 0;
+
+	&.xsmall {
+		@include element-size(9px);
+
+		&::before {
+			@include element-size(3px);
+			transform: translateX(100%) translateY(100%)
+		}
+	}
+
+	&.small,
+	&.normal {
+		@include element-size(11px);
+
+		&::before {
+			@include element-size(5px);
+			transform: translateX(60%) translateY(60%);
+		}
+	}
+
+	&.large {
+		@include element-size(15px);
+		border-width: 3px;
+
+		&::before {
+			@include element-size(7px);
+			transform: translateX(60%) translateY(56%);
+		}
+	}
+
+	&.xlarge {
+		@include element-size(21px);
+		border-width: 4px;
+
+		&::before {
+			@include element-size(9px);
+			transform: translateX(70%) translateY(66%);
+		}
+	}
+
+	&.is-glowing {
+		box-shadow: 0 0 13px 0 rgba($shadow, 0.65);
+	}
+}
+
+& {
+	border-radius: 50%;
+	display: inline-block;
+	box-sizing: initial;
+
+	&[data-status="100"] {
+		@include indicator-style($color-disabled, $white);
+	}
+
+	&[data-status="10"] {
+		@include indicator-style($color-positive, $color-positive);
+	}
+
+	&[data-status="60"] {
+		@include indicator-style($color-negative, $color-negative);
+	}
+
+	&[data-status="40"],
+	&[data-status="50"] {
+		@include indicator-style($color-primary, $color-primary);
+	}
+
+	&[data-status="20"],
+	&[data-status="30"] {
+		@include indicator-style($color-primary, $color-primary);
+
+		&:before {
+			content: '';
+			background: $white;
+			display: block;
+			border-radius: 50%;
+		}
+	}
+}

@@ -1,0 +1,35 @@
+
+&.confirm-modal {
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	text-align: center;
+
+	.title {
+		word-break: break-word;
+	}
+
+	.modal-content {
+		width: 440px;
+
+		.modal-body {
+			padding: 40px 40px 12px 40px;
+			background: white;
+
+			.title {
+				margin-bottom: 4px;
+			}
+		}
+
+		.modal-footer {
+			justify-content: center;
+			padding: 12px 40px 40px 40px;
+			background: white;
+
+			.confirm {
+				margin-left: 14px;
+			}
+		}
+	}
+
+}

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="8px" height="12px" viewBox="0 0 8 12" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 47.1 (45422) - http://www.bohemiancoding.com/sketch -->
+    <title>Dubble arrow</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="User-status" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g transform="translate(-802.000000, -996.000000)" id="Group-6" fill-rule="nonzero" fill="#3899EC">
+            <g transform="translate(706.000000, 982.000000)">
+                <g id="Group-2-Copy-3" transform="translate(96.000000, 14.000000)">
+                    <path d="M7.2640627,0.699077663 L7.99959508,1.37656723 L4.33333333,5.35692997 L0.632233809,1.33874478 L1.36776619,0.661255216 L4.70109952,4.28016644 L3.96556714,4.28016644 L7.2640627,0.699077663 Z M7.2640627,6.69907766 L7.99959508,7.37656723 L4.33333333,11.35693 L0.632233809,7.33874478 L1.36776619,6.66125522 L4.70109952,10.2801664 L3.96556714,10.2801664 L7.2640627,6.69907766 Z" id="Dubble-arrow"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

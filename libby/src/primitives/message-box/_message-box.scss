@@ -1,0 +1,48 @@
+$warning-bg: $r10;
+$attention-bg: $o05;
+$info-bg: $b00;
+
+$neutral-bg: $d70;
+$neutral-color: $d20;
+$neutral-fill: $d30;
+
+& {
+	display: flex;
+	align-items: center;
+	align-items: center;
+	border-radius: 4px;
+	padding: 12px 14px;
+	text-align: left;
+	font-size: 12px;
+	color: $white;
+
+	.svg-icon {
+		margin-right: 8px;
+	}
+
+	&.attention {
+		background-color: $attention-bg;
+	}
+
+	&.warning {
+		background-color: $warning-bg;
+	}
+
+	&.info {
+		background-color: $info-bg;
+	}
+
+	&.neutral {
+		background-color: $neutral-bg;
+		color: $neutral-color;
+
+		path {
+			fill: $neutral-fill;
+		}
+	}
+
+	&.is-embedded {
+		padding: 12px 24px;
+		border-radius: 0;
+	}
+}

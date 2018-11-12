@@ -1,0 +1,34 @@
+&.ellipsis-text {
+
+	&.tooltip-visible {
+
+		&.tooltip-trigger {
+			display: block;
+		}
+
+		&.tooltip-portal-dest {
+			overflow: initial;
+		}
+
+		.popper-target {
+			overflow: hidden;
+		}
+
+		.popper-target {
+			> * {
+				overflow: hidden;
+				text-overflow: ellipsis;
+				white-space: nowrap;
+			}
+		}
+	}
+
+	&:not(.tooltip-visible) {
+		> * {
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+		}
+	}
+
+}

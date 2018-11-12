@@ -1,0 +1,73 @@
+&.button-group {
+
+	display: inline-block;
+
+	@mixin mid-button-border($color) {
+		> button {
+			&:not(:first-child) {
+				border-left: 1px solid mix($color, $d80, 70%);
+			}
+		}
+	}
+
+	> .button,
+
+	// this exists because sometimes the button will not be the direct child of the group (for example when using a wrapper, such as popover component)
+	> .button-container {
+		&:first-child {
+
+			&, .button {
+				border-bottom-right-radius: 0px;
+				border-top-right-radius: 0px;
+				padding-right: 15px;
+			}
+		}
+
+		&:last-child {
+			&, .button {
+				border-bottom-left-radius: 0px;
+				border-top-left-radius: 0px;
+				padding-left: 15px;
+			}
+
+			&.options,
+			.button.options {
+				padding-top: 6px;
+				padding-bottom: 6px;
+				padding-left: 3px;
+				padding-right: 8px;
+
+				> .svg-icon {
+					margin-right: 0;
+					transform: translate(2px, 0px);
+				}
+			}
+		}
+
+		&:not(:first-child):not(:last-child) {
+			border-radius: 0;
+			padding-left: 15px;
+			padding-right: 15px;
+		}
+	}
+
+	&.default {
+		@include mid-button-border($b20);
+	}
+
+	&.positive {
+		@include mid-button-border($g05);
+	}
+
+	&.danger {
+		@include mid-button-border($r10);
+	}
+
+	&.attention {
+		@include mid-button-border($y10);
+	}
+
+	&.special {
+		@include mid-button-border($o05);
+	}
+}

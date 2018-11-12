@@ -1,0 +1,25 @@
+&.click-to-copy {
+	&:not(.copied) {
+		cursor: pointer;
+	}
+
+	&.copied.tooltip {
+		background: $b00;
+
+		.popper-arrow {
+			display: none;
+		}
+	}
+
+	// .popper-target {
+	// 	overflow: hidden;
+	// }
+
+	// .popper-target {
+	// 	> * {
+	// 		overflow: hidden;
+	// 		text-overflow: ellipsis;
+	// 		white-space: nowrap;
+	// 	}
+	// }
+}

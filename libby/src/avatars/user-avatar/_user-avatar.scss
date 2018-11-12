@@ -1,0 +1,55 @@
+& {
+	@import '../base-avatar/base-avatar';
+
+	&.anonymous .initials {
+		color: $d40;
+	}
+
+	img,
+	.initials {
+		border-radius: 50%;
+	}
+
+	.avatar-inner {
+		display: inline;
+	}
+
+	.user-badge {
+		position: absolute;
+		display: inline-flex;
+		right: 0;
+		bottom: -2px;
+		background-color: $white;
+		border: 1px solid $d50;
+		border-radius: 50%;
+
+		&.large {
+			padding: 5px 6px;
+		}
+
+		&.normal {
+			padding: 4px 5px;
+			right: -4px;
+			bottom: -5px;
+		}
+
+		&.small {
+			padding: 3px 4px;
+			right: -4px;
+			bottom: -5px;
+		}
+	}
+
+	&.avatar-on-background .user-badge {
+		border-width: 3px;
+		border-color: $d15;
+
+		&.large {
+			right: -4px;
+		}
+
+		&.normal {
+			right: -6px;
+		}
+	}
+}

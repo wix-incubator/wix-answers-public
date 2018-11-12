@@ -1,0 +1,9 @@
+.icons-story {
+	display: flex;
+	flex-wrap: wrap;
+
+	.column {
+		padding: 10px;
+		flex: 1 15%;
+	}
+}

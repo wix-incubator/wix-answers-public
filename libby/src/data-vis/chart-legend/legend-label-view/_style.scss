@@ -1,0 +1,26 @@
+.legend-label-view {
+    max-width: 170px;
+    min-width: 0;
+    border-radius: 5px;
+    font-size: 12px;
+    cursor: pointer;
+    position: relative;
+    display: inline-flex;
+    justify-content: space-between;
+    padding: 5px 14px;
+    margin: 5px;
+
+    &.disabled {
+        pointer-events: none;
+    }
+
+    .label-name {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+
+    .label-value {
+        margin-left: 14px;
+    }
+}

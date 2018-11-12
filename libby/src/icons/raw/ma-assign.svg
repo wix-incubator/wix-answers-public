@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="31px" height="31px" viewBox="0 0 31 31" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 49.3 (51167) - http://www.bohemiancoding.com/sketch -->
+    <title>Assign</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Assign" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <circle id="Oval" stroke="#3899EC" stroke-width="2" cx="11.5" cy="11.5" r="3.5"></circle>
+        <rect id="Rectangle-6" stroke="#3899EC" stroke-width="2" x="5" y="18" width="13" height="6" rx="2"></rect>
+        <rect id="Rectangle-7" fill="#3899EC" x="19" y="12" width="8" height="2"></rect>
+        <rect id="Rectangle-7" fill="#3899EC" transform="translate(23.000000, 13.000000) rotate(-90.000000) translate(-23.000000, -13.000000) " x="19" y="12" width="8" height="2"></rect>
+    </g>
+</svg>
+

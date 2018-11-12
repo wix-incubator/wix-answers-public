@@ -1,0 +1,9 @@
+& {
+	&.button {
+		@import 'button/button';
+	}
+
+	&.link-button {
+		@import 'link-button/link-button';
+	}
+}

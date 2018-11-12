@@ -1,0 +1,27 @@
+$animation-speed: .1s;
+
+&.nav-button {
+	@import '../../primitives/buttons/button/button';
+
+	&.primary {
+		.arrow-icon {
+			border-color: $white;
+		}
+
+		.arrow-icon::before {
+			background-color: $white;
+		}
+	}
+
+	&.aul:hover {
+		color: $white;
+
+		.arrow-icon {
+			border-color: $white;
+		}
+
+		.arrow-icon::before {
+			background-color: $white;
+		}
+	}
+}

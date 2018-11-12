@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
+  <g fill-rule="evenodd">
+    <rect width="3" height="3" x="3"/>
+    <rect width="3" height="3" x="3" y="7"/>
+    <path fill-rule="nonzero" d="M2,15 L2,18 L5,18 L5,15 L2,15 Z M0,13 L7,13 L7,20 L0,20 L0,13 Z"/>
+    <rect width="3" height="3" x="10"/>
+    <rect width="3" height="3" x="10" y="7"/>
+    <rect width="3" height="3" x="10" y="14"/>
+    <rect width="3" height="3" x="17"/>
+    <rect width="3" height="3" x="17" y="7"/>
+    <rect width="3" height="3" x="17" y="14"/>
+  </g>
+</svg>

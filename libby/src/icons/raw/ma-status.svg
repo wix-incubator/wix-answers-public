@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="31px" height="31px" viewBox="0 0 31 31" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 49.3 (51167) - http://www.bohemiancoding.com/sketch -->
+    <title>Status new</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <path d="M28.2767593,20.1347246 C28.2767593,15.7164466 24.6950373,12.1347246 20.2767593,12.1347246 C15.8584813,12.1347246 12.2767593,15.7164466 12.2767593,20.1347246" id="path-1"></path>
+        <mask id="mask-2" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="16" height="8" fill="white">
+            <use xlink:href="#path-1"></use>
+        </mask>
+        <path d="M16.8531348,14.3109846 L14.1742406,14.3109846 C13.6342396,14.3109846 13.1964822,13.8732273 13.1964822,13.3332262 C13.1964822,12.7932252 13.6342396,12.3554678 14.1742406,12.3554678 L17.2221684,12.3554678 L19.2350115,12.3554678 C19.2350115,12.3562505 19.2350113,12.3570332 19.2350111,12.3578158 C19.7550765,12.3932939 20.1659417,12.8263995 20.1659417,13.3554678 L20.1659417,18.2054787 C20.1659417,18.76131 19.7153514,19.2119003 19.1595202,19.2119003 C18.6036889,19.2119003 18.1530986,18.76131 18.1530986,18.2054787 L18.1530986,16.1983687 C16.692382,18.6500936 13.9214686,20.3554678 10.89442,20.3554678 C7.76207212,20.3554678 4.49351991,18.6099682 3.1659417,15.9130201 L4.98181633,15.0693423 C5.97802202,17.0931138 8.54453873,18.3999511 10.89442,18.3999511 C13.5313669,18.3999511 15.9543558,16.6466109 16.8531348,14.3109846 Z" id="path-3"></path>
+    </defs>
+    <g id="Status-new" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <use id="Oval-10" stroke="#3899EC" mask="url(#mask-2)" stroke-width="4" stroke-dasharray="5,2" transform="translate(20.276759, 16.134725) rotate(-272.000000) translate(-20.276759, -16.134725) " xlink:href="#path-1"></use>
+        <mask id="mask-4" fill="white">
+            <use xlink:href="#path-3"></use>
+        </mask>
+        <use id="Mask" fill="#3899EC" fill-rule="nonzero" transform="translate(11.665942, 16.355468) scale(-1, 1) rotate(-70.000000) translate(-11.665942, -16.355468) " xlink:href="#path-3"></use>
+    </g>
+</svg>

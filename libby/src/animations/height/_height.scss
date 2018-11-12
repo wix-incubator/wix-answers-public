@@ -1,0 +1,11 @@
+&.height {
+	font-size: inherit;
+
+	&.hide {
+		transition: height .2s ease-in-out;
+	}
+
+	&.show {
+		transition: height .2s ease-in-out;
+	}
+}

@@ -1,0 +1,97 @@
+$focused-input-width: 200px;
+
+& {
+	position: relative;
+	display: flex;
+	justify-content: flex-end;
+	margin-right: 14px;
+	z-index: 1;
+
+	.input {
+		width: 34px;
+		transition: width .2s;
+
+		&.is-focused,
+		&.has-value {
+			width: $focused-input-width;
+
+			input {
+				@include ellipsis-line();
+				padding-right: 30px;
+				padding-left: 30px;
+
+				&::placeholder {
+					opacity: 1;
+				}
+			}
+		}
+
+		&:not(.is-focused):not(.has-value) input {
+			cursor: pointer;
+		}
+	}
+
+	input.aul {
+		padding: 6px 0 6px 30px;
+		border-radius: 50px;
+		transition: padding .2s;
+		color: $secondary;
+		border: 1px solid $primary;
+		background-color: transparent;
+		z-index: 1;
+
+		&:hover:not(:focus) {
+			background-color: transparent;
+		}
+
+		&:focus {
+			color: $secondary;
+		}
+
+		&::placeholder {
+			opacity: 0;
+			transition: opacity .2s;
+		}
+	}
+
+	.search-icon {
+		display: inline-flex;
+		position: relative;
+		color: $primary;
+		left: 26px;
+		top: 9px;
+		transition: all .2s;
+		z-index: -1;
+	}
+
+	.reset-search-btn {
+		position: absolute;
+		display: inline-flex;
+		align-items: center;
+		right: 8px;
+		top: 0;
+		bottom: 0;
+		z-index: 1;
+		cursor: pointer;
+
+		.svg-icon {
+			display: inline-flex;
+			background-color: $b50;
+			border-radius: 50%;
+			color: $b20;
+		}
+	}
+
+	&.is-disabled {
+		pointer-events: none;
+
+		.svg-icon {
+			color: $gray-d15;
+		}
+
+		input.aul {
+			background-color: transparent;
+			border-color: $gray-d15;
+		}
+	}
+}

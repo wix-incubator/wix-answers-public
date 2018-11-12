@@ -1,0 +1,30 @@
+& {
+	@import '../base-avatar/base-avatar';
+
+	.status-indicator {
+		position: absolute;
+		display: block;
+		bottom: -10%;
+		right: -10%;
+	}
+
+	&.small .status-indicator {
+		right: -9%;
+		bottom: -9%;
+	}
+
+	&.normal .status-indicator {
+		right: -5%;
+		bottom: -5%;
+	}
+
+	&.large .status-indicator {
+		right: -4%;
+		bottom: -5%;
+	}
+
+	&.xlarge .status-indicator {
+		right: -5%;
+		bottom: -5%;
+	}
+}

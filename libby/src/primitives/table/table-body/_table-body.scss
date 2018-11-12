@@ -1,0 +1,7 @@
+& {
+	color: $secondary-l10;
+
+	.table-row {
+		@import './../table-row/table-row';
+	}
+}

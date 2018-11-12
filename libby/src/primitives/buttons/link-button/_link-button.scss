@@ -1,0 +1,31 @@
+& {
+	color: $primary;
+	border: 0;
+	outline: 0;
+	cursor: pointer;
+	transition: color .1s ease;
+	word-break: break-word;
+	padding: 0;
+	background-color: transparent;
+
+	&:disabled {
+		pointer-events: none;
+	}
+
+	&.danger {
+		color: $danger;
+	}
+
+	&:not(:active):hover {
+		color: $primary-l10;
+
+		&.danger {
+			color: $danger-d10;
+		}
+	}
+
+	&:not(:active):disabled {
+		cursor: default;
+		color: $gray-d15;
+	}
+}

@@ -1,0 +1,111 @@
+& {
+	min-width: 150px;
+	overflow: hidden;
+
+	.multi-input-wrapper {
+		display: inline-block;
+		color: $secondary-d20;
+		outline: none;
+		transition: border .1s ease;
+		border-radius: 4px;
+		resize: none;
+		border: 1px solid $secondary-d50;
+		width: 100%;
+		padding: 0;
+		text-align: left;
+		cursor: text;
+
+		.react-tagsinput > span {
+			margin: 0 6px;
+			display: inline-block;
+		}
+
+		&:hover:not(.focused):not(.with-error) {
+			border-color: $b20;
+		}
+
+		&.focused {
+			border-color: $b10;
+
+			input {
+				@include control-placeholder {
+					color: $d50;
+				}
+			}
+		}
+
+		&.with-error {
+			border-color: $danger-r10;
+		}
+
+		// @include input-field-states();
+
+		input {
+			outline: none;
+			border: none;
+			font-family: inherit;
+			font-size: 1em;
+			background-color: transparent;
+			padding: 10px 10px 10px 4px;
+
+			&::placeholder {
+				font-size: 1em;
+			}
+		}
+
+		&.has-values input {
+			padding-left: 0;
+		}
+
+		.react-tagsinput-tag {
+			display: inline-block;
+			background-color: $b40;
+			border-radius: 4px;
+			color: $d20;
+			position: relative;
+			padding: 3px 11px;
+			margin: 6px 6px 0 0;
+			font-size: 1em;
+			border: 1px solid $b30;
+			word-break: break-word;
+			cursor: pointer;
+
+			.react-tagsinput-remove {
+				position: absolute;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				top: 0;
+			}
+
+			&:hover,
+			&:active {
+				text-decoration: line-through;
+			}
+
+			&:active {
+				background-color: $b50;
+			}
+		}
+	}
+
+	&.disabled .multi-input-wrapper {
+		pointer-events: none;
+		background-color: $gray-l30;
+		color: $secondary-l20;
+		border-color: $gray-d10;
+
+		.react-tagsinput-tag {
+			background-color: $d70;
+			border-color: $gr10;
+			color: $d50;
+		}
+	}
+
+	.text.invalid-msg {
+		display: block;
+		text-align: left;
+		color: $danger-r10;
+		margin-top: 5px;
+	}
+}

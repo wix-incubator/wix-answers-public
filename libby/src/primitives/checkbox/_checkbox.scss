@@ -1,0 +1,107 @@
+$animation-speed: .1s;
+
+& {
+	display: inline-flex;
+	align-items: center;
+	min-height: 20px;
+	cursor: pointer;
+
+	.check-icon {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		background-color: $white;
+		position: relative;
+		border-radius: 4px;
+		display: inline-block;
+		border: 1px solid $primary;
+		width: 13px;
+		height: 13px;
+		transition: background-color $animation-speed linear, border $animation-speed linear;
+
+		.svg-icon {
+			display: flex;
+			// justify-content: center;
+
+			svg {
+				fill: $white;
+				transition: fill $animation-speed linear;
+				background-color: transparent;
+				width: 11px;
+				height: 12px;
+			}
+		}
+	}
+
+	&:not(.checked) {
+		.check-icon .svg-icon {
+			opacity: 0;
+		}
+	}
+
+	.checkbox-body {
+		padding-left: 6px;
+	}
+
+	&:hover {
+		.check-icon {
+			background-color: $primary-l50;
+
+			svg {
+				fill: $primary-l50;
+			}
+		}
+	}
+
+	&:active:not(.disabled) {
+		&,
+		&.checked {
+			.check-icon {
+				background-color: $primary-l10;
+				border-color: $primary-l10;
+			}
+		}
+	}
+
+	&.large {
+		.check-icon {
+			display: flex;
+			width: 20px;
+			height: 20px;
+
+			svg {
+				width: inherit;
+				height: inherit;
+			}
+		}
+	}
+
+	&.checked {
+		.check-icon {
+			background-color: $primary;
+		}
+	}
+
+	&.disabled {
+		// pointer-events: none;
+		cursor: default;
+
+		.checkbox-body.text {
+			color: $d50;
+		}
+
+		.check-icon {
+			opacity: .8;
+			border-color: $gray-d20;
+			background-color: $gray-l10;
+
+			.svg-icon svg {
+				fill: $gray-l10;
+			}
+		}
+
+		&.checked .svg-icon svg {
+			fill: $gray-d30;
+		}
+	}
+}

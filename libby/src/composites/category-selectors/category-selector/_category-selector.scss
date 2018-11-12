@@ -1,0 +1,16 @@
+
+& {
+	.Select-option,
+	.Select-value-label {
+		@include ellipsis-line();
+		display: block;
+
+		.tooltip-trigger {
+			display: block;
+
+			.popper-target div {
+				@include ellipsis-line();
+			}
+		}
+	}
+}

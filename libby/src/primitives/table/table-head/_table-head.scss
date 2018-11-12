@@ -1,0 +1,19 @@
+$table-head-height: 40px;
+$table-head-background: $gray-l30;
+$table-head-color: $d20;
+
+& {
+	display: grid;
+	height: $table-head-height;
+	background-color: $table-head-background;
+	color: $table-head-color;
+	font-weight: 500;
+	user-select: none;
+
+	.table-head-cell {
+		@import './../table-head-cell/table-head-cell';
+
+		border-bottom: 1px solid $gray-d10;
+		color: $table-head-color;
+	}
+}

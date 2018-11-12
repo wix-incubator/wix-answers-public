@@ -1,0 +1,49 @@
+&.slide-container {
+	display: flex;
+	flex-direction: row;
+	overflow: hidden;
+
+	$transition-settings: transform .3s ease-in-out;
+
+	> * {
+		flex-shrink: 0;
+		width: 100%;
+
+		&.slide-left-enter {
+			transform: translate3d(100%, 0, 0);
+		}
+
+		 &.slide-left-enter.slide-left-enter-active {
+			transform: translate3d(0%, 0, 0);
+			transition: $transition-settings;
+		}
+
+		 &.slide-left-leave {
+			transform: translate3d(-100%, 0, 0);
+		}
+
+		&.slide-left-leave.slide-left-leave-active {
+			transition: $transition-settings;
+			transform: translate3d(-200%, 0, 0);
+		}
+
+		&.slide-right-enter {
+			transform: translate3d(-100%, 0, 0);
+		}
+
+		 &.slide-right-enter.slide-right-enter-active {
+			transform: translate3d(0%, 0, 0);
+			transition: $transition-settings;
+		}
+
+		 &.slide-right-leave {
+			transform: translate3d(-100%, 0, 0);
+		}
+
+		&.slide-right-leave.slide-right-leave-active {
+			transition: $transition-settings;
+			transform: translate3d(0%, 0, 0);
+		}
+	}
+
+}

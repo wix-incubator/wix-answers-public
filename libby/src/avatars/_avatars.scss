@@ -1,0 +1,17 @@
+& {
+	 &.user-avatar {
+		@import 'user-avatar/user-avatar';
+	}
+
+	&.call-center-avatar {
+		@import 'call-center-avatar/call-center-avatar';
+	}
+
+	 &.group-avatar {
+		 @import 'group-avatar/group-avatar';
+	 }
+
+	 &.queue-avatar {
+		 @import 'queue-avatar/queue-avatar';
+	 }
+}

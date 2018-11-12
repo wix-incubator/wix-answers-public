@@ -1,0 +1,32 @@
+
+& {
+	.Select-option {
+		@include ellipsis-line();
+		// display: block;
+
+		.tooltip-trigger {
+			display: block;
+
+			.popper-target > div {
+				@include ellipsis-line();
+			}
+		}
+	}
+
+	.Select.multi-select {
+		.Select-multi-value-wrapper .Select-value {
+			// @include ellipsis-line();
+			// display: inline-flex;
+			max-width: 170px;
+
+			.tooltip-trigger, .Select-value-label {
+				@include ellipsis-line();
+				display: block;
+
+				.popper-target div {
+					@include ellipsis-line();
+				}
+			}
+		}
+	}
+}

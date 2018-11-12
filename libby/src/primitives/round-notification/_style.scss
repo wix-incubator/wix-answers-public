@@ -1,0 +1,38 @@
+$size: 15px;
+
+& {
+	width: $size;
+	height: $size;
+	line-height: $size;
+	border-radius: $size/2;
+	font-size: 11px;
+	text-align: center;
+	font-weight: 500;
+
+	&.high {
+		width: fit-content;
+		padding-left: 5px;
+		padding-right: 5px;
+	}
+
+	&.info {
+		background-color: $b30;
+		color: $b10;
+	}
+	&.alert {
+		background-color: $b10;
+		color: $d80;
+	}
+	&.warning {
+		background-color: $r10;
+		color: $d80;
+	}
+	&.check {
+		background-color: $positive-g10;
+		color: $d80;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		width: 15px;
+	}
+}

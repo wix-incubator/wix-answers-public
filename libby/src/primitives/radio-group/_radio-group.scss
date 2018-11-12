@@ -1,0 +1,46 @@
+& {
+	cursor: pointer;
+	margin: 0 10px;
+
+	.inner-radio-button {
+        @import 'internal-radio-button/internal-radio-button';
+    }
+
+    &.checked {
+		.radio-icon::after {
+			background-color: $primary;
+		}
+	}
+
+	&:hover {
+		.radio-icon {
+			background-color: $primary-l50;
+		}
+	}
+
+	&:active:not(.disabled) {
+		.radio-icon {
+			background-color: transparent;
+
+			&::after {
+				background-color: $primary-l10;
+			}
+		}
+	}
+
+	&.disabled {
+		cursor: default;
+
+		.radio-icon {
+			opacity: .8;
+			border-color: $gray-d20;
+			background-color: $gray;
+		}
+
+		&.checked {
+			.radio-icon::after {
+				background-color: $gray-d30;
+			}
+		}
+	}
+}

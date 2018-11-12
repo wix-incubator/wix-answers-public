@@ -1,0 +1,53 @@
+@mixin blue-popover-style() {
+	.Popover-tipShape {
+		fill: $main-blue;
+	}
+
+	.Popover-body {
+		background: $main-blue;
+	}
+}
+
+& {
+	@at-root .aul.Popover {
+		z-index: 10;
+
+		.Popover-body {
+			border-radius: 4px;
+			box-shadow: 0 0 20px 2px rgba($black, .15);
+			padding: 0;
+		}
+
+		&.primary {
+			.Popover-body {
+				background: $white;
+			}
+
+			.Popover-tipShape {
+			  fill: $white;
+			}
+		}
+
+		&.secondary {
+			.Popover-body {
+				background: $d15;
+				color: $gray-l10;
+			}
+
+			.Popover-tipShape {
+				fill: $d15;
+			}
+		}
+
+		&.dark {
+			.Popover-body {
+				background: $secondary-d60;
+				color: $gray-d30;
+			}
+
+			.Popover-tipShape {
+				fill: $secondary-d60;
+			}
+		}
+	}
+}

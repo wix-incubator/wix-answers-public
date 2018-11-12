@@ -1,0 +1,154 @@
+&.phone-input {
+	@import './react-telephone-input';
+
+	input {
+		@include input-field-states();
+		text-overflow: ellipsis;
+		border-radius: 0 4px 4px 0;
+		width: 100%;
+		min-width: 1px; // For FF issues with flex
+	}
+
+	.react-tel-input {
+		display: flex;
+		flex-direction: row-reverse;
+		width: 100%;
+
+		.flag {
+			border-radius: 4px;
+			box-shadow: inset 0 0 2px 0 rgba(0, 0, 0, 0.5);
+		}
+	}
+
+	&.is-focused,
+	&:hover {
+		.flag-dropdown,
+		input {
+			border-color: $b20;
+		}
+	}
+
+	.flag-dropdown {
+		display: flex;
+		flex-shrink: 0;
+		background: $white;
+		border: 1px solid $secondary-d50;
+		border-radius: 4px 0 0 4px;
+		border-right: none;
+		box-shadow: none;
+		position: relative;
+		width: 56px;
+
+		&.open-dropdown {
+			.selected-flag {
+				background: $b50;
+				border-radius: 4px 0 0 4px;
+
+				.arrow.up {
+					border-left: 4px solid transparent;
+					border-right: 4px solid transparent;
+					border-top: none;
+					border-bottom: 4px solid $b10;
+				}
+
+				&:before {
+					position: absolute;
+					content: '';
+					background: white;
+					border-radius: 3px;
+					transform: rotate(45deg);
+					box-shadow: 0 -1px 7px -2px rgba(0, 0, 0, .3);
+					width: 12px;
+					height: 12px;
+					bottom: -20px;
+					left: 50%;
+				}
+			}
+		}
+
+		.country-list {
+			border-radius: 4px;
+			max-height: 215px;
+			overflow-y: scroll;
+			width: 270px;
+			background: $white;
+			position: absolute;
+			z-index: 999;
+			padding: 0;
+			margin: 0;
+			list-style: none;
+			top: calc(100% + 15px);
+			box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.15);
+
+			.country {
+				cursor: pointer;
+				color: $secondary-l10;
+				display: flex;
+				align-items: center;
+				padding: 12px;
+
+				&.highlight {
+					background: $primary;
+
+					.country-name {
+						color: $white;
+					}
+
+					.dial-code {
+						color: $d80;
+					}
+				}
+		
+				&:not(.highlight):hover {
+					background: $primary-l50;
+				}
+
+				.country-name {
+					color: $d20;
+					margin-right: 5px;
+					overflow: hidden;
+					white-space: pre;
+					text-overflow: ellipsis;
+				}
+	
+				.dial-code {
+					color: $d30;
+					font-weight: 300;
+				}
+			}
+
+			.divider {
+				border-bottom: 0;
+			}
+		}
+
+		.selected-flag {
+			cursor: pointer;
+			display: flex;
+			flex: 1;
+			align-items: center;
+			padding: 0 0 0 12px;
+
+			.arrow {
+				border-left: 4px solid transparent;
+				border-right: 4px solid transparent;
+				border-top: 4px solid $secondary-d50;
+				left: 22px;
+
+				&.up {
+					border: 0;
+				}
+			}
+		}
+
+		&:hover {
+			.arrow {
+				border-top: 4px solid $b20;
+
+				&.up {
+					border: 0;
+				}
+			}
+		}
+	}
+}

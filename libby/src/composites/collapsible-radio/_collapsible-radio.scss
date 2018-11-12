@@ -1,0 +1,93 @@
+$animation-speed: .2s;
+
+& {
+    display: inline-block;
+    border: solid 1px $gray-d20;
+    border-radius: 5px;
+    transition: box-shadow $animation-speed ease;
+    overflow: hidden;
+    background: $white;
+
+    > .collapsible-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 15px;
+        border-bottom: solid 1px transparent;
+        transition: border $animation-speed linear, background $animation-speed linear;
+        cursor: pointer;
+
+        &::after {
+            content: '';
+            width: 10px;
+            height: 10px;
+            bottom: -6px;
+            left: 50px;
+            position: absolute;
+            transform: rotate(45deg);
+            transition: border $animation-speed linear, background $animation-speed linear;
+            border: transparent;
+            background-color: transparent;
+        }
+
+        .radio-group-button {
+            margin: 0;
+        }
+
+        .radio-body {
+            padding: 12px 0;
+            margin-left: 12px;
+        }
+
+        .header-text {
+            flex: 1 100%;
+            text-align: left;
+        }
+    }
+
+    .collapsible-body {
+        .body-wrapper {
+            margin: 15px 24px;
+        }
+    }
+
+    &.has-description {
+        .radio-body {
+            padding: 17px 0;
+        }
+    }
+
+    &.checked {
+        border-color: $primary-b30;
+
+        > .collapsible-header {
+            border-color: $primary-b30;
+            background: $primary-b50;
+            position: relative;
+
+            &::after {
+                border-right: 1px solid $primary-b30;
+                border-bottom: 1px solid $primary-b30;
+                background-color: $primary-b50;
+            }
+        }
+
+        .header-text:before {
+            transform: rotate(135deg);
+        }
+
+        &.no-children {
+            .collapsible-header {
+                border-color: transparent;
+
+                &::after {
+                    display: none;
+                }
+            }
+        }
+    }
+
+    &.disabled .collapsible-header {
+        cursor: default;
+    }
+}

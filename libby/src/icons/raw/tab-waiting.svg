@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 51 (57462) - http://www.bohemiancoding.com/sketch -->
+    <title>waiting icon</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Icons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g transform="translate(-82.000000, -1706.000000)" id="waiting-icon">
+            <g transform="translate(83.000000, 1707.000000)">
+                <circle id="Oval-5" stroke="currentColor" stroke-width="2" cx="9" cy="9" r="9"></circle>
+                <rect id="Rectangle-5" fill="currentColor" x="7" y="4" width="2" height="7" rx="1"></rect>
+                <path d="M9.84986934,7.97774301 L9.84986934,7.97774301 C10.4021541,7.97774301 10.8498693,8.42545826 10.8498693,8.97774301 L10.8498693,12.3426483 C10.8498693,12.8949331 10.4021541,13.3426483 9.84986934,13.3426483 L9.84986934,13.3426483 C9.29758459,13.3426483 8.84986934,12.8949331 8.84986934,12.3426483 L8.84986934,8.97774301 C8.84986934,8.42545826 9.29758459,7.97774301 9.84986934,7.97774301 Z" id="Rectangle-5" fill="currentColor" transform="translate(9.849869, 10.660196) rotate(-255.000000) translate(-9.849869, -10.660196) "></path>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,17 @@
+$flagsSpriteUrl: 'https://d2x3xhvgiqkx42.cloudfront.net/12345678-1234-1234-1234-1234567890ab/97024db5-d8d8-41a3-a7f1-d1dd10e4734a/2017/08/08/14c5331e-81f8-42ba-9c9f-45df0b1fe2b8.png';
+
+&.country-flag-container {
+	display: inline-flex;
+	align-items: center;
+
+	.flag-icon {
+		background: url($flagsSpriteUrl) no-repeat;
+		display: inline-block;
+		width: 16px;
+		height: 11px;
+	}
+
+	.country-name {
+		margin-left: 4px;
+	}
+}

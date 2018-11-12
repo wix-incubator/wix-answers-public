@@ -1,0 +1,9 @@
+import * as React from 'react';
+import { Icon } from '../../primitives/icon/icon';
+
+/* tslint:disable */
+const icon = `<svg xmlns="http://www.w3.org/2000/svg" width="11" height="11">
+	<path fill-rule="evenodd" d="M6 5V0H5v5H0v1h5v5h1V6h5V5H6z"/>
+</svg>`;
+
+export const Plus = () => <Icon icon={icon}/>;

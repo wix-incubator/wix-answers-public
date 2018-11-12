@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="15px" height="15px" viewBox="0 0 15 15" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 51 (57462) - http://www.bohemiancoding.com/sketch -->
+    <title>v badge</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="v-badge" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <path d="M7.89823999,9.01728223 L7.72482805,5.29659965 C7.70612952,4.89540869 8.0162009,4.555021 8.41739186,4.53632247 C8.42866977,4.53579683 8.43995839,4.53553391 8.45124855,4.53553391 C8.87858937,4.53553391 9.23138732,4.86958702 9.25469505,5.29629176 L9.53553391,10.43773 L9.5295895,10.4340379 L9.53382422,10.4392551 L6.25607997,10.5377485 C5.8699117,10.5493526 5.54745354,10.2457083 5.53584952,9.85953998 C5.53563912,9.85253831 5.53553391,9.84553387 5.53553391,9.83852903 C5.53553391,9.43554704 5.85313673,9.10416492 6.25575556,9.08706035 L7.89823999,9.01728223 Z" id="V-Indication" fill="currentColor" fill-rule="nonzero" transform="translate(7.535534, 7.535534) rotate(45.000000) translate(-7.535534, -7.535534) "></path>
+    </g>
+</svg>

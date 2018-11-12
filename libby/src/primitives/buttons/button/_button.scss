@@ -1,0 +1,56 @@
+& {
+	@import '../base-button/base-button';
+
+	@mixin libby-button($main-color, $hover-color, $active-color) {
+		background: $main-color;
+		border-color: $main-color;
+
+		&:hover {
+			background: $hover-color;
+			border-color: $hover-color;
+		}
+
+		&:active {
+			background: $active-color;
+			border-color: $active-color;
+		}
+
+		&.hollow {
+			background: $white;
+			color: $main-color;
+
+			&:hover {
+				background: $hover-color;
+				color: $white;
+			}
+
+			&:active {
+				background: $active-color;
+				border-color: $active-color;
+				color: $white;
+			}
+		}
+	}
+
+	&:not(.disabled) {
+		&.positive {
+			@include libby-button($positive-g05, $positive-g10, $positive-g10);
+		}
+
+		&.danger {
+			@include libby-button($danger-r05, $danger-r10, $danger-r10);
+		}
+
+		&.attention {
+			@include libby-button($attention-o05, $attention-o10, $attention-o10);
+		}
+
+		&.special {
+			@include libby-button($y10, $y5, $y10);
+		}
+
+		&.premium {
+			@include libby-button($p05, $p10, $p05);
+		}
+	}
+}

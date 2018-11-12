@@ -1,0 +1,76 @@
+$default-avatar-colors: #fcb941, #d48fd6, #a187e4, #e9bc83, #b9dadd, #c19d9d, #64ddc5, #ff736d, #6ce78f, #3197ef;
+$default-size: 45px;
+$xsmall-size: 27px;
+$small-size: 33px;
+$large-size: 65px;
+$xlarge-size: 87px;
+
+& {
+	@include element-size($default-size);
+	display: inline-block;
+	position: relative;
+
+	&.xlarge {
+		@include element-size($xlarge-size);
+
+		.initials {
+			font-size: 1.35em;
+		}
+	}
+
+	&.large {
+		@include element-size($large-size);
+
+		.initials {
+			font-size: 1.25em;
+		}
+	}
+
+	&.normal {
+		font-size: 1em;
+	}
+
+	&.small {
+		@include  element-size($small-size);
+
+		.initials {
+			font-size: .85em;
+		}
+	}
+
+	&.xsmall {
+		@include  element-size($xsmall-size);
+
+		.initials {
+			font-size: .75em;
+		}
+	}
+
+	@for $i from 1 through length($default-avatar-colors) {
+		.initials.color-#{$i} {
+			color: nth($default-avatar-colors, $i);
+		}
+	}
+
+	img,
+	.initials {
+		@include element-size(100%);
+		background-color: $white;
+	}
+
+	.initials {
+		border: 1px solid $d60;
+		font-weight: 500;
+		letter-spacing: .4px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		cursor: default;
+		line-height: 1;
+
+		.inner {
+			transform: translateY(0px) translateX(1px);
+			text-transform: uppercase;
+		}
+	}
+}

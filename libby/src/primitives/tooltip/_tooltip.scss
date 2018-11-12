@@ -1,0 +1,85 @@
+$tooltip-max-width: 340px;
+$tooltip-min-width: 30px;
+
+@at-root {
+	.tooltip-trigger {
+		display: inline-block;
+	}
+
+	.aul.popper-portal-dest {
+		display: inline;
+	}
+
+	.aul.tooltip-trigger,
+	.aul.popper-portal-dest {
+		font-size: inherit;
+
+		.tooltip {
+			// https://github.com/FezVrasta/popper.js/issues/457#issuecomment-367692177
+			// To prevent tooltip jumps and improve performance
+			top: 0;
+
+			min-width: $tooltip-min-width;
+			max-width: $tooltip-max-width;
+			white-space: normal;
+			background: $secondary-d20;
+			color: $gray-d70;
+			border-radius: 4px;
+			font-size: 12px;
+			box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.15);
+			padding: 6px 9px;
+			user-select: none;
+			display: inline-block;
+			z-index: 999999;
+			text-align: center;
+		}
+
+		.popper-arrow {
+			width: 0;
+			height: 0;
+			border-style: solid;
+			position: absolute;
+			margin: 10px;
+		}
+
+		.tooltip[data-placement^="top"] {
+			margin-bottom: 5px;
+
+			.popper-arrow {
+				border-width: 5px 5px 0 5px;
+				border-color: $secondary-d20 transparent transparent transparent;
+				bottom: -15px;
+			}
+		}
+
+		.tooltip[data-placement^="bottom"] {
+			margin-top: 5px;
+
+			.popper-arrow {
+				border-width: 0 5px 5px 5px;
+				border-color: transparent transparent $secondary-d20 transparent;
+				top: -15px;
+			}
+		}
+
+		.tooltip[data-placement^="right"] {
+			margin-left: 5px;
+
+			.popper-arrow {
+				border-width: 5px 5px 5px 0;
+				border-color: transparent $secondary-d20 transparent transparent;
+				left: -15px;
+			}
+		}
+
+		.tooltip[data-placement^="left"] {
+			margin-right: 5px;
+
+			.popper-arrow {
+				border-width: 5px 0 5px 5px;
+				border-color: transparent transparent transparent $secondary-d20;
+				right: -15px;
+			}
+		}
+	}
+}

@@ -1,0 +1,38 @@
+& {
+	border-radius: 5px;
+	border: 1px solid $gray-d10;
+	background: $white;
+
+	.table-contents {
+		width: 100%;
+
+		.table-head {
+			@import './table-head/table-head';
+		}
+
+		.table-body {
+			@import './table-body/table-body';
+		}
+
+		&:first-child {
+			.table-head {
+				border-top-left-radius: 5px;
+				border-top-right-radius: 5px;
+			}
+
+			.table-head .table-head-cell {
+				border-top: 0;
+			}
+		}
+
+		&.is-empty {
+			.table-head {
+				pointer-events: none;
+
+				.table-head-cell {
+					color: $d40;
+				}
+			}
+		}
+	}
+}

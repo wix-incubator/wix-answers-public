@@ -1,0 +1,82 @@
+
+& {
+	$margin: 6px;
+	color: white;
+	margin: $margin/2 $margin/2;
+	font-size: 12px;
+	padding: 1px 10px;
+	display: inline-block;
+	border-radius: 4px;
+	font-weight: 500;
+	text-transform: capitalize;
+
+	&:first-of-type {
+		margin-left: 0px;
+	}
+
+	&:last-of-type {
+		margin-right: 0px;
+	}
+
+	&.small {
+		font-size: 10px;
+		padding: 0px;
+		text-align: center;
+		height: 18px;
+		width: 28px;
+		&.normal {
+			width: 45px;
+		}
+	}
+
+	@mixin priority-label($color, $border:null) {
+		border: 1px solid $color;
+
+		&.small {
+			border: solid 1px $border
+		}
+
+		&.filled {
+			background: $color;
+		}
+
+		&:not(.filled) {
+			color: $color;
+		}
+
+		&.clickable:hover {
+			color: $color;
+			border: 1px solid $color;
+			cursor: pointer;
+			background: lighten($color, 20%);
+
+			&:active {
+				&:not(.filled) {
+					background: $color;
+					color: white;
+				}
+
+				&.filled {
+					background: white;
+					color: $color;
+				}
+
+			}
+		}
+
+
+	}
+
+	&.low {
+		@include priority-label($priority-low, $priority-low-border);
+	}
+
+	&.normal {
+		@include priority-label($priority-medium);
+	}
+
+	&.high {
+		@include priority-label($priority-high, $priority-high-border);
+	}
+
+}

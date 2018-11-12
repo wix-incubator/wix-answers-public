@@ -1,0 +1,89 @@
+@import '../base-select-style';
+
+
+$multi-select-height: 38px;
+
+& {
+	@import '../single-select/select';
+
+	.Select-input {
+		display: inline-flex !important;
+		height: 38px;
+		margin-left: 0 !important;
+
+		> div {
+			font-size: 14px !important;
+		}
+	}
+
+	.Select-input input {
+		padding: 0;
+		align-self: center;
+	}
+
+	> .Select-control {
+		height: $multi-select-height;
+		border-color: $secondary-d50;
+		border-radius: 4px;
+		display: table;
+
+		.Select-multi-value-wrapper {
+			.Select-value {
+				line-height: 21px;
+				color: $secondary;
+				font-size: .9em;
+				background-color: $primary-b40;
+				border: 1px solid $primary-b30;
+				padding: 4px;
+				line-height: 1.5;
+				margin: 6px 0 0 7px;
+				border-radius: 4px;
+				font-weight: 500;
+				position: relative;
+				display: inline-flex;
+				flex-direction: row-reverse;
+
+				.Select-value-icon {
+					display: flex;
+					align-items: center;
+					border: 0;
+					padding: 0 5px;
+					font-size: 16px;
+					line-height: 21px;
+					color: $b10;
+
+					&:hover {
+						background-color: transparent;
+						color: $b20;
+					}
+				}
+
+				.Select-value-label {
+					display: flex;
+					align-items: center;
+					padding: 0 5px;
+				}
+			}
+
+			.Select-aria-only {
+				display: inline-block;
+				height: 1px;
+				width: 1px;
+				margin: -1px;
+				clip: rect(0, 0, 0, 0);
+				overflow: hidden;
+				float: left;
+			}
+		}
+
+		.Select-arrow-zone {
+			top: 12px;
+			vertical-align: top;
+		}
+
+		.Select-placeholder {
+			line-height: $multi-select-height;
+			line-height: -moz-block-height;
+		}
+	}
+}
