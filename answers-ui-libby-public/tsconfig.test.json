@@ -1,0 +1,26 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "target": "es5",
+        "noImplicitAny": true,
+        "noImplicitReturns": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "noFallthroughCasesInSwitch": true,
+        "sourceMap": false,
+		"skipLibCheck": true,
+        "outDir": "built-tests",
+        "moduleResolution": "node",
+        "lib": ["dom", "es2016"],
+        "types": ["mocha", "chai", "node"],
+		  "jsx": "react"
+    },
+	 "include": [
+		 "src/external-types.d.ts",
+		 "src/**/*.tsx",
+		 "src/**/*.ts",
+	 ],
+	 "exclude": [
+		 "node_modules"
+	 ]
+}

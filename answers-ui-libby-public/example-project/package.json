@@ -1,0 +1,26 @@
+{
+  "name": "libby-example-project",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "answers-ui-libby-public": "^1.0.0",
+    "create-react-class": "^15.6.3",
+    "react": "^16.0.0",
+    "react-dom": "^16.0.0",
+    "typescript": "~2.3.0",
+    "react-scripts-ts": "2.16.0"
+  },
+  "scripts": {
+    "start": "react-scripts-ts start",
+    "build": "react-scripts-ts build",
+    "test": "react-scripts-ts test --env=jsdom",
+    "eject": "react-scripts-ts eject"
+  },
+  "devDependencies": {
+    "@types/node": "^7.0.0",
+    "@types/prop-types": "15.5.1",
+    "@types/react": "~16.4.0",
+    "@types/react-dom": "^16.0.0",
+    "typescript": "^2.9.2"
+  }
+}

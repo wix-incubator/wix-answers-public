@@ -1,0 +1,16 @@
+{
+	"extends": "./node_modules/answers-toolkit/config/tsconfig.json",
+	"compilerOptions": {
+		"outDir": "dist",
+		"noFallthroughCasesInSwitch": true, // Report errors for fall through cases in switch statement.
+		"allowSyntheticDefaultImports": true
+	},
+	"include": [
+		"src/**/*.ts",
+		"src/**/*.tsx"
+	],
+	"exclude": [
+		"node_modules",
+		".history"
+	]
+}

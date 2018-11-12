@@ -1,0 +1,48 @@
+* {
+    box-sizing: border-box;
+}
+
+.table-container {
+    width: 60%;
+    margin: auto;
+}
+
+.table-navigation {
+    display: flex;
+    padding: 10px 20px;
+    justify-content: space-between;
+}
+
+.edit-pane-button-container {
+    display: flex;
+    justify-content: space-between;
+    
+}
+
+.edit-pane-cancel-button {
+    margin-right: 10px;
+}
+
+.edit-pane-separator {
+    width: 540px;
+    position: relative;
+    left: -25px;
+    margin-top: 75px;
+}
+
+.edit-form-container {
+    width: 85%;
+    margin: auto;
+}
+
+.priority-high{
+    color: #d8504c;
+}
+
+.priority-medium{
+    color: #fb7d33;
+}
+
+.priority-low{
+    color: #2cc958;
+}
