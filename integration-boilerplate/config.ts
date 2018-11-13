@@ -3,7 +3,7 @@ export default {
 	integrationId: 'YOUR_WIX_ANSWERS_INTEGRATION_ID',
 	baseUrl: 'https://b01a5dd2.ngrok.io',
 	ecryptKey: 'testssEXAMPLE',
-	apiPort: 3003,
+	apiPort: 3000,
 	mongo: {
 		mongoUrl: 'mongodb://MONGO_URL',
 		initDataDB: 'EXAMPLE-INIT',

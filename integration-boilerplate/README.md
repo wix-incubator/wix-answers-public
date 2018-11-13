@@ -9,5 +9,8 @@ This boilerplate is implementation of https://help.wixanswers.com/en/article/wix
     - Register / unregister actions
     - Settings & ticket-page-iframe view implementation
 - Implement tests using the answers-integrations-testkit
-- Can run the sandbox with the testkit by running 'answers-integrations-testkit'
 
+# Running
+- To run the project change the necessary 'npm start'
+- To run tests run 'npm test' - it will run all the *.spec.ts
+- In order to run the sandbox, install globally `npm i -g  wix-answers-integrations-testkit@latest` and then run 'answers-integrations-testkit'

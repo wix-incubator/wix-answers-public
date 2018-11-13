@@ -4,6 +4,7 @@
   "description": "Wix Answers example integration app",
   "main": "index.js",
   "scripts": {
+    "start" : "nodemon --watch index.ts",
     "build-tests" : "tsc --project tsconfig.test.json",
     "remove-tests": "rm -rf tests-target",
     "run-tests": "mocha './tests-target/**/*.spec.js'",
