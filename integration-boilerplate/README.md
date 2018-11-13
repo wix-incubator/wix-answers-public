@@ -1,6 +1,6 @@
 # Wix Answers integration boilerplate
-In this boilerplate you will find the basic implantation in order to successfuly integrate with Wix Answers.
-The boilerplate is a node application written in typescript and it uses mongodb (easy to change) as an example of how we think integrations should be develope.
+In this boilerplate you will find the basic implementation in order to successfuly integrate with Wix Answers.
+The boilerplate is a node application written in typescript and it uses mongodb (easy to change) as an example of how we think integrations should be developed.
 
 This boilerplate is implementation of https://help.wixanswers.com/en/article/wix-answers-integrations 
 
@@ -10,3 +10,4 @@ This boilerplate is implementation of https://help.wixanswers.com/en/article/wix
     - Settings & ticket-page-iframe view implementation
 - Implement tests using the answers-integrations-testkit
 - Can run the sandbox with the testkit by running 'answers-integrations-testkit'
+

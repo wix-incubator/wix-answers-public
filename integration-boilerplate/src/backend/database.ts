@@ -53,7 +53,7 @@ export class MongoWrapper {
 			throw new Error(`Double init for tenant ${data.tenantId}`);
 		}
 	}
-	dangerouslyGetAppKeys = async (tenantId: string): Promise<any> => this.initCollection.findOne({ _id: tenantId });
+	getTenantAppKeys = async (tenantId: string): Promise<any> => this.initCollection.findOne({ _id: tenantId });
 
 	// ****** INTEGRATION SETTINGS AREA ******/
 	saveSettingsPerTenant = async (id: string, data: object): Promise<any> => {

@@ -4,19 +4,11 @@ import { createTestkit, IntegrationsTestkit } from 'wix-answers-integrations-tes
 import { initAnswersApi } from './backend';
 
 const testConfig = {
-	answersApiSecret: 'mXYjQ3DPRNK4tvrq-LFM2d5ZO5_M03yzvtvnxqrtsCI',
-	apiPort: 3004,
+	answersIntegrationSecret: 'mXYjQ3DPRNK4tvrq-LFM2d5ZO5_M03yzvtvnxqrtsCI',
+	apiPort: 3005,
 	integrationId: '1234',
 	baseUrl: 'http://localhost',
 	ecryptKey: 'testssEXAMPLE',
-	routes: {
-		path: 'answers/api',
-		register: 'register',
-		unregister: 'unregister',
-		settings: 'settings',
-		script: 'script.js',
-		view: 'view',
-	},
 	mongo: {
 		mongoUrl: '',
 		initDataDB: '',
@@ -24,15 +16,15 @@ const testConfig = {
 	}
 };
 
-const baseUrl = `http://localhost:${testConfig.apiPort}/${testConfig.routes.path}`;
+const baseUrl = `http://localhost:${testConfig.apiPort}/integration`;
 
 const initConfig = {
 	id: testConfig.integrationId,
-	secret: testConfig.answersApiSecret,
-	scriptUrl: `${baseUrl}/${testConfig.routes.script}`,
-	settingsUrl: `${baseUrl}/${testConfig.routes.settings}`,
-	registerUrl: `${baseUrl}/${testConfig.routes.register}`,
-	unregisterUrl: `${baseUrl}/${testConfig.routes.unregister}`
+	secret: testConfig.answersIntegrationSecret,
+	scriptUrl: `${baseUrl}/script.js`,
+	settingsUrl: `${baseUrl}/settings`,
+	registerUrl: `${baseUrl}/register`,
+	unregisterUrl: `${baseUrl}/unregister`
 };
 
 const payload = {
@@ -42,7 +34,7 @@ const payload = {
 	tenantId: '123333221'
 };
 
-class MongoWrapper {
+class TestMongoWrapper {
 	initDB = {};
 	settingsDB = {};
 	registerTenant = async (data): Promise<any> => {
@@ -78,7 +70,7 @@ describe('Integration ', () => {
 	let dbDriver;
 
 	before(async () => {
-		dbDriver = new MongoWrapper();
+		dbDriver = new TestMongoWrapper();
 		testkit = await createTestkit(initConfig);
 		await initAnswersApi(app, dbDriver, testConfig);
 		server = app.listen(testConfig.apiPort);
