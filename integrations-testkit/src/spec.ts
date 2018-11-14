@@ -6,7 +6,7 @@ import {
 	integrationDataBuilder,
 	dummyIntegration,
 	integrationContextBuilder,
-	ticketContextBuilder
+	ticketPayloadBuilder
 } from './test-utils';
 import { getFreePort } from './utils';
 import * as puppeteer from 'puppeteer';
@@ -111,8 +111,8 @@ describe('testkit', () => {
 
 		const browser = await puppeteer.launch();
 		cleanups.push(() => browser.close());
-		const context = ticketContextBuilder();
-		const ticketView = await testkit.getTicketViewSandboxUrl({context, tenantId});
+		const payload = ticketPayloadBuilder();
+		const ticketView = await testkit.getTicketViewSandboxUrl({payload, tenantId});
 
 		// the dummy integration will listen to the sdk and add an iframe to the sidebar with the tenant id
 		const page = await browser.newPage();
@@ -126,7 +126,7 @@ describe('testkit', () => {
 		const frame = page.frames().find((f) => f.name() === 'view') as any;
 		// to simulate real world the testkit embeds the settings in an iframe
 		const driver = pupUniDriver(() => frame.$('body'));
-		assert.include(await driver.$('h2').text(), context.user.email);
+		assert.include(await driver.$('h2').text(), payload.user.email);
 		assert.include(await driver.$('h2').text(), tenantId);
 
 	}).timeout(10000);

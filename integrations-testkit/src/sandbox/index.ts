@@ -2,7 +2,7 @@ import { getFreePort, log } from '../utils';
 import * as express from 'express';
 
 import * as bodyParser from 'body-parser';
-import { integrationDataBuilder, ticketContextBuilder } from '../test-utils';
+import { integrationDataBuilder, ticketPayloadBuilder } from '../test-utils';
 import { IntegrationData, IntegrationsTestkit, createTestkit } from '..';
 
 export const startSandbox = async (forcePort?: number) => {
@@ -83,7 +83,7 @@ export const startSandbox = async (forcePort?: number) => {
 	});
 
 	app.get('/pre-ticket-view', (_, res) => {
-		const testValue = {tenantId: 'some-id', context: ticketContextBuilder()};
+		const testValue = {tenantId: 'some-id', payload: ticketPayloadBuilder()};
 		const testValueStr = JSON.stringify(testValue);
 
 		if (!testkit) {

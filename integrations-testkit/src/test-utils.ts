@@ -34,8 +34,8 @@ export const dummyIntegration = (data: IntegrationData, port: number) => {
 	app.get('/view/:token', async (req, res) => {
 		const token = req.params.token;
 		const jws = await jwsPromise;
-		const {context, tenantId} = await jws.verify(token);
-		res.send(`<h2>${context} - ${tenantId}</h2>`);
+		const {payload, tenantId} = await jws.verify(token);
+		res.send(`<h2>${payload} - ${tenantId}</h2>`);
 	});
 
 	const fullUrl = `http://localhost:${port}`;
@@ -80,7 +80,7 @@ export const integrationContextBuilder = (partial: Partial<IntegrationRegisterCo
 	};
 };
 
-export const ticketContextBuilder = (partial: Partial<TicketSandboxContext> = {}): TicketSandboxContext => {
+export const ticketPayloadBuilder = (partial: Partial<TicketSandboxContext> = {}): TicketSandboxContext => {
 	return {
 		id: 'bob7',
 		subject: 'dfgdfg',

@@ -10,6 +10,8 @@
   "private": false,
   "scripts": {
     "build": "tsc -p .",
+    "prestart": "npm run build",
+    "start": "ts-node dist/sandbox/cli.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -38,7 +40,8 @@
     "chalk": "^2.4.1",
     "express": "^4.16.4",
     "find-free-port": "^2.0.0",
-    "node-jose": "^1.0.0"
+    "node-jose": "^1.0.0",
+    "ts-node": "^7.0.1"
   },
   "files": [
     "dist",

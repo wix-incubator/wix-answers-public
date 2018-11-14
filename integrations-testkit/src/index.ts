@@ -38,7 +38,7 @@ export interface TicketSandboxContext {
 }
 
 export interface SignedContext<T> {
-	context: T;
+	payload: T;
 	tenantId: string;
 }
 
@@ -90,9 +90,9 @@ export const createTestkit = async (
 
 	app.get('/ticket-view/:data', async (req, res) => {
 		const str = Buffer.from(req.params.data, 'base64').toString('utf8');
-		const {context, tenantId} = JSON.parse(str);
+		const {payload, tenantId} = JSON.parse(str);
 
-		const strContext = Buffer.from(JSON.stringify(context)).toString('base64');
+		const strPayload = Buffer.from(JSON.stringify(payload)).toString('base64');
 
 		const html = `<html>
 		<script>
@@ -106,10 +106,10 @@ export const createTestkit = async (
 				document.body.appendChild(div);
 			},
 			onIntegrationRemoved: () => {},
-			sign: (id, context) => {
+			sign: (id, payload) => {
 				return fetch('/sign', {
 					method: 'POST',
-					body: JSON.stringify({context, tenantId: '${tenantId}'}),
+					body: JSON.stringify({payload, tenantId: '${tenantId}'}),
 					headers: {
 						'Content-Type': 'application/json'
 					}
@@ -119,10 +119,10 @@ export const createTestkit = async (
 
 		</script>
 		<script type="text/javascript" src="${scriptUrl}"></script>
-		<h1>Ticket page dummy  - [${context.subject}]</h1>
-		<pre><code>${JSON.stringify(context)}</code></pre>
+		<h1>Ticket page dummy  - [${payload.subject}]</h1>
+		<pre><code>${JSON.stringify(payload)}</code></pre>
 		<script>
-			const data = atob('${strContext}');
+			const data = atob('${strPayload}');
 			listeners.forEach((cb) => cb(JSON.parse(data)));
 		</script>
 		</html>`;
@@ -153,8 +153,8 @@ export const createTestkit = async (
 				return res.data;
 			});
 		},
-		getTicketViewSandboxUrl: ({context, tenantId}) => {
-			const data = Buffer.from(JSON.stringify({context, tenantId})).toString('base64');
+		getTicketViewSandboxUrl: ({payload, tenantId}) => {
+			const data = Buffer.from(JSON.stringify({payload, tenantId})).toString('base64');
 			return `http://localhost:${port}/ticket-view/${data}`;
 		},
 		getRenderedSettingsUrl: (tenantId) => {
