@@ -44,7 +44,7 @@ class TestMongoWrapper {
 		}
 		return;
 	}
-	dangerouslyGetAppKeys = async (tenantId: string) => this.initDB[tenantId] && delete this.initDB[tenantId];
+	getTenantAppKeys = async (tenantId: string) => this.initDB[tenantId] && delete this.initDB[tenantId];
 
 	// ****** INTEGRATION SETTINGS AREA ******/
 	saveSettingsPerTenant = async (id, data) => {
