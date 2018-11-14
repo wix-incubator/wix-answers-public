@@ -11,6 +11,9 @@ This boilerplate is implementation of https://help.wixanswers.com/en/article/wix
 - Implement tests using the answers-integrations-testkit
 
 # Running
-- To run the project change the necessary 'npm start'
+- To run the project:
+    - change mongoUrl, baseUrl, integrationId and answersIntegrationSecret in config.ts file.
+    - run 'npm install'
+    - run 'npm start'
 - To run tests run 'npm test' - it will run all the *.spec.ts
-- In order to run the sandbox, install globally `npm i -g  wix-answers-integrations-testkit@latest` and then run 'answers-integrations-testkit'
+- In order to run the sandbox, install globally `npm i -g  wix-answers-integrations-testkit@latest` and then run 'npm run sandbox'
