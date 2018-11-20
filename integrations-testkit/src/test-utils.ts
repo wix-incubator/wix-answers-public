@@ -1,4 +1,8 @@
-import { IntegrationData, IntegrationRegisterContext, TicketSandboxContext } from '.';
+import {
+	IntegrationData, IntegrationRegisterContext,
+	TicketSandboxContext, WebhookTicketSandboxContext,
+	WebhookReplySandboxContext
+} from '.';
 
 import express = require('express');
 
@@ -34,8 +38,22 @@ export const dummyIntegration = (data: IntegrationData, port: number) => {
 	app.get('/view/:token', async (req, res) => {
 		const token = req.params.token;
 		const jws = await jwsPromise;
-		const {payload, tenantId} = await jws.verify(token);
+		const { payload, tenantId } = await jws.verify(token);
 		res.send(`<h2>${payload} - ${tenantId}</h2>`);
+	});
+
+	app.post('/webhook/ticket-created', async (req, res) => {
+		const { payload } = req.body;
+		const jws = await jwsPromise;
+		const verified = await jws.verify(payload);
+		res.send(verified);
+	});
+
+	app.post('/webhook/reply-created', async (req, res) => {
+		const { payload } = req.body;
+		const jws = await jwsPromise;
+		const verified = await jws.verify(payload);
+		res.send(verified);
 	});
 
 	const fullUrl = `http://localhost:${port}`;
@@ -65,6 +83,10 @@ export const integrationDataBuilder = (partial: Partial<IntegrationData> = {}): 
 		unregisterUrl: '',
 		settingsUrl: '',
 		scriptUrl: '',
+		webhooks: {
+			TICKET_CREATED: '',
+			REPLY_CREATED: ''
+		},
 		...partial
 	};
 };
@@ -89,5 +111,28 @@ export const ticketPayloadBuilder = (partial: Partial<TicketSandboxContext> = {}
 			fullName: 'David Rahel'
 		},
 		...partial
+	};
+};
+
+export const webhookTicketPayloadBuilder = (partial: Partial<WebhookTicketSandboxContext> = {}):
+	WebhookTicketSandboxContext => {
+	return {
+		tenantId: partial.tenantId || '',
+		payload: ticketPayloadBuilder(partial && partial.payload || {})
+	};
+};
+
+export const webhookReplyPayloadBuilder = (partial: Partial<WebhookReplySandboxContext> = {}):
+	WebhookReplySandboxContext => {
+	return {
+		tenantId: partial.tenantId || '',
+		payload: {
+			id: 'bob7',
+			user: {
+				email: 'david@rahel.com',
+				fullName: 'David Rahel'
+			},
+			parentTicket: ticketPayloadBuilder()
+		}
 	};
 };

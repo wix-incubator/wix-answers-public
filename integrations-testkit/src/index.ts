@@ -3,6 +3,7 @@ import axios from 'axios';
 import { jweInstance, getFreePort, jwsInstance, log } from './utils';
 import * as express from 'express';
 import * as bodyParser from 'body-parser';
+import { triggerAsyncId } from 'async_hooks';
 
 export interface IntegrationRegisterContext {
 	keyId: string;
@@ -26,6 +27,10 @@ export interface IntegrationData {
 	unregisterUrl: string;
 	settingsUrl: string;
 	scriptUrl: string;
+	webhooks?: {
+		TICKET_CREATED?: string,
+		REPLY_CREATED?: string
+	};
 }
 
 export interface TicketSandboxContext {
@@ -37,6 +42,22 @@ export interface TicketSandboxContext {
 	};
 }
 
+export interface WebhookTicketSandboxContext {
+	tenantId: string;
+	payload: TicketSandboxContext;
+}
+
+export interface WebhookReplySandboxContext {
+	tenantId: string;
+	payload: {
+		id: string;
+		user: {
+			email: string;
+			fullName: string;
+		};
+		parentTicket: TicketSandboxContext
+	};
+}
 export interface SignedContext<T> {
 	payload: T;
 	tenantId: string;
@@ -48,20 +69,26 @@ export interface IntegrationsTestkit {
 	getTicketViewSandboxUrl: (context: SignedContext<TicketSandboxContext>) => string;
 	getRenderedSettingsUrl: (tenantId: string) => string;
 	closeServer: () => Promise<void>;
+	triggerTicketCreated: (context: WebhookTicketSandboxContext) => Promise<any>;
+	triggerReplyCreated: (context: WebhookReplySandboxContext) => Promise<any>;
 }
 
 // tslint:disable-next-line:max-line-length
 export const createTestkit = async (
-		integrationData: IntegrationData,
-		forcePort?: number
-	): Promise<IntegrationsTestkit> => {
+	integrationData: IntegrationData,
+	forcePort?: number
+): Promise<IntegrationsTestkit> => {
 
 	const {
 		secret,
 		registerUrl,
 		unregisterUrl,
 		settingsUrl,
-		scriptUrl
+		scriptUrl,
+		webhooks = {
+			REPLY_CREATED: '',
+			TICKET_CREATED: ''
+		}
 	} = integrationData;
 
 	// tslint:disable-next-line:no-console
@@ -73,7 +100,7 @@ export const createTestkit = async (
 	app.get('/settings/:tenantId', async (req, res) => {
 		const tenantId = req.params.tenantId;
 		const jws = await jwsPromise;
-		const token = await jws.sign(JSON.stringify({tenantId}));
+		const token = await jws.sign(JSON.stringify({ tenantId }));
 		const html = `
 		<html>
 			<head>
@@ -99,12 +126,12 @@ export const createTestkit = async (
 		const body = req.body;
 		const jws = await jwsPromise;
 		const token = await jws.sign(JSON.stringify(body));
-		res.send({payload: token});
+		res.send({ payload: token });
 	});
 
 	app.get('/ticket-view/:data', async (req, res) => {
 		const str = Buffer.from(req.params.data, 'base64').toString('utf8');
-		const {payload, tenantId} = JSON.parse(str);
+		const { payload, tenantId } = JSON.parse(str);
 
 		const strPayload = Buffer.from(JSON.stringify(payload)).toString('base64');
 
@@ -153,22 +180,22 @@ export const createTestkit = async (
 			const encrypted = await jwe.encrypt(JSON.stringify(data));
 			// tslint:disable-next-line:no-console
 			log(`Triggering register to url: [${registerUrl}] with data: [${JSON.stringify(encrypted)}]`);
-			return axios.post(registerUrl, {payload: encrypted}).then((res) => {
+			return axios.post(registerUrl, { payload: encrypted }).then((res) => {
 				return res.data;
 			});
 		},
 		triggerUnregister: async (tenantId) => {
 			const jwe = await jwePromise;
 			// tslint:disable-next-line:no-console
-			const encrypted = await jwe.encrypt(JSON.stringify({tenantId}));
+			const encrypted = await jwe.encrypt(JSON.stringify({ tenantId }));
 			// tslint:disable-next-line:no-console
 			log(`Triggering unregister to url: [${unregisterUrl}] with token: [${JSON.stringify(encrypted)}]`);
-			return axios.post(unregisterUrl, {payload: encrypted}).then((res) => {
+			return axios.post(unregisterUrl, { payload: encrypted }).then((res) => {
 				return res.data;
 			});
 		},
-		getTicketViewSandboxUrl: ({payload, tenantId}) => {
-			const data = Buffer.from(JSON.stringify({payload, tenantId})).toString('base64');
+		getTicketViewSandboxUrl: ({ payload, tenantId }) => {
+			const data = Buffer.from(JSON.stringify({ payload, tenantId })).toString('base64');
 			return `http://localhost:${port}/ticket-view/${data}`;
 		},
 		getRenderedSettingsUrl: (tenantId) => {
@@ -177,7 +204,23 @@ export const createTestkit = async (
 		},
 		closeServer: async () => {
 			await server.close();
-		}
+		},
+		triggerTicketCreated: async (data) => {
+			const jws = await jwsPromise;
+			const encrypted = await jws.sign(JSON.stringify(data));
+
+			log(`Triggering ticket created webhook to url:
+			[${webhooks.TICKET_CREATED}] with data: [${JSON.stringify(encrypted)}]`);
+			return axios.post(webhooks.TICKET_CREATED || '', { payload: encrypted }).then((res) => res.data);
+		},
+		triggerReplyCreated: async (data) => {
+			const jws = await jwsPromise;
+			const encrypted = await jws.sign(JSON.stringify(data));
+
+			log(`Triggering reply cereated webhook to url:
+			[${webhooks.REPLY_CREATED}] with data: [${JSON.stringify(encrypted)}]`);
+			return axios.post(webhooks.REPLY_CREATED || '', { payload: encrypted }).then((res) => res.data);
+		},
 
 	};
 };

@@ -97,7 +97,7 @@ export const initAnswersApi = async (app: Router, dbWrapper: MongoWrapper, confi
 		}
 	});
 
-	app.get(`/integration/script.js`, async (_req: Request, res: Response) => {
+	app.get(`/integration/script.js`, async (_: Request, res: Response) => {
 		res.setHeader('Content-Type', 'application/javascript');
 		res.send(getInjectedIntegrationScript(`${config.baseUrl}:${config.apiPort}/integration`,
 			config.integrationId));

@@ -1,4 +1,4 @@
-import {assert} from 'chai';
+import { assert } from 'chai';
 
 // import {createServer} from 'http';
 import { createTestkit } from '.';
@@ -6,11 +6,13 @@ import {
 	integrationDataBuilder,
 	dummyIntegration,
 	integrationContextBuilder,
-	ticketPayloadBuilder
+	ticketPayloadBuilder,
+	webhookTicketPayloadBuilder,
+	webhookReplyPayloadBuilder
 } from './test-utils';
 import { getFreePort } from './utils';
 import * as puppeteer from 'puppeteer';
-import {pupUniDriver} from 'unidriver/puppeteer';
+import { pupUniDriver } from 'unidriver/puppeteer';
 
 // tslint:disable-next-line:no-var-requires
 
@@ -27,7 +29,7 @@ describe('testkit', () => {
 		const port = await getFreePort();
 
 		const registerUrl = `http://localhost:${port}/register`;
-		const integrationData = integrationDataBuilder({registerUrl});
+		const integrationData = integrationDataBuilder({ registerUrl });
 
 		const stop = dummyIntegration(integrationData, port);
 		cleanups.push(() => stop());
@@ -47,7 +49,7 @@ describe('testkit', () => {
 
 		const unregisterUrl = `http://localhost:${port}/unregister`;
 
-		const integrationData = integrationDataBuilder({unregisterUrl});
+		const integrationData = integrationDataBuilder({ unregisterUrl });
 
 		const stop = dummyIntegration(integrationData, port);
 		cleanups.push(stop);
@@ -67,7 +69,7 @@ describe('testkit', () => {
 
 		const settingsUrl = `http://localhost:${port}/settings`;
 
-		const integrationData = integrationDataBuilder({settingsUrl});
+		const integrationData = integrationDataBuilder({ settingsUrl });
 
 		const stop = dummyIntegration(integrationData, port);
 		cleanups.push(() => stop());
@@ -112,7 +114,7 @@ describe('testkit', () => {
 		const browser = await puppeteer.launch();
 		cleanups.push(() => browser.close());
 		const payload = ticketPayloadBuilder();
-		const ticketView = await testkit.getTicketViewSandboxUrl({payload, tenantId});
+		const ticketView = await testkit.getTicketViewSandboxUrl({ payload, tenantId });
 
 		// the dummy integration will listen to the sdk and add an iframe to the sidebar with the tenant id
 		const page = await browser.newPage();
@@ -131,4 +133,41 @@ describe('testkit', () => {
 
 	}).timeout(10000);
 
+	it('calls ticket-created hook with the relevant encrypted payload', async () => {
+		const port = await getFreePort();
+
+		const ticketWebhookUrl = `http://localhost:${port}/webhook/ticket-created`;
+		const integrationData = integrationDataBuilder({ webhooks: { TICKET_CREATED: ticketWebhookUrl } });
+
+		const stop = dummyIntegration(integrationData, port);
+		cleanups.push(() => stop());
+
+		const testkit = await createTestkit(integrationData);
+		cleanups.push(() => testkit.closeServer());
+
+		const data = webhookTicketPayloadBuilder({ tenantId: integrationData.id });
+
+		const response = await testkit.triggerTicketCreated(data);
+
+		assert.deepEqual(response, data);
+	});
+
+	it('calls reply-created hook with the relevant encrypted payload', async () => {
+		const port = await getFreePort();
+
+		const replyWebhookUrl = `http://localhost:${port}/webhook/reply-created`;
+		const integrationData = integrationDataBuilder({ webhooks: { REPLY_CREATED: replyWebhookUrl} });
+
+		const stop = dummyIntegration(integrationData, port);
+		cleanups.push(() => stop());
+
+		const testkit = await createTestkit(integrationData);
+		cleanups.push(() => testkit.closeServer());
+
+		const data = webhookReplyPayloadBuilder({ tenantId: integrationData.id });
+
+		const response = await testkit.triggerReplyCreated(data);
+
+		assert.deepEqual(response, data);
+	});
 });

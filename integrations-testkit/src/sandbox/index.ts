@@ -2,7 +2,7 @@ import { getFreePort, log } from '../utils';
 import * as express from 'express';
 
 import * as bodyParser from 'body-parser';
-import { integrationDataBuilder, ticketPayloadBuilder } from '../test-utils';
+import { integrationDataBuilder, ticketPayloadBuilder, webhookTicketPayloadBuilder } from '../test-utils';
 import { IntegrationData, IntegrationsTestkit, createTestkit } from '..';
 
 export const startSandbox = async (forcePort?: number) => {
@@ -40,7 +40,7 @@ export const startSandbox = async (forcePort?: number) => {
 	});
 
 	app.post('/trigger-register/:tenantId', async (req, res) => {
-		const {tenantId} = req.params;
+		const { tenantId } = req.params;
 		if (!testkit) {
 			log('Error! Teskit is not set up, please go to setup again');
 		} else {
@@ -51,7 +51,7 @@ export const startSandbox = async (forcePort?: number) => {
 					secret: '222',
 					host: 'somehost42.wixanswers.com'
 				});
-				res.send({data});
+				res.send({ data });
 			} catch (e) {
 				res.status(500).send('Something broke! - ' + e.toString());
 			}
@@ -59,13 +59,13 @@ export const startSandbox = async (forcePort?: number) => {
 	});
 
 	app.post('/trigger-unregister/:tenantId', async (req, res) => {
-		const {tenantId} = req.params;
+		const { tenantId } = req.params;
 		if (!testkit) {
 			log('Error! Teskit is not set up, please go to setup again');
 		} else {
 			try {
 				const data = await testkit.triggerUnregister(tenantId);
-				res.send({data});
+				res.send({ data });
 			} catch (e) {
 				res.status(500).send('Something broke! - ' + e.toString());
 			}
@@ -73,7 +73,7 @@ export const startSandbox = async (forcePort?: number) => {
 	});
 
 	app.get('/settings-view/:tenantId', (req, res) => {
-		const {tenantId} = req.params;
+		const { tenantId } = req.params;
 		if (!testkit) {
 			res.send(`<h1>Please go <a href="/">to setup first</a>`);
 		} else {
@@ -83,7 +83,7 @@ export const startSandbox = async (forcePort?: number) => {
 	});
 
 	app.get('/pre-ticket-view', (_, res) => {
-		const testValue = {tenantId: 'some-id', payload: ticketPayloadBuilder()};
+		const testValue = { tenantId: 'some-id', payload: ticketPayloadBuilder() };
 		const testValueStr = JSON.stringify(testValue);
 
 		if (!testkit) {
@@ -173,6 +173,21 @@ export const startSandbox = async (forcePort?: number) => {
 
 			</html>`;
 			res.send(html);
+		}
+	});
+
+	app.post('/trigger-ticket-created/:tenantId', async (req, res) => {
+		const { tenantId } = req.params;
+		if (!testkit) {
+			log('Error! Teskit is not set up, please go to setup again');
+		} else {
+			try {
+				const ticket = webhookTicketPayloadBuilder({tenantId});
+				const data = await testkit.triggerTicketCreated(ticket);
+				res.send({ data });
+			} catch (e) {
+				res.status(500).send('Something broke! - ' + e.toString());
+			}
 		}
 	});
 
