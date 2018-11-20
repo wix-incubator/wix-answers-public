@@ -74,9 +74,23 @@ export const createTestkit = async (
 		const tenantId = req.params.tenantId;
 		const jws = await jwsPromise;
 		const token = await jws.sign(JSON.stringify({tenantId}));
-		const html = `<html>
-		<h1>Integration settings</h1>
-		<iframe name="settings" src="${settingsUrl}?data=${token}"/>
+		const html = `
+		<html>
+			<head>
+			<style>
+				iframe {
+					width: 1000px;
+					height: 700px;
+					border: 1px solid #eee;
+					margin: 0 auto;
+					display: block;
+				}
+			</style>
+			</head>
+			<body>
+				<h1>Integration settings</h1>
+				<iframe name="settings" src="${settingsUrl}?data=${token}"/>
+			</body>
 		</html>`;
 		res.send(html);
 	});
