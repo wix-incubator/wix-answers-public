@@ -220,7 +220,11 @@ export const createTestkit = async (
 
 			log(`Triggering ticket created webhook to url:
 			[${webhooks.TICKET_CREATED}] with data: [${JSON.stringify(encrypted)}]`);
-			return axios.post(webhooks.TICKET_CREATED || '', { payload: encrypted }).then((res) => res.data);
+
+			if (!webhooks.TICKET_CREATED) {
+				throw new Error('Webhook url for ticket created is not defined');
+			}
+			return axios.post(webhooks.TICKET_CREATED, { payload: encrypted }).then((res) => res.data);
 		},
 		triggerReplyCreated: async (data) => {
 			const jws = await jwsPromise;
@@ -228,7 +232,12 @@ export const createTestkit = async (
 
 			log(`Triggering reply cereated webhook to url:
 			[${webhooks.REPLY_CREATED}] with data: [${JSON.stringify(encrypted)}]`);
-			return axios.post(webhooks.REPLY_CREATED || '', { payload: encrypted }).then((res) => res.data);
+
+			if (!webhooks.REPLY_CREATED) {
+				throw new Error('Webhook url for reply created is not defined');
+			}
+
+			return axios.post(webhooks.REPLY_CREATED, { payload: encrypted }).then((res) => res.data);
 		},
 
 	};
