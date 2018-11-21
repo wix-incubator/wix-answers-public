@@ -4,6 +4,8 @@ import { getInjectedIntegrationScript } from '../script';
 import * as bodyParser from 'body-parser';
 import { MongoWrapper } from './database';
 
+const jsonParser = bodyParser.json();
+
 export type IntegrationConfig = {
 	answersIntegrationSecret: string
 	integrationId: string,
@@ -116,4 +118,36 @@ export const initAnswersApi = async (app: Router, dbWrapper: MongoWrapper, confi
 
 	});
 
+	app.post(`/integration/webhooks/ticket-created`, jsonParser, async (req: Request, res: Response) => {
+		const { payload } = req.body;
+
+		try {
+			const verified = await jwsInstance.verify(payload);
+
+			// tslint:disable-next-line:no-console
+			console.log(verified);
+
+			res.json(verified);
+
+		} catch (e) {
+			// tslint:disable-next-line:no-console
+			console.log(e.message);
+
+			res.status(400).send(e.message);
+		}
+	});
+
+	app.post(`/integration/webhooks/reply-created`, jsonParser, async (req: Request, res: Response) => {
+		const { payload } = req.body;
+		try {
+			const verified = await jwsInstance.verify(payload);
+			// tslint:disable-next-line:no-console
+			console.log(verified);
+
+			res.json(verified);
+
+		} catch (e) {
+			res.status(400).send(e.message);
+		}
+	});
 };

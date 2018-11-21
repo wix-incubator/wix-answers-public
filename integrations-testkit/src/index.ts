@@ -3,7 +3,6 @@ import axios from 'axios';
 import { jweInstance, getFreePort, jwsInstance, log } from './utils';
 import * as express from 'express';
 import * as bodyParser from 'body-parser';
-import { triggerAsyncId } from 'async_hooks';
 
 export interface IntegrationRegisterContext {
 	keyId: string;
@@ -36,6 +35,15 @@ export interface IntegrationData {
 export interface TicketSandboxContext {
 	id: string;
 	subject: string;
+	content: string;
+	channel: number;
+	status: number;
+	priority: number;
+	url: string;
+	assignedUser: {
+		email: string;
+		fullName: string;
+	};
 	user: {
 		email: string;
 		fullName: string;
@@ -44,6 +52,7 @@ export interface TicketSandboxContext {
 
 export interface WebhookTicketSandboxContext {
 	tenantId: string;
+	timestamp: number;
 	payload: TicketSandboxContext;
 }
 

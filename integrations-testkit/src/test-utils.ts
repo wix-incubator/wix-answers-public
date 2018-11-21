@@ -110,6 +110,15 @@ export const ticketPayloadBuilder = (partial: Partial<TicketSandboxContext> = {}
 			email: 'david@rahel.com',
 			fullName: 'David Rahel'
 		},
+		content: '',
+		channel: 130,
+		status: 100,
+		priority: 20,
+		url: '',
+		assignedUser: {
+			email: 'amit@huli.com',
+			fullName: 'Amit Huli'
+		},
 		...partial
 	};
 };
@@ -118,6 +127,7 @@ export const webhookTicketPayloadBuilder = (partial: Partial<WebhookTicketSandbo
 	WebhookTicketSandboxContext => {
 	return {
 		tenantId: partial.tenantId || '',
+		timestamp: Date.now(),
 		payload: ticketPayloadBuilder(partial && partial.payload || {})
 	};
 };

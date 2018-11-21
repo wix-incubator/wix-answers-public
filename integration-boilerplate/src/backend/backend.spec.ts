@@ -24,7 +24,11 @@ const initConfig = {
 	scriptUrl: `${baseUrl}/script.js`,
 	settingsUrl: `${baseUrl}/settings`,
 	registerUrl: `${baseUrl}/register`,
-	unregisterUrl: `${baseUrl}/unregister`
+	unregisterUrl: `${baseUrl}/unregister`,
+	webhooks: {
+		TICKET_CREATED: `${baseUrl}/webhooks/reply-created`,
+		REPLY_CREATED: `${baseUrl}/webhooks/ticket-created`
+	}
 };
 
 const payload = {
@@ -34,6 +38,32 @@ const payload = {
 	tenantId: '123333221'
 };
 
+const mockTicketData = {
+	tenantId: 'w-w-w-w-w',
+	timestamp: 1542796597564,
+	payload:
+	{
+		id: 'bob7',
+		subject: 'dfgdfg',
+		user: { email: 'david@rahel.com', fullName: 'David Rahel' },
+		content: '',
+		channel: 130,
+		status: 100,
+		priority: 20,
+		url: '',
+		assignedUser: { email: 'amit@huli.com', fullName: 'Amit Huli' }
+	}
+};
+
+const mockReplyData = {
+	tenantId: 'w-w-w-w-w',
+	payload:
+	{
+		id: 'bob7',
+		user: { email: 'david@rahel.com', fullName: 'David Rahel' },
+		parentTicket: mockTicketData.payload
+	}
+};
 class TestMongoWrapper {
 	initDB = {};
 	settingsDB = {};
@@ -81,6 +111,18 @@ describe('Integration ', () => {
 
 		assert.equal(res, payload.tenantId);
 		assert.exists(dbDriver.initDB[payload.tenantId]);
+	});
+
+	it('Should trigger ticket-created webhook', async () => {
+		const res = await testkit.triggerTicketCreated(mockTicketData);
+
+		assert.deepEqual(res, mockTicketData);
+	});
+
+	it('Should trigger reply-created webhook', async () => {
+		const res = await testkit.triggerReplyCreated(mockReplyData);
+
+		assert.deepEqual(res, mockReplyData);
 	});
 
 	it('Should unregister user', async () => {

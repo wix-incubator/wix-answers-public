@@ -2,7 +2,7 @@ import { getFreePort, log } from '../utils';
 import * as express from 'express';
 
 import * as bodyParser from 'body-parser';
-import { integrationDataBuilder, ticketPayloadBuilder, webhookTicketPayloadBuilder } from '../test-utils';
+import { integrationDataBuilder, ticketPayloadBuilder, webhookTicketPayloadBuilder, webhookReplyPayloadBuilder } from '../test-utils';
 import { IntegrationData, IntegrationsTestkit, createTestkit } from '..';
 
 export const startSandbox = async (forcePort?: number) => {
@@ -18,7 +18,7 @@ export const startSandbox = async (forcePort?: number) => {
 		const testValueStr = JSON.stringify(testValue);
 		const html = `<html>
 		<h1>Setup Sandbox</h1>
-		<textarea id="data" style="width: 442px; height: 251px;"></textarea>
+		<textarea id="data" style="width: 650px; height: 251px;"></textarea>
 		<button onclick="setup()">Setup</button>
 		<script>
 			const valToUse = localStorage.getItem('storedData') || JSON.stringify(${testValueStr}, null, 4);
@@ -156,6 +156,8 @@ export const startSandbox = async (forcePort?: number) => {
 
 				window.register = () => post('/trigger-register/' + prompt('tenant id', 'some-id'));
 				window.unregister = () => post('/trigger-unregister/' + prompt('tenant id', 'some-id'));
+				window.ticketCreated = () => post('/trigger-ticket-created/' + prompt('tenant id', 'some-id'));
+				window.replyCreated = () => post('/trigger-reply-created/' + prompt('tenant id', 'some-id'));
 
 			</script>
 			<h1>Sandbox Menu</h1>
@@ -167,6 +169,8 @@ export const startSandbox = async (forcePort?: number) => {
 				<li><button onclick="register()">Trigger register</button></li>
 				<li><button onclick="unregister()">Trigger unregister</button></li>
 				<li><button onclick="settings()">Trigger go to settings</button></li>
+				<li><button onclick="ticketCreated()">Trigger ticket created webhook</button></li>
+				<li><button onclick="replyCreated()">Trigger reply created webhook</button></li>
 				<li><a href="/pre-ticket-view" target="_blank">Trigger go to ticket page</a></li>
 				<li><a href="/">Redo setup</a></li>
 			</ul>
@@ -191,6 +195,20 @@ export const startSandbox = async (forcePort?: number) => {
 		}
 	});
 
+	app.post('/trigger-reply-created/:tenantId', async (req, res) => {
+		const { tenantId } = req.params;
+		if (!testkit) {
+			log('Error! Teskit is not set up, please go to setup again');
+		} else {
+			try {
+				const ticket = webhookReplyPayloadBuilder({tenantId});
+				const data = await testkit.triggerReplyCreated(ticket);
+				res.send({ data });
+			} catch (e) {
+				res.status(500).send('Something broke! - ' + e.toString());
+			}
+		}
+	});
 	const port: number = forcePort || await getFreePort();
 	return {
 		close: app.listen(port),
