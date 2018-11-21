@@ -106,26 +106,26 @@ describe('Integration ', () => {
 		server = app.listen(testConfig.apiPort);
 	});
 
-	it('Should register user', async () => {
+	it('Trigger register user', async () => {
 		const res = await testkit.triggerRegister(payload);
 
 		assert.equal(res, payload.tenantId);
 		assert.exists(dbDriver.initDB[payload.tenantId]);
 	});
 
-	it('Should trigger ticket-created webhook', async () => {
+	it('Trigger ticket-created webhook', async () => {
 		const res = await testkit.triggerTicketCreated(mockTicketData);
 
 		assert.deepEqual(res, mockTicketData);
 	});
 
-	it('Should trigger reply-created webhook', async () => {
+	it('Trigger reply-created webhook', async () => {
 		const res = await testkit.triggerReplyCreated(mockReplyData);
 
 		assert.deepEqual(res, mockReplyData);
 	});
 
-	it('Should unregister user', async () => {
+	it('Trigger unregister user', async () => {
 		const res = await testkit.triggerUnregister(payload.tenantId);
 
 		assert.equal(res, payload.tenantId);
