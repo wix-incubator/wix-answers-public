@@ -2,7 +2,10 @@ import { getFreePort, log } from '../utils';
 import * as express from 'express';
 
 import * as bodyParser from 'body-parser';
-import { integrationDataBuilder, ticketPayloadBuilder, webhookTicketPayloadBuilder, webhookReplyPayloadBuilder } from '../test-utils';
+import {
+	integrationDataBuilder, ticketViewPayloadBuilder,
+	webhookTicketPayloadBuilder, webhookReplyPayloadBuilder
+} from '../test-utils';
 import { IntegrationData, IntegrationsTestkit, createTestkit } from '..';
 
 export const startSandbox = async (forcePort?: number) => {
@@ -83,7 +86,7 @@ export const startSandbox = async (forcePort?: number) => {
 	});
 
 	app.get('/pre-ticket-view', (_, res) => {
-		const testValue = { tenantId: 'some-id', payload: ticketPayloadBuilder() };
+		const testValue = { tenantId: 'some-id', payload: ticketViewPayloadBuilder() };
 		const testValueStr = JSON.stringify(testValue);
 
 		if (!testkit) {
@@ -186,7 +189,7 @@ export const startSandbox = async (forcePort?: number) => {
 			log('Error! Teskit is not set up, please go to setup again');
 		} else {
 			try {
-				const ticket = webhookTicketPayloadBuilder({tenantId});
+				const ticket = webhookTicketPayloadBuilder({ tenantId });
 				const data = await testkit.triggerTicketCreated(ticket);
 				res.send({ data });
 			} catch (e) {
@@ -201,7 +204,7 @@ export const startSandbox = async (forcePort?: number) => {
 			log('Error! Teskit is not set up, please go to setup again');
 		} else {
 			try {
-				const ticket = webhookReplyPayloadBuilder({tenantId});
+				const ticket = webhookReplyPayloadBuilder({ tenantId });
 				const data = await testkit.triggerReplyCreated(ticket);
 				res.send({ data });
 			} catch (e) {

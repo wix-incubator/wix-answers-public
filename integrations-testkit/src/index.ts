@@ -25,13 +25,22 @@ export interface IntegrationData {
 	registerUrl: string;
 	unregisterUrl: string;
 	settingsUrl: string;
-	scriptUrl: string;
+	ticketSidebar?: {
+		title: string,
+		url: string
+	};
 	webhooks?: {
 		TICKET_CREATED?: string,
 		REPLY_CREATED?: string
 	};
 }
 
+export interface TicketViewPageContext {
+	id: string;
+	subject: string;
+	userEmail: string;
+	userId: string;
+}
 export interface TicketSandboxContext {
 	id: string;
 	subject: string;
@@ -75,7 +84,7 @@ export interface SignedContext<T> {
 export interface IntegrationsTestkit {
 	triggerRegister: (context: IntegrationRegisterContext) => Promise<any>;
 	triggerUnregister: (tenantId: string) => Promise<any>;
-	getTicketViewSandboxUrl: (context: SignedContext<TicketSandboxContext>) => string;
+	getTicketViewSandboxUrl: (context: SignedContext<TicketViewPageContext>) => string;
 	getRenderedSettingsUrl: (tenantId: string) => string;
 	closeServer: () => Promise<void>;
 	triggerTicketCreated: (context: WebhookTicketSandboxContext) => Promise<any>;
@@ -93,7 +102,10 @@ export const createTestkit = async (
 		registerUrl,
 		unregisterUrl,
 		settingsUrl,
-		scriptUrl,
+		ticketSidebar = {
+			title: '',
+			url: ''
+		},
 		webhooks = {
 			REPLY_CREATED: '',
 			TICKET_CREATED: ''
@@ -131,50 +143,28 @@ export const createTestkit = async (
 		res.send(html);
 	});
 
-	app.post('/sign', async (req, res) => {
-		const body = req.body;
-		const jws = await jwsPromise;
-		const token = await jws.sign(JSON.stringify(body));
-		res.send({ payload: token });
-	});
-
 	app.get('/ticket-view/:data', async (req, res) => {
 		const str = Buffer.from(req.params.data, 'base64').toString('utf8');
-		const { payload, tenantId } = JSON.parse(str);
-
-		const strPayload = Buffer.from(JSON.stringify(payload)).toString('base64');
+		const jws = await jwsPromise;
+		const token = await jws.sign(str);
 
 		const html = `<html>
-		<script>
-		listeners = [];
-		answersBackofficeSdk = {
-			eventTypes: {ticketLoaded: 42},
-			addListener: (type, cb) => listeners.push(cb),
-			addTicketInfoSection: (title, html) => {
-				const div = document.createElement('div');
-				div.innerHTML = html;
-				document.body.appendChild(div);
-			},
-			onIntegrationRemoved: () => {},
-			sign: (id, payload) => {
-				return fetch('/sign', {
-					method: 'POST',
-					body: JSON.stringify({payload, tenantId: '${tenantId}'}),
-					headers: {
-						'Content-Type': 'application/json'
+			<head>
+				<style>
+					iframe {
+						width: 335px;
+						height: 700px;
+						display: block;
+						float: right;
 					}
-				}).then(res => res.json());
-			}
-		}
+				</style>
+			</head>
+			<body>
 
-		</script>
-		<script type="text/javascript" src="${scriptUrl}"></script>
-		<h1>Ticket page dummy  - [${payload.subject}]</h1>
-		<pre><code>${JSON.stringify(payload)}</code></pre>
-		<script>
-			const data = atob('${strPayload}');
-			listeners.forEach((cb) => cb(JSON.parse(data)));
-		</script>
+
+				<h1>Ticket page dummy  - [${str}]</h1>
+				<iframe name="view" src="${ticketSidebar.url}?data=${token}"/>
+			</body>
 		</html>`;
 		res.send(html);
 	});

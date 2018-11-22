@@ -6,9 +6,9 @@ import {
 	integrationDataBuilder,
 	dummyIntegration,
 	integrationContextBuilder,
-	ticketPayloadBuilder,
 	webhookTicketPayloadBuilder,
-	webhookReplyPayloadBuilder
+	webhookReplyPayloadBuilder,
+	ticketViewPayloadBuilder
 } from './test-utils';
 import { getFreePort } from './utils';
 import * as puppeteer from 'puppeteer';
@@ -98,11 +98,14 @@ describe('testkit', () => {
 
 		const settingsUrl = `http://localhost:${port}/settings`;
 
-		const tenantId = 'some-id2';
+		const tenantId = 'some-id';
 
 		const integrationData = integrationDataBuilder({
 			settingsUrl,
-			scriptUrl: `http://localhost:${port}/script.js`
+			ticketSidebar: {
+				title: 'Example Sidebar',
+				url: `http://localhost:${port}/view/`
+			}
 		});
 
 		const stop = dummyIntegration(integrationData, port);
@@ -113,7 +116,7 @@ describe('testkit', () => {
 
 		const browser = await puppeteer.launch();
 		cleanups.push(() => browser.close());
-		const payload = ticketPayloadBuilder();
+		const payload = ticketViewPayloadBuilder();
 		const ticketView = await testkit.getTicketViewSandboxUrl({ payload, tenantId });
 
 		// the dummy integration will listen to the sdk and add an iframe to the sidebar with the tenant id
@@ -128,7 +131,7 @@ describe('testkit', () => {
 		const frame = page.frames().find((f) => f.name() === 'view') as any;
 		// to simulate real world the testkit embeds the settings in an iframe
 		const driver = pupUniDriver(() => frame.$('body'));
-		assert.include(await driver.$('h2').text(), payload.user.email);
+		assert.include(await driver.$('h2').text(), payload.userEmail);
 		assert.include(await driver.$('h2').text(), tenantId);
 
 	}).timeout(10000);

@@ -1,7 +1,8 @@
 import {
 	IntegrationData, IntegrationRegisterContext,
 	TicketSandboxContext, WebhookTicketSandboxContext,
-	WebhookReplySandboxContext
+	WebhookReplySandboxContext,
+	TicketViewPageContext
 } from '.';
 
 import express = require('express');
@@ -35,11 +36,12 @@ export const dummyIntegration = (data: IntegrationData, port: number) => {
 		res.send(`<h2>${context.tenantId}</h2>`);
 	});
 
-	app.get('/view/:token', async (req, res) => {
-		const token = req.params.token;
+	app.get('/view', async (req, res) => {
+		const token = req.query.data;
 		const jws = await jwsPromise;
 		const { payload, tenantId } = await jws.verify(token);
-		res.send(`<h2>${payload} - ${tenantId}</h2>`);
+
+		res.send(`<h2>${JSON.stringify(payload)} - ${tenantId}</h2>`);
 	});
 
 	app.post('/webhook/ticket-created', async (req, res) => {
@@ -56,21 +58,6 @@ export const dummyIntegration = (data: IntegrationData, port: number) => {
 		res.send(verified);
 	});
 
-	const fullUrl = `http://localhost:${port}`;
-
-	app.get('/script.js', async (_, res) => {
-		const code = `
-		answersBackofficeSdk.addListener(answersBackofficeSdk.eventTypes.ticketLoaded, async (t) => {
-
-			const token = await answersBackofficeSdk.sign('${data.id}', t.user.email);
-			const url = '${fullUrl}/view/' + token.payload;
-			answersBackofficeSdk.addTicketInfoSection('Integration!', '<iframe name="view" src="' + url + '"/>');
-		});
-		`;
-		res.header('Content-Type', 'application/javascript');
-		res.send(code);
-	});
-
 	const server = app.listen(port);
 	return () => server.close();
 };
@@ -82,7 +69,10 @@ export const integrationDataBuilder = (partial: Partial<IntegrationData> = {}): 
 		registerUrl: '',
 		unregisterUrl: '',
 		settingsUrl: '',
-		scriptUrl: '',
+		ticketSidebar: {
+			title: '',
+			url: ''
+		},
 		webhooks: {
 			TICKET_CREATED: '',
 			REPLY_CREATED: ''
@@ -98,6 +88,16 @@ export const integrationContextBuilder = (partial: Partial<IntegrationRegisterCo
 		secret: 'bob2', // Answers API Secret
 		host: 'bob3', // Hostname of the Tenant who added integration
 		tenantId: 'bob4',
+		...partial
+	};
+};
+
+export const ticketViewPayloadBuilder = (partial: Partial<TicketViewPageContext> = {}): TicketViewPageContext => {
+	return {
+		id: '',
+		subject: '',
+		userEmail: '',
+		userId: '',
 		...partial
 	};
 };
