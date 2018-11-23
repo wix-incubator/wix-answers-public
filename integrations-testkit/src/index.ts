@@ -25,18 +25,57 @@ export interface IntegrationData {
 	registerUrl: string;
 	unregisterUrl: string;
 	settingsUrl: string;
-	scriptUrl: string;
+	ticketSidebar?: {
+		title: string,
+		url: string
+	};
+	webhooks?: {
+		TICKET_CREATED?: string,
+		REPLY_CREATED?: string
+	};
 }
 
+export interface TicketViewPageContext {
+	id: string;
+	subject: string;
+	userEmail: string;
+	userId: string;
+}
 export interface TicketSandboxContext {
 	id: string;
 	subject: string;
+	content: string;
+	channel: number;
+	status: number;
+	priority: number;
+	url: string;
+	assignedUser: {
+		email: string;
+		fullName: string;
+	};
 	user: {
 		email: string;
 		fullName: string;
 	};
 }
 
+export interface WebhookTicketSandboxContext {
+	tenantId: string;
+	timestamp: number;
+	payload: TicketSandboxContext;
+}
+
+export interface WebhookReplySandboxContext {
+	tenantId: string;
+	payload: {
+		id: string;
+		user: {
+			email: string;
+			fullName: string;
+		};
+		parentTicket: TicketSandboxContext
+	};
+}
 export interface SignedContext<T> {
 	payload: T;
 	tenantId: string;
@@ -45,23 +84,32 @@ export interface SignedContext<T> {
 export interface IntegrationsTestkit {
 	triggerRegister: (context: IntegrationRegisterContext) => Promise<any>;
 	triggerUnregister: (tenantId: string) => Promise<any>;
-	getTicketViewSandboxUrl: (context: SignedContext<TicketSandboxContext>) => string;
+	getTicketViewSandboxUrl: (context: SignedContext<TicketViewPageContext>) => string;
 	getRenderedSettingsUrl: (tenantId: string) => string;
 	closeServer: () => Promise<void>;
+	triggerTicketCreated: (context: WebhookTicketSandboxContext) => Promise<any>;
+	triggerReplyCreated: (context: WebhookReplySandboxContext) => Promise<any>;
 }
 
 // tslint:disable-next-line:max-line-length
 export const createTestkit = async (
-		integrationData: IntegrationData,
-		forcePort?: number
-	): Promise<IntegrationsTestkit> => {
+	integrationData: IntegrationData,
+	forcePort?: number
+): Promise<IntegrationsTestkit> => {
 
 	const {
 		secret,
 		registerUrl,
 		unregisterUrl,
 		settingsUrl,
-		scriptUrl
+		ticketSidebar = {
+			title: '',
+			url: ''
+		},
+		webhooks = {
+			REPLY_CREATED: '',
+			TICKET_CREATED: ''
+		}
 	} = integrationData;
 
 	// tslint:disable-next-line:no-console
@@ -73,7 +121,7 @@ export const createTestkit = async (
 	app.get('/settings/:tenantId', async (req, res) => {
 		const tenantId = req.params.tenantId;
 		const jws = await jwsPromise;
-		const token = await jws.sign(JSON.stringify({tenantId}));
+		const token = await jws.sign(JSON.stringify({ tenantId }));
 		const html = `
 		<html>
 			<head>
@@ -95,50 +143,28 @@ export const createTestkit = async (
 		res.send(html);
 	});
 
-	app.post('/sign', async (req, res) => {
-		const body = req.body;
-		const jws = await jwsPromise;
-		const token = await jws.sign(JSON.stringify(body));
-		res.send({payload: token});
-	});
-
 	app.get('/ticket-view/:data', async (req, res) => {
 		const str = Buffer.from(req.params.data, 'base64').toString('utf8');
-		const {payload, tenantId} = JSON.parse(str);
-
-		const strPayload = Buffer.from(JSON.stringify(payload)).toString('base64');
+		const jws = await jwsPromise;
+		const token = await jws.sign(str);
 
 		const html = `<html>
-		<script>
-		listeners = [];
-		answersBackofficeSdk = {
-			eventTypes: {ticketLoaded: 42},
-			addListener: (type, cb) => listeners.push(cb),
-			addTicketInfoSection: (title, html) => {
-				const div = document.createElement('div');
-				div.innerHTML = html;
-				document.body.appendChild(div);
-			},
-			onIntegrationRemoved: () => {},
-			sign: (id, payload) => {
-				return fetch('/sign', {
-					method: 'POST',
-					body: JSON.stringify({payload, tenantId: '${tenantId}'}),
-					headers: {
-						'Content-Type': 'application/json'
+			<head>
+				<style>
+					iframe {
+						width: 335px;
+						height: 700px;
+						display: block;
+						float: right;
 					}
-				}).then(res => res.json());
-			}
-		}
+				</style>
+			</head>
+			<body>
 
-		</script>
-		<script type="text/javascript" src="${scriptUrl}"></script>
-		<h1>Ticket page dummy  - [${payload.subject}]</h1>
-		<pre><code>${JSON.stringify(payload)}</code></pre>
-		<script>
-			const data = atob('${strPayload}');
-			listeners.forEach((cb) => cb(JSON.parse(data)));
-		</script>
+
+				<h1>Ticket page dummy  - [${str}]</h1>
+				<iframe name="view" src="${ticketSidebar.url}?data=${token}"/>
+			</body>
 		</html>`;
 		res.send(html);
 	});
@@ -153,22 +179,22 @@ export const createTestkit = async (
 			const encrypted = await jwe.encrypt(JSON.stringify(data));
 			// tslint:disable-next-line:no-console
 			log(`Triggering register to url: [${registerUrl}] with data: [${JSON.stringify(encrypted)}]`);
-			return axios.post(registerUrl, {payload: encrypted}).then((res) => {
+			return axios.post(registerUrl, { payload: encrypted }).then((res) => {
 				return res.data;
 			});
 		},
 		triggerUnregister: async (tenantId) => {
 			const jwe = await jwePromise;
 			// tslint:disable-next-line:no-console
-			const encrypted = await jwe.encrypt(JSON.stringify({tenantId}));
+			const encrypted = await jwe.encrypt(JSON.stringify({ tenantId }));
 			// tslint:disable-next-line:no-console
 			log(`Triggering unregister to url: [${unregisterUrl}] with token: [${JSON.stringify(encrypted)}]`);
-			return axios.post(unregisterUrl, {payload: encrypted}).then((res) => {
+			return axios.post(unregisterUrl, { payload: encrypted }).then((res) => {
 				return res.data;
 			});
 		},
-		getTicketViewSandboxUrl: ({payload, tenantId}) => {
-			const data = Buffer.from(JSON.stringify({payload, tenantId})).toString('base64');
+		getTicketViewSandboxUrl: ({ payload, tenantId }) => {
+			const data = Buffer.from(JSON.stringify({ payload, tenantId })).toString('base64');
 			return `http://localhost:${port}/ticket-view/${data}`;
 		},
 		getRenderedSettingsUrl: (tenantId) => {
@@ -177,7 +203,32 @@ export const createTestkit = async (
 		},
 		closeServer: async () => {
 			await server.close();
-		}
+		},
+		triggerTicketCreated: async (data) => {
+			const jws = await jwsPromise;
+			const encrypted = await jws.sign(JSON.stringify(data));
+
+			log(`Triggering ticket created webhook to url:
+			[${webhooks.TICKET_CREATED}] with data: [${JSON.stringify(encrypted)}]`);
+
+			if (!webhooks.TICKET_CREATED) {
+				throw new Error('Webhook url for ticket created is not defined');
+			}
+			return axios.post(webhooks.TICKET_CREATED, { payload: encrypted }).then((res) => res.data);
+		},
+		triggerReplyCreated: async (data) => {
+			const jws = await jwsPromise;
+			const encrypted = await jws.sign(JSON.stringify(data));
+
+			log(`Triggering reply cereated webhook to url:
+			[${webhooks.REPLY_CREATED}] with data: [${JSON.stringify(encrypted)}]`);
+
+			if (!webhooks.REPLY_CREATED) {
+				throw new Error('Webhook url for reply created is not defined');
+			}
+
+			return axios.post(webhooks.REPLY_CREATED, { payload: encrypted }).then((res) => res.data);
+		},
 
 	};
 };

@@ -1,4 +1,9 @@
-import { IntegrationData, IntegrationRegisterContext, TicketSandboxContext } from '.';
+import {
+	IntegrationData, IntegrationRegisterContext,
+	TicketSandboxContext, WebhookTicketSandboxContext,
+	WebhookReplySandboxContext,
+	TicketViewPageContext
+} from '.';
 
 import express = require('express');
 
@@ -31,26 +36,26 @@ export const dummyIntegration = (data: IntegrationData, port: number) => {
 		res.send(`<h2>${context.tenantId}</h2>`);
 	});
 
-	app.get('/view/:token', async (req, res) => {
-		const token = req.params.token;
+	app.get('/view', async (req, res) => {
+		const token = req.query.data;
 		const jws = await jwsPromise;
-		const {payload, tenantId} = await jws.verify(token);
-		res.send(`<h2>${payload} - ${tenantId}</h2>`);
+		const { payload, tenantId } = await jws.verify(token);
+
+		res.send(`<h2>${JSON.stringify(payload)} - ${tenantId}</h2>`);
 	});
 
-	const fullUrl = `http://localhost:${port}`;
+	app.post('/webhook/ticket-created', async (req, res) => {
+		const { payload } = req.body;
+		const jws = await jwsPromise;
+		const verified = await jws.verify(payload);
+		res.send(verified);
+	});
 
-	app.get('/script.js', async (_, res) => {
-		const code = `
-		answersBackofficeSdk.addListener(answersBackofficeSdk.eventTypes.ticketLoaded, async (t) => {
-
-			const token = await answersBackofficeSdk.sign('${data.id}', t.user.email);
-			const url = '${fullUrl}/view/' + token.payload;
-			answersBackofficeSdk.addTicketInfoSection('Integration!', '<iframe name="view" src="' + url + '"/>');
-		});
-		`;
-		res.header('Content-Type', 'application/javascript');
-		res.send(code);
+	app.post('/webhook/reply-created', async (req, res) => {
+		const { payload } = req.body;
+		const jws = await jwsPromise;
+		const verified = await jws.verify(payload);
+		res.send(verified);
 	});
 
 	const server = app.listen(port);
@@ -64,7 +69,14 @@ export const integrationDataBuilder = (partial: Partial<IntegrationData> = {}): 
 		registerUrl: '',
 		unregisterUrl: '',
 		settingsUrl: '',
-		scriptUrl: '',
+		ticketSidebar: {
+			title: '',
+			url: ''
+		},
+		webhooks: {
+			TICKET_CREATED: '',
+			REPLY_CREATED: ''
+		},
 		...partial
 	};
 };
@@ -80,6 +92,16 @@ export const integrationContextBuilder = (partial: Partial<IntegrationRegisterCo
 	};
 };
 
+export const ticketViewPayloadBuilder = (partial: Partial<TicketViewPageContext> = {}): TicketViewPageContext => {
+	return {
+		id: '',
+		subject: '',
+		userEmail: '',
+		userId: '',
+		...partial
+	};
+};
+
 export const ticketPayloadBuilder = (partial: Partial<TicketSandboxContext> = {}): TicketSandboxContext => {
 	return {
 		id: 'bob7',
@@ -88,6 +110,39 @@ export const ticketPayloadBuilder = (partial: Partial<TicketSandboxContext> = {}
 			email: 'david@rahel.com',
 			fullName: 'David Rahel'
 		},
+		content: '',
+		channel: 130,
+		status: 100,
+		priority: 20,
+		url: '',
+		assignedUser: {
+			email: 'amit@huli.com',
+			fullName: 'Amit Huli'
+		},
 		...partial
+	};
+};
+
+export const webhookTicketPayloadBuilder = (partial: Partial<WebhookTicketSandboxContext> = {}):
+	WebhookTicketSandboxContext => {
+	return {
+		tenantId: partial.tenantId || '',
+		timestamp: Date.now(),
+		payload: ticketPayloadBuilder(partial && partial.payload || {})
+	};
+};
+
+export const webhookReplyPayloadBuilder = (partial: Partial<WebhookReplySandboxContext> = {}):
+	WebhookReplySandboxContext => {
+	return {
+		tenantId: partial.tenantId || '',
+		payload: {
+			id: 'bob7',
+			user: {
+				email: 'david@rahel.com',
+				fullName: 'David Rahel'
+			},
+			parentTicket: ticketPayloadBuilder()
+		}
 	};
 };
