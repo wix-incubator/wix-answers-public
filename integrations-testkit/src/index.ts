@@ -144,9 +144,13 @@ export const createTestkit = async (
 	});
 
 	app.get('/ticket-view/:data', async (req, res) => {
-		const str = Buffer.from(req.params.data, 'base64').toString('utf8');
+		const rawData = Buffer.from(req.params.data, 'base64').toString('utf8');
 		const jws = await jwsPromise;
-		const token = await jws.sign(str);
+		const token = await jws.sign(rawData);
+
+		const obj = JSON.parse(rawData);
+
+		const subject = obj.payload.subject;
 
 		const html = `<html>
 			<head>
@@ -160,9 +164,8 @@ export const createTestkit = async (
 				</style>
 			</head>
 			<body>
-
-
-				<h1>Ticket page dummy  - [${str}]</h1>
+				<h1>Fake Ticket Page</h1>
+				<h2>${subject}</h2>
 				<iframe name="view" src="${ticketSidebar.url}?data=${token}"/>
 			</body>
 		</html>`;

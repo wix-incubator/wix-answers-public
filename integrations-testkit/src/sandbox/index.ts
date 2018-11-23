@@ -24,13 +24,13 @@ export const startSandbox = async (forcePort?: number) => {
 		<textarea id="data" style="width: 650px; height: 251px;"></textarea>
 		<button onclick="setup()">Setup</button>
 		<script>
-			const valToUse = localStorage.getItem('storedData') || JSON.stringify(${testValueStr}, null, 4);
+			const valToUse = localStorage.getItem('storedData-v2') || JSON.stringify(${testValueStr}, null, 4);
 			document.querySelector('#data').value = valToUse;
 
 			setup = () => {
 				const rawVal = document.querySelector('#data').value;
 				const val = btoa(rawVal);
-				localStorage.setItem('storedData', rawVal);
+				localStorage.setItem('storedData-v2', rawVal);
 				location.href = '/setup/' + val;
 			}
 		</script>
