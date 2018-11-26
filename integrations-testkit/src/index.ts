@@ -197,7 +197,7 @@ export const createTestkit = async (
 			});
 		},
 		getTicketViewSandboxUrl: ({ payload, tenantId }) => {
-			const data = Buffer.from(JSON.stringify({ payload, tenantId })).toString('base64');
+			const data = Buffer.from(JSON.stringify({ payload: JSON.stringify(payload), tenantId })).toString('base64');
 			return `http://localhost:${port}/ticket-view/${data}`;
 		},
 		getRenderedSettingsUrl: (tenantId) => {

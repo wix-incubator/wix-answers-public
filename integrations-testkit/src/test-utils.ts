@@ -41,7 +41,7 @@ export const dummyIntegration = (data: IntegrationData, port: number) => {
 		const jws = await jwsPromise;
 		const { payload, tenantId } = await jws.verify(token);
 
-		res.send(`<h2>${JSON.stringify(payload)} - ${tenantId}</h2>`);
+		res.send(`<h2>${JSON.parse(payload).subject} - ${tenantId}</h2>`);
 	});
 
 	app.post('/webhook/ticket-created', async (req, res) => {
