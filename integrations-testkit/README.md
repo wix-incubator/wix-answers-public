@@ -3,7 +3,7 @@
 Allows writing e2e tests for Answers integrations by emulating the flows that happen when an integration runs on our server.
 
 ## Install
-`npm i answers-integrations-testkit`
+`npm i wix-answers-integrations-testkit`
 
 ## API
 
@@ -34,7 +34,7 @@ See [test code](./src/spec.ts) for examples - this tests the testkit using a dum
 This package also comes with an UI for the testkit. It allows you to add your integration details and trigger hooks / simulate settings / simualte ticket page view.
 
 ### Usage
-1. Install this package *globally* (`npm i -g answers-integrations-testkit`)
+1. Install this package *globally* (`npm i -g wix-answers-integrations-testkit`)
 2. Run `answers-integrations-sandbox`
 3. The url of the sandbox will be returned
 
