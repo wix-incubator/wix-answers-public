@@ -4,6 +4,14 @@ import { jweInstance, getFreePort, jwsInstance, log } from './utils';
 import * as express from 'express';
 import * as bodyParser from 'body-parser';
 
+const NEW_INTEGRATION_MESSAGE_TYPE = 'ans_integration_api_v1';
+
+enum IntegrationApiMsgType {
+	NOTIFY = 'notify',
+	TICKET_RESIZE = 'ticket.resize',
+	SETTINGS_CLOSE = 'settings.close'
+}
+
 export interface IntegrationRegisterContext {
 	keyId: string;
 	secret: string; // Answers API Secret
@@ -157,18 +165,32 @@ export const createTestkit = async (
 				<style>
 					iframe {
 						width: 335px;
-						height: 700px;
+						height: 100px;
 						display: block;
 						float: right;
+						transition: height .1s;
+						overflow: hidden;
 					}
 				</style>
+				<script>
+					window.addEventListener('message', (event) => {
+						const msgData = event.data;
+						if (msgData && msgData.type === '${NEW_INTEGRATION_MESSAGE_TYPE}') {
+							switch (msgData.cmd) {
+								case '${IntegrationApiMsgType.TICKET_RESIZE}':
+									document.querySelector('#sidebar-iframe').style.height = msgData.payload;
+									break;
+							}
+						}
+					});
+				</script>
 			</head>
 			<body>
 				<h1>Fake Ticket Page</h1>
 				<h2>${subject}</h2>
-				<iframe name="view" src="${ticketSidebar.url}?data=${token}"/>
+				<iframe id="sidebar-iframe" name="view" src="${ticketSidebar.url}?data=${token}"/>
 			</body>
-		</html>`;
+			</html>`;
 		res.send(html);
 	});
 
