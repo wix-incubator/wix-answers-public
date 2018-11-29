@@ -44,8 +44,13 @@ export class BasePopover extends React.Component<BasePopoverProps & PopoverProps
 	}
 
 	componentWillMount () {
-		if (document) {
-			this.document = document;
+		// TODO - use global or window here to avoid that
+		try {
+			if (document) {
+				this.document = document;
+			}
+		} catch (e) {
+			//
 		}
 	}
 
