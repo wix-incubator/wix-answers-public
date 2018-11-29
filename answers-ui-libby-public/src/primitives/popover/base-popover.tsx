@@ -25,6 +25,7 @@ export class BasePopover extends React.Component<BasePopoverProps & PopoverProps
 	hotkeyHandler: any = null;
 	lastScrollTop: any = null;
 	eventHandler: any = null;
+	document: any;
 
 	handleKeyUp = (e: KeyboardEvent) => {
 		if (this.props.isOpen && e.keyCode === 27) {
@@ -39,6 +40,12 @@ export class BasePopover extends React.Component<BasePopoverProps & PopoverProps
 			}
 		} else {
 			this.lastScrollTop = event.srcElement.scrollTop;
+		}
+	}
+
+	componentWillMount () {
+		if (document) {
+			this.document = document;
 		}
 	}
 
@@ -60,8 +67,8 @@ export class BasePopover extends React.Component<BasePopoverProps & PopoverProps
 		}
 	}
 
-	componentDidCatch () {
-		console.warn('Caught error in Popover.. No panic though');
+	componentDidCatch (e: Error) {
+		console.warn('Caught error in Popover.. No panic though', e);
 		// Catches errors thrown by popver in tests since move to R16.
 		// These errors probably always existed, and surfaced now as R16 unmounts
 		// the entire dom tree when errors are not cought.
@@ -75,10 +82,16 @@ export class BasePopover extends React.Component<BasePopoverProps & PopoverProps
 
 		const popoverProps = {...props, preferPlace, enterExitTransitionDurationMs: 250};
 
-		return (
-			<RealPopover {...popoverProps} className={classNames} appendTarget={document.body}>
-				{this.props.children}
-			</RealPopover>
-		);
+		if (this.document)  {
+			return (
+				<RealPopover {...popoverProps} className={classNames} appendTarget={this.document.body}>
+					{this.props.children}
+				</RealPopover>
+			);
+		} else {
+			// popovers should not render if it's not mounted
+			return null;
+		}
+
 	}
 }
