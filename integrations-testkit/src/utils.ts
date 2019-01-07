@@ -14,7 +14,7 @@ export const jweInstance = async (k: string) => {
 
 	return {
 		encrypt: async (payload: any) => {
-			return jose.JWE.createEncrypt(key).update(payload).final();
+			return jose.JWE.createEncrypt({ format: 'compact' }, key).update(payload).final();
 		},
 		decrypt: async (token: any) => {
 			const decrypted = await jose.JWE.createDecrypt(key).decrypt(token);
