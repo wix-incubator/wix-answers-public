@@ -29,3 +29,4 @@ export * from './date-range-picker';
 export * from './date-range-compare';
 export * from './user-presence';
 export * from './ellipsis-list';
+export * from './form-control';

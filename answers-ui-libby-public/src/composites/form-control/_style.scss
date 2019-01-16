@@ -1,0 +1,24 @@
+&.form-control {
+    .label {
+        margin-bottom: 4px;
+    }
+
+    .validation-error {
+		@include field-validation-error();
+		margin-bottom: 3px;
+    }
+    
+    &.with-error {
+        .#{$namespace}.input input:not(:disabled),
+        .#{$namespace}.numeric-input input:not(:disabled),
+        .#{$namespace}.select:not(.is-disabled) .Select-control,
+        .#{$namespace}.text-area:not(:disabled),
+        .#{$namespace}.text-area-autosize:not(:disabled) {
+            border-color: $r10;
+
+            &:hover:not(:disabled) {
+                border-color: $r10;
+            }
+        }
+    }
+}
