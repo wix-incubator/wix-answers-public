@@ -27,7 +27,18 @@ global.DOMParser = DOMParser;
 global.window.DOMParser = DOMParser;
 
 global.DOMParser = DOMParser;
-window.getSelection = () => ({});
+var translations = require('@wix/answers-translation-statics').getTranslationsForTests('en');
+
+window.___answersTranslations = {en: translations};
+window.getSelection = () => ({
+	removeAllRanges: () => {},
+	addRange: () => {},
+	getRangeAt: () => {return {
+		setEnd: () => {},
+		cloneRange: () => {}
+	}}
+});
+global.getSelection = window.getSelection;
 
 document.body.createTextRange = () => ({
 	getClientRects: () => {

@@ -1,4 +1,5 @@
 import * as moment from 'moment';
+import { TranslateFn } from '../../ui';
 
 export const getMomentInstance = (timestamp: number) => moment(timestamp).utc();
 
@@ -43,4 +44,34 @@ export const getPrettyCalendarDate = (uglyDate: string) => {
 	const date = new Date(uglyDate);
 	const momentInstance = moment(date);
 	return momentInstance.format('MMM Do YY');
+};
+
+export const getPrettyDateRange = (rangeStart: string, rangeEnd: string, t: TranslateFn) => {
+	const translateKey = 'app.common.date-range';
+	const getNDaysAgo = (days: number) => getMomentInstance(new Date().valueOf()).subtract(days, 'days').format('D/M/YYYY');
+
+	if (rangeEnd !== getNDaysAgo(1) && rangeEnd !== getNDaysAgo(0)) {
+		return `${rangeStart}-${rangeEnd}`;
+	}
+
+	if (rangeEnd === getNDaysAgo(0)) {
+		return t(`${translateKey}.today`);
+	}
+	if (rangeEnd === getNDaysAgo(1) && rangeStart === rangeEnd) {
+		return t(`${translateKey}.last-day`);
+	}
+	if (rangeStart === getNDaysAgo(7)) {
+		return t(`${translateKey}.7-days`);
+	}
+	if (rangeStart === getNDaysAgo(30)) {
+		return t(`${translateKey}.30-days`);
+	}
+	if (rangeStart === getNDaysAgo(60)) {
+		return t(`${translateKey}.60-days`);
+	}
+	if (rangeStart === getNDaysAgo(90)) {
+		return t(`${translateKey}.90-days`);
+	}
+
+	return `${rangeStart}-${rangeEnd}`;
 };

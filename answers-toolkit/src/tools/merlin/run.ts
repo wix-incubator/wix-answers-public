@@ -24,7 +24,8 @@ const changedModules = getModulesByFiles(deps, ['somedir/p3/src/bob.ts'], p);
 const tasks = graphRes.bind((g) => createScriptTasksForChangedModules(g, changedModules, 'build')).withDefault([]);
 
 tasks.forEach((task) => {
-	const result = runTask(task, console.log.bind(console), exec);
+	// tslint:disable-next-line:no-console
+	const result = runTask(task, console.log.bind(console) as any, exec);
 	const msg = result.match({
 		Ok: () => 'Task run ok',
 		Err: (err) => `Task with error ${err}`,

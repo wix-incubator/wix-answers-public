@@ -1,7 +1,12 @@
 import * as React from 'react';
 import { TranslateFn, ObjOrObjCreator, createTranslateFn, testDataCreator } from './../..';
 
-export class BaseAnsComp<P, S = {}> extends React.PureComponent<P, S> {}
+class DummyClass {}
+
+// this is a hack so lack of react doesn't cause this file to explode in runtime
+const Comp: (typeof React.PureComponent) = React.PureComponent || DummyClass;
+
+export class BaseAnsComp<P, S = {}> extends Comp<P, S> {}
 
 export class ViewComp<P, S = {}> extends BaseAnsComp<P & ViewCompProps, S> {}
 

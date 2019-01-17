@@ -82,9 +82,17 @@ module.exports = function (wallaby) {
 				getBoundingClientRect: () => ({})
 			});
 
-			window.getSelection = () => ({});
+			window.getSelection = () => ({
+				removeAllRanges: () => {},
+				addRange: () => {},
+				getRangeAt: () => {return {
+					setEnd: () => {},
+					cloneRange: () => {}
+				}}
+			});
+			global.getSelection = window.getSelection;
 
-			var translations = require('answers-translation-statics').getTranslationsForTests('en');
+			var translations = require('@wix/answers-translation-statics').getTranslationsForTests('en');
 
 			window.___answersTranslations = {en: translations};
 

@@ -196,8 +196,8 @@ export const getIdealForegroundColor = (backgroundColor: string, options: string
 	return diffObj.color;
 };
 
-export const getIdealTextColor = (backgroundColor: string) => {
-	return getIdealForegroundColor(backgroundColor, [defaultDarkTextColor, defaultBrightTextColor]);
+export const getIdealTextColor = (backgroundColor: string, darkColor: string = defaultDarkTextColor, brightColor: string = defaultBrightTextColor) => {
+	return getIdealForegroundColor(backgroundColor, [darkColor, brightColor]);
 };
 
 // https://www.w3.org/TR/AERT#color-contrast - color difference should be above 500 to have sufficient hue contrast
