@@ -1,8 +1,8 @@
 import { assert } from 'chai';
-import { testViewCompPropsCreator, renderAndMountComp } from '@wix/answers-app-core';
 import { reactUniDriver } from 'unidriver';
 import { FormControl, FormControlProps } from './';
 import { createFormControlDriver } from './driver';
+import { testViewCompPropsCreator, renderAndMountComp } from 'answers-toolkit';
 
 const propsCreator = testViewCompPropsCreator<FormControlProps>(() => ({
 	label: 'label'
