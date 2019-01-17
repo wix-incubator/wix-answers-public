@@ -27,9 +27,7 @@ global.DOMParser = DOMParser;
 global.window.DOMParser = DOMParser;
 
 global.DOMParser = DOMParser;
-var translations = require('@wix/answers-translation-statics').getTranslationsForTests('en');
 
-window.___answersTranslations = {en: translations};
 window.getSelection = () => ({
 	removeAllRanges: () => {},
 	addRange: () => {},
