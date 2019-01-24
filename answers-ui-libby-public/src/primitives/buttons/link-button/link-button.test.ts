@@ -1,8 +1,7 @@
 import {expect} from 'chai';
 import * as sinon from 'sinon';
-
-import * as driver from './link-button.driver';
-import * as jsdomGlobal from 'jsdom-global';
+import jsdomGlobal = require('jsdom-global');
+import * as driver from './link-button.legacy-driver';
 
 describe('Linked Button', () => {
 	let cleanup: any;

@@ -2,7 +2,7 @@ import * as React from 'react';
 import { getLegacyBaseDriverFromWrapper } from '../../../common/base-driver';
 import { ModalHeader, ModalHeaderProps } from './modal-header';
 import { renderAndMountComponent } from 'answers-toolkit';
-import { createLinkButtonDriver } from '../../buttons/link-button/link-button.driver';
+import { createLinkButtonLegacyDriver } from '../../buttons/link-button/link-button.legacy-driver';
 
 export type ModalHeaderDriver = {
 	clickBack: () => void;
@@ -12,7 +12,7 @@ export const createModalHeaderDriver = (wrapper: Element) => {
 	const baseDriver = getLegacyBaseDriverFromWrapper(wrapper, '.modal-header', ModalHeader.name);
 
 	return {
-		clickBack: () => createLinkButtonDriver(baseDriver.elem).click(),
+		clickBack: () => createLinkButtonLegacyDriver(baseDriver.elem).click(),
 	};
 };
 

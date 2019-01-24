@@ -34,3 +34,4 @@ export * from './date-range-compare/driver';
 export * from './tabs-container/driver';
 export * from './user-presence/driver';
 export * from './form-control/driver';
+export * from './date-input/driver';

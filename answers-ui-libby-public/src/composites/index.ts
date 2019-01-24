@@ -30,3 +30,4 @@ export * from './date-range-compare';
 export * from './user-presence';
 export * from './ellipsis-list';
 export * from './form-control';
+export * from './date-input';

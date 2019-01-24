@@ -2,7 +2,7 @@ import * as React from 'react';
 import { getLegacyBaseDriverFromWrapper } from '../../common/base-driver';
 import { renderAndMountComponent } from 'answers-toolkit';
 import { PhoneNumberViewProps, PhoneNumberView } from './phone-number-view';
-import { createLinkButtonDriver } from '../../primitives/buttons/link-button/link-button.driver';
+import { createLinkButtonLegacyDriver } from '../../primitives/buttons/link-button/link-button.legacy-driver';
 import { createPositiveButtonDriver } from '../../primitives/buttons/button/button.driver';
 import { createSelectLegacyDriver } from '../../primitives/selectors/single-select/select.legacy-driver';
 import { findInPopover } from '../../common/find-in-popover';
@@ -38,7 +38,7 @@ export const createPhoneNumberViewDriver = (wrapper: Element): PhoneNumberViewDr
 				createSelectLegacyDriver(elem).selectAtIndex(index);
 			}
 		},
-		clickPhoneNumber: () => createLinkButtonDriver(baseDriver.elem).click(),
+		clickPhoneNumber: () => createLinkButtonLegacyDriver(baseDriver.elem).click(),
 		clickCallButton: () => {
 			const { elem } = openPopover();
 			if (elem) {

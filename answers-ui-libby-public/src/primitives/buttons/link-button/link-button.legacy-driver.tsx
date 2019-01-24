@@ -1,11 +1,10 @@
-import { getLegacyBaseDriverFromWrapper } from '../../../drivers';
 import {ButtonDriver} from '../base-button/base-button.driver';
-import {renderAndMountComponent } from 'answers-toolkit';
 import * as React from 'react';
-
 import { LinkButtonProps, LinkButton } from './link-button';
+import { getLegacyBaseDriverFromWrapper } from '../../../common/base-driver';
+import { renderAndMountComponent } from 'answers-toolkit';
 
-export const createLinkButtonDriver = (wrapper: Element): ButtonDriver => {
+export const createLinkButtonLegacyDriver = (wrapper: Element): ButtonDriver => {
 	const classNames = '.link-button';
 	const baseDriver = getLegacyBaseDriverFromWrapper(wrapper, classNames, LinkButton.name);
 	return {
@@ -18,5 +17,5 @@ export const createLinkButtonDriver = (wrapper: Element): ButtonDriver => {
 
 export const createLinkButton = (props: LinkButtonProps): ButtonDriver => {
 	const element = renderAndMountComponent(<LinkButton {...props}>{props.children}</LinkButton>);
-	return createLinkButtonDriver(element);
+	return createLinkButtonLegacyDriver(element);
 };

@@ -1,0 +1,74 @@
+$time-menu-width: 96px;
+
+&.date-input {
+    display: inline-flex;
+    
+    .popper-target {
+        display: inline-flex;
+    }
+
+	.aul.input {
+		min-width: $time-menu-width;
+
+		.input-field {
+            border-radius: 4px 0 0 4px;
+		}
+	}
+
+	.calendar-cta {
+		border-radius: 0 4px 4px 0;
+		background: $white;
+		border: 1px solid $d50;
+		border-left: 0;
+		padding: 13px;
+		cursor: pointer;
+		color: $b10;
+		user-select: none;
+    }
+    
+    &:hover:not(.focused):not(.dd-open):not(.disabled) {
+        .input-field, .calendar-cta {
+            border-color: $b20; 
+        }
+
+        .calendar-cta:hover {
+            background: $b40;
+            color: $b10;
+		}
+    }
+
+	&.dd-open {
+        .aul.input .input-field,
+		.calendar-cta {
+			border-color: $b10;
+        }
+
+        .aul.input {
+            input,
+            input:hover:not(:disabled):not(:active) {
+                border-color: $b10;
+            }
+        }
+
+        .calendar-cta {
+            border-color: $b10;
+            background-color: $b10;
+            color: $white;
+        }
+    }
+
+    &.focused {
+        .calendar-cta {
+            border-color: $b10;
+        }
+    }
+
+    &.disabled {
+        .calendar-cta {
+			color: $d40;
+            background: $gray-l30;
+			border: 1px solid $gray-d10;
+            border-left: 0;
+        }
+    }
+}
