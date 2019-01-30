@@ -6,7 +6,7 @@ export const jweInit = async (k: string) => {
 
 	return {
 		encrypt: async (payload: any) => {
-			return jose.JWE.createEncrypt(key).update(payload).final();
+			return jose.JWE.createEncrypt({ format: 'compact' }, key).update(payload).final();
 		},
 		decrypt: async (token: any) => {
 			const decrypted = await jose.JWE.createDecrypt(key).decrypt(token);
@@ -22,7 +22,7 @@ export const jwsInit = async (k: string) => {
 
 	return {
 		sign: async (payload: any) => {
-			return jose.JWS.createSign(key, { format: 'compact' }).update(payload).final();
+			return jose.JWS.createSign({ format: 'compact' }, key).update(payload).final();
 		},
 		verify: async (token: any) => {
 			const verified = await jose.JWS.createVerify(key).verify(token);

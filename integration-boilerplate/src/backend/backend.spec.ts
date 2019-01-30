@@ -2,21 +2,25 @@ import { assert } from 'chai';
 import * as express from 'express';
 import { createTestkit, IntegrationsTestkit } from 'wix-answers-integrations-testkit';
 import { initAnswersApi } from './backend';
+import { IntegrationConfig } from './integration-config';
+import { SetupConfig } from '../../setup-config';
 
-const testConfig = {
+const testConfig: SetupConfig = {
+	integrationName: 'my-integration',
 	answersIntegrationSecret: 'mXYjQ3DPRNK4tvrq-LFM2d5ZO5_M03yzvtvnxqrtsCI',
 	apiPort: 3005,
 	integrationId: '1234',
+	staticsBaseUrl: 'http://localhost:3200',
 	baseUrl: 'http://localhost',
 	ecryptKey: 'testssEXAMPLE',
 	mongo: {
 		mongoUrl: '',
-		initDataDB: '',
-		settingsDB: '',
+		initDataDB: 'init-db',
+		settingsDB: 'settings-db',
 	}
 };
 
-const baseUrl = `http://localhost:${testConfig.apiPort}/integration`;
+const baseUrl = `${testConfig.baseUrl}:${testConfig.apiPort}/${testConfig.integrationName}`;
 
 const initConfig = {
 	id: testConfig.integrationId,
@@ -64,6 +68,7 @@ const mockReplyData = {
 		parentTicket: mockTicketData.payload
 	}
 };
+
 class TestMongoWrapper {
 	initDB = {};
 	settingsDB = {};
@@ -91,18 +96,30 @@ class TestMongoWrapper {
 		&& delete this.settingsDB[data.tenantId]
 }
 
-describe('Integration ', () => {
-
+describe('Integration ', async () => {
 	const app = express();
 
 	let testkit: IntegrationsTestkit;
 	let server;
 	let dbDriver;
 
+	const integrationConfig: IntegrationConfig = {
+		integrations: {
+			integrationName: {
+				ansSecret: testConfig.answersIntegrationSecret
+			}
+		},
+		dbSecret: testConfig.ecryptKey,
+		clientTopology: {
+			staticsBaseUrl: testConfig.staticsBaseUrl,
+			baseUrl: testConfig.baseUrl
+		}
+	};
+
 	before(async () => {
 		dbDriver = new TestMongoWrapper();
 		testkit = await createTestkit(initConfig);
-		await initAnswersApi(app, dbDriver, testConfig);
+		await initAnswersApi(app, `/${testConfig.integrationName}`, dbDriver, integrationConfig);
 		server = app.listen(testConfig.apiPort);
 	});
 
