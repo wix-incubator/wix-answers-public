@@ -1,4 +1,5 @@
 interface IntegrationData {
+	id: string;
 	ansSecret: string;
 	[name: string]: string;
 }
@@ -10,7 +11,6 @@ export interface IntegrationConfig {
 	dbSecret: string;
 	clientTopology: {
 		staticsBaseUrl: string;
-		baseUrl: string;
 	};
 	// bi: (req: any) => Logger; - TBD
 }

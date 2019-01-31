@@ -106,13 +106,13 @@ describe('Integration ', async () => {
 	const integrationConfig: IntegrationConfig = {
 		integrations: {
 			integrationName: {
+				id: testConfig.integrationId,
 				ansSecret: testConfig.answersIntegrationSecret
 			}
 		},
 		dbSecret: testConfig.ecryptKey,
 		clientTopology: {
-			staticsBaseUrl: testConfig.staticsBaseUrl,
-			baseUrl: testConfig.baseUrl
+			staticsBaseUrl: testConfig.staticsBaseUrl
 		}
 	};
 

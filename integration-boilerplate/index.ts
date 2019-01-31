@@ -16,13 +16,13 @@ MongoClient.connect(setupConfig.mongo.mongoUrl, { poolSize: 10 }).then((client) 
 	const integrationConfig: IntegrationConfig = {
 		integrations: {
 			integrationName: {
+				id: setupConfig.integrationId,
 				ansSecret: setupConfig.answersIntegrationSecret
 			}
 		},
 		dbSecret: setupConfig.ecryptKey,
 		clientTopology: {
-			staticsBaseUrl: setupConfig.staticsBaseUrl,
-			baseUrl: setupConfig.baseUrl
+			staticsBaseUrl: setupConfig.staticsBaseUrl
 		}
 	};
 
