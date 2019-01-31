@@ -1,12 +1,12 @@
-import { MongoClient } from 'mongodb';
+import { Db } from 'mongodb';
 import * as Cryptr from 'cryptr';
 import { IntegrationRegisterContext } from 'wix-answers-integrations-testkit';
 
 export type MongoWrapperConfig = {
+	db: Db;
+	ecryptKey: string,
 	initDataDB: string,
 	settingsDB: string,
-	ecryptKey: string,
-	mongoUrl: string,
 };
 
 export class MongoWrapper {
@@ -22,22 +22,11 @@ export class MongoWrapper {
 	private cryptr: Cryptr;
 
 	constructor (config: MongoWrapperConfig) {
-
-		console.log('initiate mongodb wrapper');
-
 		this.config = config;
 		this.cryptr = new Cryptr(config.ecryptKey);
 
-		MongoClient.connect(config.mongoUrl, (err, client) => {
-			if (!err) {
-				console.log('MongoClient connected successfully to server');
-
-				const db = client.db();
-				this.initCollection = db.collection(config.initDataDB);
-				this.settingsCollection = db.collection(config.settingsDB);
-			}
-
-		});
+		this.initCollection = config.db.collection(config.initDataDB);
+		this.settingsCollection = config.db.collection(config.settingsDB);
 	}
 
 	// ****** WIX ANSWERS CERDS AREA ******/

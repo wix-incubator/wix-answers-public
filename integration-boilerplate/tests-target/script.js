@@ -1,0 +1,4 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.getInjectedIntegrationScript = function (baseUrl, integrationId) { return "\n    const cleanup = window.answersBackofficeSdk.addListener(window.answersBackofficeSdk.eventTypes.ticketLoaded,\n        async (ticketData) => {\n        const ticketAuthorEmail = ticketData.user.email;\n\n\n        const signedData = await window.answersBackofficeSdk.sign('" + integrationId + "', { email: ticketAuthorEmail });\n\n        const title = 'Example integration ';\n        const url = `" + baseUrl + "/view?data=${signedData.payload}`;\n        const html = `<iframe style=\"border: 0; width: 100%; height: 200px\" src=\"${url}\">scrolling=\"no\"</iframe>`;\n        window.answersBackofficeSdk.addTicketInfoSection(title, html);\n    });\n\n    window.answersBackofficeSdk.onIntegrationRemoved('" + integrationId + "', cleanup);\n"; };
+//# sourceMappingURL=script.js.map
