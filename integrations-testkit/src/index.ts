@@ -47,7 +47,7 @@ export interface TicketViewPageContext {
 	id: string;
 	subject: string;
 	userEmail: string;
-	userId: string;
+	performingUserId: string;
 }
 export interface TicketSandboxContext {
 	id: string;

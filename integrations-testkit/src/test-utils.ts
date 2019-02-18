@@ -97,7 +97,7 @@ export const ticketViewPayloadBuilder = (partial: Partial<TicketViewPageContext>
 		id: '',
 		subject: '',
 		userEmail: '',
-		userId: '',
+		performingUserId: '',
 		...partial
 	};
 };
