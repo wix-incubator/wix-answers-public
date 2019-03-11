@@ -47,7 +47,7 @@
     "mocha-teamcity-reporter": "^1.1.1",
     "moment": "^2.21.0",
     "ncp": "^2.0.0",
-    "node-sass": "~4.7.0",
+    "node-sass": "^4.7.0",
     "pretty-ms": "^3.0.0",
     "query-string": "^5.0.1",
     "raf": "^3.4.0",
