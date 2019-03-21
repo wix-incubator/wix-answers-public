@@ -6,7 +6,7 @@ import {
 	integrationDataBuilder, ticketViewPayloadBuilder,
 	webhookTicketPayloadBuilder, webhookReplyPayloadBuilder
 } from '../test-utils';
-import { IntegrationData, IntegrationsTestkit, createTestkit } from '..';
+import { IntegrationData, IntegrationsTestkit, createTestkit, SignedContext, TicketViewPageContext } from '..';
 
 export const startSandbox = async (forcePort?: number) => {
 
@@ -50,6 +50,8 @@ export const startSandbox = async (forcePort?: number) => {
 			try {
 				const data = await testkit.triggerRegister({
 					tenantId,
+					timestamp: Date.now(),
+					performingUserId: 'bob-id',
 					keyId: 'bob',
 					secret: '222',
 					host: 'somehost42.wixanswers.com'
@@ -67,7 +69,7 @@ export const startSandbox = async (forcePort?: number) => {
 			log('Error! Teskit is not set up, please go to setup again');
 		} else {
 			try {
-				const data = await testkit.triggerUnregister(tenantId);
+				const data = await testkit.triggerUnregister({tenantId, performingUserId: 'bob-id', timestamp: Date.now()});
 				res.send({ data });
 			} catch (e) {
 				res.status(500).send('Something broke! - ' + e.toString());
@@ -86,7 +88,9 @@ export const startSandbox = async (forcePort?: number) => {
 	});
 
 	app.get('/pre-ticket-view', (_, res) => {
-		const testValue = { tenantId: 'some-id', payload: ticketViewPayloadBuilder() };
+		const testValue: SignedContext<TicketViewPageContext> = {
+			tenantId: 'some-id', performingUserId: 'hello-bob-id', timestamp: Date.now(), payload: ticketViewPayloadBuilder()
+		};
 		const testValueStr = JSON.stringify(testValue);
 
 		if (!testkit) {
@@ -111,11 +115,10 @@ export const startSandbox = async (forcePort?: number) => {
 
 	app.get('/ticket-view/:token', (req, res) => {
 		const token = req.params.token;
-		const data = JSON.parse(Buffer.from(token, 'base64').toString());
 		if (!testkit) {
 			res.send(`<h1>Please go <a href="/">to setup first</a>`);
 		} else {
-			const url = testkit.getTicketViewSandboxUrl(data);
+			const url = testkit.getTicketViewSandboxUrl(token);
 			res.redirect(url);
 		}
 	});

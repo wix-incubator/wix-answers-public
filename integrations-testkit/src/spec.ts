@@ -8,7 +8,8 @@ import {
 	integrationContextBuilder,
 	webhookTicketPayloadBuilder,
 	webhookReplyPayloadBuilder,
-	ticketViewPayloadBuilder
+	ticketViewPayloadBuilder,
+	settingsViewPayloadBuilder
 } from './test-utils';
 import { getFreePort } from './utils';
 import * as puppeteer from 'puppeteer';
@@ -31,7 +32,7 @@ describe('testkit', () => {
 		const registerUrl = `http://localhost:${port}/register`;
 		const integrationData = integrationDataBuilder({ registerUrl });
 
-		const stop = dummyIntegration(integrationData, port);
+		const stop = await dummyIntegration(integrationData, port);
 		cleanups.push(() => stop());
 
 		const testkit = await createTestkit(integrationData);
@@ -51,7 +52,7 @@ describe('testkit', () => {
 
 		const integrationData = integrationDataBuilder({ unregisterUrl });
 
-		const stop = dummyIntegration(integrationData, port);
+		const stop = await dummyIntegration(integrationData, port);
 		cleanups.push(stop);
 
 		const testkit = await createTestkit(integrationData);
@@ -59,7 +60,7 @@ describe('testkit', () => {
 
 		const data = integrationContextBuilder();
 
-		const response = await testkit.triggerUnregister(data.tenantId);
+		const response = await testkit.triggerUnregister(data);
 
 		assert.equal(response, data.tenantId);
 	});
@@ -70,18 +71,18 @@ describe('testkit', () => {
 		const settingsUrl = `http://localhost:${port}/settings`;
 
 		const integrationData = integrationDataBuilder({ settingsUrl });
+		const data = settingsViewPayloadBuilder();
 
-		const stop = dummyIntegration(integrationData, port);
+		const stop = await dummyIntegration(integrationData, port);
 		cleanups.push(() => stop());
 
 		const testkit = await createTestkit(integrationData);
 
-		const tenantId = 'bob';
 		cleanups.push(() => testkit.closeServer());
 
 		const browser = await puppeteer.launch();
 		cleanups.push(() => browser.close());
-		const renderedSettingsUrl = await testkit.getRenderedSettingsUrl(tenantId);
+		const renderedSettingsUrl = await testkit.getRenderedSettingsUrl(data.tenantId);
 
 		// the dummy integration will simply render the tenant id as the settings view
 		const page = await browser.newPage();
@@ -90,7 +91,7 @@ describe('testkit', () => {
 		const frame = page.frames().find((f) => f.name() === 'settings') as any;
 		// to simulate real world the testkit embeds the settings in an iframe
 		const driver = pupUniDriver(() => frame.$('body'));
-		assert.include(await driver.$('h2').text(), tenantId);
+		assert.include(await driver.$('h2').text(), data.tenantId);
 	});
 
 	it('exposes an url with a ticket view sandbox', async () => {
@@ -99,6 +100,7 @@ describe('testkit', () => {
 		const settingsUrl = `http://localhost:${port}/settings`;
 
 		const tenantId = 'some-id';
+		const performingUserId = 'some-bob-id';
 
 		const integrationData = integrationDataBuilder({
 			settingsUrl,
@@ -108,7 +110,7 @@ describe('testkit', () => {
 			}
 		});
 
-		const stop = dummyIntegration(integrationData, port);
+		const stop = await dummyIntegration(integrationData, port);
 		cleanups.push(() => stop());
 
 		const testkit = await createTestkit(integrationData);
@@ -117,7 +119,10 @@ describe('testkit', () => {
 		const browser = await puppeteer.launch();
 		cleanups.push(() => browser.close());
 		const payload = ticketViewPayloadBuilder();
-		const ticketView = await testkit.getTicketViewSandboxUrl({ payload, tenantId });
+
+		const ticketView = await testkit.getTicketViewSandboxUrl({
+			payload, tenantId, performingUserId, timestamp: Date.now()
+		});
 
 		// the dummy integration will listen to the sdk and add an iframe to the sidebar with the tenant id
 		const page = await browser.newPage();
@@ -131,7 +136,10 @@ describe('testkit', () => {
 		const frame = page.frames().find((f) => f.name() === 'view') as any;
 		// to simulate real world the testkit embeds the settings in an iframe
 		const driver = pupUniDriver(() => frame.$('body'));
+		assert.include(await driver.$('h2').text(), payload.id);
+		assert.include(await driver.$('h2').text(), payload.subject);
 		assert.include(await driver.$('h2').text(), payload.userEmail);
+		assert.include(await driver.$('h2').text(), payload.userId);
 		assert.include(await driver.$('h2').text(), tenantId);
 
 	}).timeout(10000);
@@ -142,7 +150,7 @@ describe('testkit', () => {
 		const ticketWebhookUrl = `http://localhost:${port}/webhook/ticket-created`;
 		const integrationData = integrationDataBuilder({ webhooks: { TICKET_CREATED: ticketWebhookUrl } });
 
-		const stop = dummyIntegration(integrationData, port);
+		const stop = await dummyIntegration(integrationData, port);
 		cleanups.push(() => stop());
 
 		const testkit = await createTestkit(integrationData);
@@ -161,7 +169,7 @@ describe('testkit', () => {
 		const replyWebhookUrl = `http://localhost:${port}/webhook/reply-created`;
 		const integrationData = integrationDataBuilder({ webhooks: { REPLY_CREATED: replyWebhookUrl} });
 
-		const stop = dummyIntegration(integrationData, port);
+		const stop = await dummyIntegration(integrationData, port);
 		cleanups.push(() => stop());
 
 		const testkit = await createTestkit(integrationData);

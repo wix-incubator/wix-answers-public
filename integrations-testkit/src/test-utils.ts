@@ -2,7 +2,8 @@ import {
 	IntegrationData, IntegrationRegisterContext,
 	TicketSandboxContext, WebhookTicketSandboxContext,
 	WebhookReplySandboxContext,
-	TicketViewPageContext
+	TicketViewPageContext,
+	IntegrationSettingsContext
 } from '.';
 
 import express = require('express');
@@ -11,50 +12,44 @@ import { jweInstance, jwsInstance } from './utils';
 
 import * as bodyParser from 'body-parser';
 
-export const dummyIntegration = (data: IntegrationData, port: number) => {
+export const dummyIntegration = async (data: IntegrationData, port: number) => {
 	const app = express();
-	const jwePromise = jweInstance(data.secret);
-	const jwsPromise = jwsInstance(data.secret);
+	const jwePromise = await jweInstance(data.secret);
+	const jwsPromise = await jwsInstance(data.secret);
 
 	app.use(bodyParser.json());
 	app.post('/register', async (req, res) => {
-		const jwe = await jwePromise;
-		const rr = await jwe.decrypt(req.body.payload);
+		const rr = await jwePromise.decrypt(req.body.payload);
 		res.send(rr.tenantId);
 	});
 
 	app.post('/unregister', async (req, res) => {
-		const jwe = await jwePromise;
-		const rr = await jwe.decrypt(req.body.payload);
+		const rr = await jwePromise.decrypt(req.body.payload);
 		res.send(rr.tenantId);
 	});
 
 	app.get('/settings', async (req, res) => {
 		const token = req.query.data;
-		const jws = await jwsPromise;
-		const context = await jws.verify(token);
+		const context = await jwsPromise.verify(token);
 		res.send(`<h2>${context.tenantId}</h2>`);
 	});
 
 	app.get('/view', async (req, res) => {
 		const token = req.query.data;
-		const jws = await jwsPromise;
-		const { payload, tenantId } = await jws.verify(token);
+		const { payload, tenantId } = await jwsPromise.verify(token);
 
 		res.send(`<h2>${JSON.parse(payload).subject} - ${tenantId}</h2>`);
 	});
 
 	app.post('/webhook/ticket-created', async (req, res) => {
 		const { payload } = req.body;
-		const jws = await jwsPromise;
-		const verified = await jws.verify(payload);
+		const verified = await jwsPromise.verify(payload);
 		res.send(verified);
 	});
 
 	app.post('/webhook/reply-created', async (req, res) => {
 		const { payload } = req.body;
-		const jws = await jwsPromise;
-		const verified = await jws.verify(payload);
+		const verified = await jwsPromise.verify(payload);
 		res.send(verified);
 	});
 
@@ -88,6 +83,18 @@ export const integrationContextBuilder = (partial: Partial<IntegrationRegisterCo
 		secret: 'bob2', // Answers API Secret
 		host: 'bob3', // Hostname of the Tenant who added integration
 		tenantId: 'bob4',
+		timestamp: Date.now(),
+		performingUserId: 'bob-id',
+		...partial
+	};
+};
+
+// tslint:disable-next-line: max-line-length
+export const settingsViewPayloadBuilder = (partial: Partial<IntegrationSettingsContext> = {}): IntegrationSettingsContext => {
+	return {
+		tenantId: 'bob4',
+		timestamp: Date.now(),
+		performingUserId: 'bob-id',
 		...partial
 	};
 };
@@ -97,7 +104,7 @@ export const ticketViewPayloadBuilder = (partial: Partial<TicketViewPageContext>
 		id: '',
 		subject: '',
 		userEmail: '',
-		performingUserId: '',
+		userId: '',
 		...partial
 	};
 };
@@ -127,6 +134,7 @@ export const webhookTicketPayloadBuilder = (partial: Partial<WebhookTicketSandbo
 	WebhookTicketSandboxContext => {
 	return {
 		tenantId: partial.tenantId || '',
+		performingUserId: partial.performingUserId || '',
 		timestamp: Date.now(),
 		payload: ticketPayloadBuilder(partial && partial.payload || {})
 	};

@@ -75,7 +75,7 @@ export const initAnswersApi = async (app: Router, baseUrl: string, dbWrapper: Mo
 					thirdPartyMetaData = cachedMetadata;
 				} else {
 					// no cached data/expired - refetch data
-					thirdPartyMetaData = 'Test third party metadata';
+					thirdPartyMetaData = `Test third party metadata`;
 					cacheDriver.metadata.set(answersTenantId, integrationId, thirdPartyMetaData);
 				}
 
@@ -122,7 +122,7 @@ export const initAnswersApi = async (app: Router, baseUrl: string, dbWrapper: Mo
 		}
 	});
 
-	app.get(`${baseUrl}/view`, async (req: Request, res: Response) => {
+	app.get(`${baseUrl}/ticket-view`, async (req: Request, res: Response) => {
 		// token verification may fail so we wrap it in try
 		try {
 			const answersData = await jwsInstance.verify(req.query.data);
