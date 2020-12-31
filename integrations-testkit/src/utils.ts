@@ -43,6 +43,6 @@ export const jwsInstance = async (k: string) => {
 };
 
 export const getFreePort = async () => {
-	const [port] = await fp(3000, 3900);
+	const [port] = await fp(3001, 3900);
 	return port;
 };
