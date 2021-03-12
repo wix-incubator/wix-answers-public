@@ -59,7 +59,7 @@
     "tslint": "^5.2.0",
     "tslint-react": "^3.0.0",
     "tslint-teamcity-reporter": "^2.0.0",
-    "xmldom": "^0.1.27"
+    "xmldom": "^0.5.0"
   },
   "devDependencies": {
     "@types/react": "~16.4.0",
