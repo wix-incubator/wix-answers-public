@@ -136,7 +136,7 @@ export const createTestkit = async (
 			<style>
 				iframe {
 					width: 1000px;
-					height: 700px;
+					height: 1000px;
 					border: 1px solid #eee;
 					margin: 0 auto;
 					display: block;
