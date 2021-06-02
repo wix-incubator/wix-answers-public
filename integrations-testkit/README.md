@@ -3,7 +3,8 @@
 Allows writing e2e tests for Answers integrations by emulating the flows that happen when an integration runs on our server.
 
 ## Install
-`npm i wix-answers-integrations-testkit`
+`npm i -g wix-answers-integrations-testkit`
+`yarn global add wix-answers-integrations-testkit`
 
 ## API
 
