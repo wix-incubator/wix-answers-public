@@ -29,14 +29,11 @@ import java.util.Date;
 public class MainActivity extends AppCompatActivity {
 
 	final private String JS_INTERFACE_NAME = "AnswersWidgetSDK";
-	final private long REFRESH_TOKEN_THRESHOLD = 1000 * 60 * 5 - 1000 * 10; // 4 minutes 50 seconds
 	final private static int INPUT_FILE_REQUEST_CODE = 1;
 
-	private String mToken;
 	private String mTenantName = "";
 	private String mWidgetId = "";
 	private String mCameraPhotoPath;
-	private long mTokenUpdateTimestamp = -1;
 	private ValueCallback<Uri[]> mUploadMessage;
 
 	WebView myWebView;
@@ -49,14 +46,8 @@ public class MainActivity extends AppCompatActivity {
 
 		// Authenticate user and LoadWebView
 		new Authenticator(token -> {
-			setUserToken(token);
-			loadWebView();
+			loadWebView(token);
 		}).execute();
-	}
-
-	private void setUserToken(String token) {
-		mToken = token;
-		mTokenUpdateTimestamp = new Date().getTime();
 	}
 
 	private void setupAnswersWebView() {
@@ -163,20 +154,12 @@ public class MainActivity extends AppCompatActivity {
 		mUploadMessage = null;
 	}
 
-	private void loadWebView() {
+	private void loadWebView(String mToken) {
 		String url = "https://" + mTenantName + ".wixanswers.com/apps/widget/v1/" + mTenantName + "/" + mWidgetId + "/view/en?token=" + mToken + "&mobile=true&mobilesdk=true";
 		myWebView.loadUrl(url);
 	}
 
-	private boolean shouldRefreshToken() {
-		if (mTokenUpdateTimestamp == -1) {
-			return true;
-		}
-		long now = new Date().getTime();
-		return now - mTokenUpdateTimestamp > REFRESH_TOKEN_THRESHOLD;
-	}
-
-	private void sendTokenToWebView() {
+	private void sendTokenToWebView(String mToken) {
 		final JSONObject authPayload = createAuthResponsePayloadForWebView(mToken);
 		if (authPayload != null) {
 			final Uri parsedUri = Uri.parse("*");
@@ -189,14 +172,9 @@ public class MainActivity extends AppCompatActivity {
 		public void sendMessageToAndroid(final String msg) {
 			String type = getMessageType(msg);
 			if (type.equals("authentication-request")) {
-				if (shouldRefreshToken()){
-					new Authenticator(token -> {
-						setUserToken(token);
-						sendTokenToWebView();
-					}).execute();
-				} else {
-					sendTokenToWebView();
-				}
+				new Authenticator(token -> {
+					sendTokenToWebView(token);
+				}).execute();
 			} else if (type.equals("collapse-widget")) {
 				// Handle close widget view
 			}
