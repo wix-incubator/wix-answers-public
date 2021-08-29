@@ -11,10 +11,7 @@ import WebKit
 class ViewController: UIViewController, WKUIDelegate, WKScriptMessageHandler {
     var webView: WKWebView!
     var JS_INTERFACE_NAME = "iosBridge"
-    var REFRESH_TOKEN_THRESHOLD = 1000 * 60 * 5 - 1000 * 10 // 4 minutes 50 seconds
 
-    var mToken: String! // Will hold the user's token
-    var mTokenUpdateTimestamp: Int64 = -1 // Will hold the generate time for the token
     var mTenantName = "" // Answers tenant name
     var mWidgetId = "" // Answers widget id
     
@@ -39,18 +36,8 @@ class ViewController: UIViewController, WKUIDelegate, WKScriptMessageHandler {
 
     func getToken(callback: @escaping (String) -> Void) {
       Auth().authUser() { (token) -> Void in
-        self.mToken = token
-        self.mTokenUpdateTimestamp = Int64((Date().timeIntervalSince1970 * 1000.0).rounded())
         callback(token)
       }
-    }
-    
-    func shouldRefreshToken() -> Bool {
-      if (mTokenUpdateTimestamp == -1) {
-        return true
-      }
-      let now = Int64((Date().timeIntervalSince1970).rounded())
-      return now - mTokenUpdateTimestamp < REFRESH_TOKEN_THRESHOLD
     }
     
     func sendTokenToWebView(token: String) {
@@ -66,11 +53,7 @@ class ViewController: UIViewController, WKUIDelegate, WKScriptMessageHandler {
         guard let ansWidget = body["__ansWidget"] as? [String: Any] else { return }
         guard let type = ansWidget["type"] as? String else { return }
         if (type == "authentication-request") {
-          if (shouldRefreshToken()) {
-            getToken(callback: sendTokenToWebView)
-          } else {
-            sendTokenToWebView(token: mToken)
-          }
+          getToken(callback: sendTokenToWebView)
         } else if (type == "collapse-widget") {
           // This will run when the user is trying to get out of the widget
         }
