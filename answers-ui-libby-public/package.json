@@ -49,7 +49,7 @@
     "react-telephone-input": "git+https://github.com/ablamunits/react-telephone-input.git",
     "react-textarea-autosize": "5.0.7",
     "react-transition-group": "^1.1.3",
-    "recharts": "~1.2.0",
+    "recharts": "~2.1.14",
     "resize-observer-polyfill": "^1.5.0",
     "scroll-into-view": "^1.9.1",
     "unidriver": "^1.0.0-alpha"
