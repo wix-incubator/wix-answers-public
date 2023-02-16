@@ -20,7 +20,7 @@
     "cryptr": "^4.0.0",
     "express": "^4.16.4",
     "mongodb": "^3.1.13",
-    "node-jose": "^1.0.0",
+    "node-jose": "^2.2.0",
     "safe-memory-cache": "^1.5.1"
   },
   "devDependencies": {
